@@ -24,8 +24,6 @@ const generateClassesList = (theme, customClass) => {
 const Container = ({withTitle, dark, titleCentered, rounded, title, customClass, children, theme}) => {
   const classes = generateClassesList(theme, customClass);
 
-  console.log(children);
-
   return (
     <div className={classes}>
       {title && <p className="title">{title}</p>}

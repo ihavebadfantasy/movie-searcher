@@ -1,0 +1,21 @@
+.carousel {
+  &-content {
+    display: flex;
+    overflow: hidden;
+    margin-left: -20px;
+    flex-wrap: wrap;
+  }
+
+  &-slide {
+    width: calc(20% - 20px);
+    margin-left: 20px;
+    flex-shrink: 0;
+    flex-grow: 0;
+
+    &-img {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

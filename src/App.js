@@ -1,6 +1,7 @@
 import Container from './components/Container';
 import Header from './components/Header';
 import SearchInput from './components/SearchInput';
+import MediaCarousel from './components/MediaCarousel';
 
 const App = () => {
   return (
@@ -10,20 +11,31 @@ const App = () => {
         <div className="mb-30">
           <SearchInput />
         </div>
-        <Container
-          theme={['withTitle']}
-          title="Most Popular"
-          customClass={'mb-30'}
-        >
-          <div>most popular slider</div>
-        </Container>
 
-        <Container
-          theme={['withTitle', 'dark']}
-          title="The Newest"
-        >
-          <div>the newest slider</div>
-        </Container>
+        <MediaCarousel
+          containerTheme={['withTitle', 'dark']}
+          containerClass="mb-30"
+          title="The Newest Movies"
+        />
+
+        <MediaCarousel
+          containerTheme={['withTitle']}
+          containerClass="mb-30"
+          title="The Newest TV-Shows"
+        />
+
+        <MediaCarousel
+          containerTheme={['withTitle', 'dark']}
+          containerClass="mb-30"
+          title="The Most Popular Movies"
+        />
+
+        <MediaCarousel
+          containerTheme={['withTitle']}
+          containerClass="mb-30"
+          title="The Most Popular TV-Shows"
+        />
+
       </div>
     </div>
   );
