@@ -13,27 +13,31 @@ const App = () => {
         </div>
 
         <MediaCarousel
-          containerTheme={['withTitle', 'dark']}
+          containerTheme={['withTitle']}
           containerClass="mb-30"
           title="The Newest Movies"
+          slidesPerPage={5}
         />
 
         <MediaCarousel
           containerTheme={['withTitle']}
           containerClass="mb-30"
           title="The Newest TV-Shows"
+          slidesPerPage={5}
         />
 
         <MediaCarousel
-          containerTheme={['withTitle', 'dark']}
+          containerTheme={['withTitle']}
           containerClass="mb-30"
           title="The Most Popular Movies"
+          slidesPerPage={5}
         />
 
         <MediaCarousel
           containerTheme={['withTitle']}
           containerClass="mb-30"
           title="The Most Popular TV-Shows"
+          slidesPerPage={5}
         />
 
       </div>

@@ -15,8 +15,13 @@ const mapSlides = (items) => {
   });
 }
 
-const MediaCarousel = ({title, containerTheme, containerClass}) => {
+const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage}) => {
+  slidesPerPage = slidesPerPage || 5;
+
   const [slides, setSlides] = useState([]);
+  const [currentSlides, setCurrentSlides] = useState([]);
+  const [firstCurrentSlideIndex, setFirstCurrentSlideIndex] = useState(0);
+  const [lastCurrentSlideIndex, setLastCurrentSlideIndex] = useState(firstCurrentSlideIndex + slidesPerPage);
 
   useEffect(() => {
     const fetchSlidesData = async () => {
@@ -29,11 +34,29 @@ const MediaCarousel = ({title, containerTheme, containerClass}) => {
       setTimeout(() => {
         const data = res.data.results;
         setSlides(mapSlides(data));
+
+        console.log(res.data);
       }, 500)
     }
 
     fetchSlidesData();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    setCurrentSlides(slides.slice(firstCurrentSlideIndex, lastCurrentSlideIndex));
+  }, [slides, firstCurrentSlideIndex, lastCurrentSlideIndex]);
+
+  const next = () => {
+    const newFirstCurrentSlideIndex = lastCurrentSlideIndex;
+
+    setFirstCurrentSlideIndex(newFirstCurrentSlideIndex);
+    setLastCurrentSlideIndex(newFirstCurrentSlideIndex + slidesPerPage);
+  }
+
+  const prev = () => {
+    setFirstCurrentSlideIndex(firstCurrentSlideIndex - slidesPerPage);
+    setLastCurrentSlideIndex(lastCurrentSlideIndex - slidesPerPage);
+  }
 
   return (
     <Container
@@ -43,7 +66,12 @@ const MediaCarousel = ({title, containerTheme, containerClass}) => {
       >
       {!slides.length ? (<Loader color='success' />) : (
         <Carousel
-          slides={slides}
+          slides={currentSlides}
+          totalSlidesCnt={slides.length}
+          firstCurrentSlideIndex={firstCurrentSlideIndex}
+          lastCurrentSlideIndex={lastCurrentSlideIndex}
+          next={next}
+          prev={prev}
         />
       )}
     </Container>
