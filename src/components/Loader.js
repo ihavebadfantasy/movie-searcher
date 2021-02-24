@@ -30,7 +30,6 @@ const Loader = ({ color }) => {
     return () => {
       setProgress(0);
       clearInterval(intervalId);
-      console.log('in clear');
     }
   }, []);
 

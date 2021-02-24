@@ -1,12 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Animated } from 'react-animated-css';
 
-const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, lastCurrentSlideIndex }) => {
+const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, lastCurrentSlideIndex, slidesPerView }) => {
   const [isVisible, setIsVisible] = useState(true);
+  const [slideWidth, setSlideWidth] = useState('0px');
+
+  const sliderContentRef = useCallback((node) => {
+    if (node) {
+      const containerWidth = node.getBoundingClientRect().width;
+      const marginLeft = 20;
+      setSlideWidth(`${containerWidth / slidesPerView - 20}px`)
+    }
+  }, [slidesPerView]);
 
   const renderedSlides = slides.map((slide) => {
     return (
-      <div className="carousel-slide" key={slide.id}>
+      <div
+        className="carousel-slide"
+        key={slide.id}
+        style={{width: slideWidth}}
+      >
         <div className="carousel-slide-img">
           <img alt={slide.title} src={slide.poster} />
         </div>
@@ -18,7 +31,7 @@ const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, 
   });
 
   const isPrevBtnDisabled = firstCurrentSlideIndex === 0;
-  const isNextBtnDisabled = lastCurrentSlideIndex === totalSlidesCnt;
+  const isNextBtnDisabled = lastCurrentSlideIndex >= totalSlidesCnt;
 
   useEffect(() => {
     if (!isVisible) {
@@ -39,14 +52,20 @@ const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, 
       >
         {'<'}
       </button>
+      <div
+        className="carousel-content-wrapper"
+        ref={sliderContentRef}
+      >
       <Animated
         animationIn="flipInX"
-        className="carousel-content"
         isVisible={isVisible}
         animationInDuration={700}
+        className="carousel-content"
       >
           {renderedSlides}
       </Animated>
+      </div>
+
       <button
         type="button"
         className={isNextBtnDisabled ? 'nes-btn is-disabled' : 'nes-btn'}

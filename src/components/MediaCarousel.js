@@ -70,6 +70,7 @@ const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage}) =
           totalSlidesCnt={slides.length}
           firstCurrentSlideIndex={firstCurrentSlideIndex}
           lastCurrentSlideIndex={lastCurrentSlideIndex}
+          slidesPerView={slidesPerPage}
           next={next}
           prev={prev}
         />

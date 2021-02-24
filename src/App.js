@@ -23,14 +23,14 @@ const App = () => {
           containerTheme={['withTitle']}
           containerClass="mb-30"
           title="The Newest TV-Shows"
-          slidesPerPage={5}
+          slidesPerPage={3}
         />
 
         <MediaCarousel
           containerTheme={['withTitle']}
           containerClass="mb-30"
           title="The Most Popular Movies"
-          slidesPerPage={5}
+          slidesPerPage={7}
         />
 
         <MediaCarousel

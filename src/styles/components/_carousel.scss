@@ -3,16 +3,19 @@
   justify-content: space-between;
   align-items: center;
 
+  &-content-wrapper{
+    width: 85%;
+  }
+
   &-content {
     display: flex;
     overflow: hidden;
     margin-left: -20px;
     flex-wrap: wrap;
-    width: 85%;
   }
 
   &-slide {
-    width: calc(20% - 20px);
+    // width: calc(20% - 20px);
     margin-left: 20px;
     flex-shrink: 0;
     flex-grow: 0;
