@@ -1,0 +1,6 @@
+.sidebar {
+  width: 30%;
+  border-right: 5px solid map-get($colors,'gray');
+  min-height: 100vh;
+  padding: 20px;
+}
