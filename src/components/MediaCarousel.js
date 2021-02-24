@@ -43,6 +43,10 @@ const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage}) =
   }, []);
 
   useEffect(() => {
+    setLastCurrentSlideIndex(firstCurrentSlideIndex + slidesPerPage);
+  }, [slidesPerPage])
+
+  useEffect(() => {
     setCurrentSlides(slides.slice(firstCurrentSlideIndex, lastCurrentSlideIndex));
   }, [slides, firstCurrentSlideIndex, lastCurrentSlideIndex]);
 
@@ -54,7 +58,12 @@ const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage}) =
   }
 
   const prev = () => {
-    setFirstCurrentSlideIndex(firstCurrentSlideIndex - slidesPerPage);
+    let newFirstCurrentSlideIndex = firstCurrentSlideIndex - slidesPerPage;
+    if (newFirstCurrentSlideIndex < 0) {
+      newFirstCurrentSlideIndex = 0;
+    }
+
+    setFirstCurrentSlideIndex(newFirstCurrentSlideIndex);
     setLastCurrentSlideIndex(lastCurrentSlideIndex - slidesPerPage);
   }
 

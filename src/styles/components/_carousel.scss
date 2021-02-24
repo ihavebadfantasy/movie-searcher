@@ -12,10 +12,10 @@
     overflow: hidden;
     margin-left: -20px;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   &-slide {
-    // width: calc(20% - 20px);
     margin-left: 20px;
     flex-shrink: 0;
     flex-grow: 0;

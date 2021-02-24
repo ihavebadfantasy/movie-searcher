@@ -8,8 +8,11 @@ const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, 
   const sliderContentRef = useCallback((node) => {
     if (node) {
       const containerWidth = node.getBoundingClientRect().width;
-      const marginLeft = 20;
-      setSlideWidth(`${containerWidth / slidesPerView - 20}px`)
+      const marginLeft = 30;
+
+      const childWidth = containerWidth / slidesPerView - marginLeft;
+
+      setSlideWidth(`${childWidth * 100 / containerWidth}%`)
     }
   }, [slidesPerView]);
 
