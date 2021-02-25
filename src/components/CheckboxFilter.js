@@ -1,7 +1,7 @@
 const CheckboxFilter = ({checkboxes, toggleCheckbox}) => {
   const renderedCheckboxes = checkboxes.map((checkbox) => {
     return (
-      <label style={{width: '100%'}}>
+      <label style={{width: '100%'}} key={checkbox.value}>
         <input
           type="checkbox"
           className="nes-checkbox"
@@ -19,7 +19,7 @@ const CheckboxFilter = ({checkboxes, toggleCheckbox}) => {
   })
 
   return (
-    <div>
+    <div className="scrollable-y h-190 scrollbar">
       {renderedCheckboxes}
     </div>
   );

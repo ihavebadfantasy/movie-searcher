@@ -2,3 +2,20 @@ html, body, pre, code, kbd, samp {
   font-family: 'Press Start 2P', cursive;
   /*font-family: 'DotGothic16', sans-serif;*/
 }
+
+.gray {
+  color: dimgray;
+}
+
+.small-text {
+  font-size: 13px;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: black;
+  outline: 1px solid slategrey;
+}

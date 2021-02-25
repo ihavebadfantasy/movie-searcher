@@ -1,7 +1,7 @@
 const SearchInput = () => {
   return (
-    <form>
-      <div className="nes-field">
+    <form className="w-100">
+      <div className="nes-field w-100">
         <input
           type="text"
           className="nes-input"
