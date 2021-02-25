@@ -23,6 +23,64 @@ const typeItems = [
   },
 ];
 
+const ratingItems = [
+  {
+    value: '10',
+    label: '10',
+    checked: false,
+  },
+  {
+    value: '9',
+    label: '9',
+    checked: false,
+  },
+  {
+    value: '8',
+    label: '8',
+    checked: false,
+  },
+  {
+    value: '7',
+    label: '7',
+    checked: false,
+  },
+  {
+    value: '6',
+    label: '6',
+    checked: false,
+  },
+  {
+    value: '5',
+    label: '5',
+    checked: false,
+  },
+  {
+    value: '4',
+    label: '4',
+    checked: false,
+  },
+  {
+    value: '3',
+    label: '3',
+    checked: false,
+  },
+  {
+    value: '2',
+    label: '2',
+    checked: false,
+  },
+  {
+    value: '1',
+    label: '1',
+    checked: false,
+  },
+  {
+    value: 'notRated',
+    label: 'Not Rated',
+    checked: false,
+  },
+];
+
 let genresRadioItems = JSON.stringify(binaryRadioItems);
 genresRadioItems = JSON.parse(genresRadioItems);
 
@@ -37,6 +95,7 @@ const Search = () => {
   const [countries, setCountries] = useState([]);
   const [countriesCheckboxes, setCountriesCheckboxes] = useState([]);
   const [countriesRadios, setCountriesRadios] = useState(countriesRadioItems);
+  const [ratingCheckboxes, setRatingCheckboxes] = useState(ratingItems);
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -146,12 +205,26 @@ const Search = () => {
             }}
           />
         </Container>
+
+        <Container
+          theme={['withTitle']}
+          title="Rating"
+          customClass="mb-30"
+        >
+          <CheckboxFilter
+            checkboxes={ratingCheckboxes}
+            toggleCheckbox={(value) => {
+              setRatingCheckboxes(toggleCheckbox(ratingCheckboxes, value));
+            }}
+          />
+        </Container>
       </Sidebar>
 
       <div className="pd-20 w-70">
         <SearchInput />
       </div>
     </div>
+
   );
 }
 
