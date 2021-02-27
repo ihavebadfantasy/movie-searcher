@@ -1,44 +1,30 @@
 import {useEffect, useState} from 'react';
-import axios from 'axios';
 import Container from './Container';
 import config from '../config';
 import Loader from './Loader';
 import Carousel from './Carousel';
-import { Api as TMDBApi } from '../api/tmdb/Api';
-import { MOVIES_URL } from '../api/tmdb/urls';
 
 const mapSlides = (items) => {
   return items.map((item) => {
     return {
       id: item.id,
       poster: `${config.api.urls.dbImages}${item.poster_path}`,
-      title: item.original_title,
+      title: item.title || item.name,
     }
   });
 }
 
-const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage}) => {
+const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, items}) => {
   slidesPerPage = slidesPerPage || 5;
 
-  const [slides, setSlides] = useState([]);
+  const [slides, setSlides] = useState(mapSlides(items));
   const [currentSlides, setCurrentSlides] = useState([]);
   const [firstCurrentSlideIndex, setFirstCurrentSlideIndex] = useState(0);
   const [lastCurrentSlideIndex, setLastCurrentSlideIndex] = useState(firstCurrentSlideIndex + slidesPerPage);
 
   useEffect(() => {
-    const fetchSlidesData = async () => {
-      const res = await TMDBApi.$instance.get(MOVIES_URL);
-
-      setTimeout(() => {
-        const data = res.results;
-        setSlides(mapSlides(data));
-
-        console.log(res.data);
-      }, 500)
-    }
-
-    fetchSlidesData();
-  }, []);
+    setSlides(mapSlides(items));
+  }, [items])
 
   useEffect(() => {
     setLastCurrentSlideIndex(firstCurrentSlideIndex + slidesPerPage);
