@@ -8,7 +8,7 @@ const App = () => {
       <Header />
 
       <div>
-        {/*<Home />*/}
+        <Home />
         <Search />
       </div>
     </div>

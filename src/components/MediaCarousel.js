@@ -4,6 +4,8 @@ import Container from './Container';
 import config from '../config';
 import Loader from './Loader';
 import Carousel from './Carousel';
+import { Api as TMDBApi } from '../api/tmdb/Api';
+import { MOVIES_URL } from '../api/tmdb/urls';
 
 const mapSlides = (items) => {
   return items.map((item) => {
@@ -25,14 +27,10 @@ const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage}) =
 
   useEffect(() => {
     const fetchSlidesData = async () => {
-      const res = await axios.get(`${config.api.urls.db}/discover/movie`, {
-        params: {
-          'api_key': config.api.keys.db,
-        }
-      });
+      const res = await TMDBApi.$instance.get(MOVIES_URL);
 
       setTimeout(() => {
-        const data = res.data.results;
+        const data = res.results;
         setSlides(mapSlides(data));
 
         console.log(res.data);
