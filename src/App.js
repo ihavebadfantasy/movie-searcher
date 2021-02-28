@@ -4,21 +4,35 @@ import Home from './components/Home';
 import Header from './components/Header';
 import Search from './components/Search';
 import { setLocation } from './store/user/actions';
+import { fetchMoviesGenres } from './store/movies/actions';
+import { fetchTvShowsGenres } from './store/tvShows/actions';
 import Loader from './components/Loader';
+import Movies from './components/Movies';
 
-const App = ({location, setLocation}) => {
+const App = ({location, moviesGenres, tvShowsGenres, setLocation, fetchMoviesGenres, fetchTvShowsGenres}) => {
+  const [appLoaded, setAppLoaded] = useState(false);
+  // TODO: handle app data loading, atm the app will be loading forever if genres fetching will crash
   useEffect(() => {
     setLocation();
+    fetchMoviesGenres();
+    fetchTvShowsGenres();
   }, [])
 
+  useEffect(() => {
+    if (location.countryCode && moviesGenres.length && tvShowsGenres.length) {
+      setAppLoaded(true);
+    }
+  }, [location, moviesGenres, tvShowsGenres])
+
   return (<div>
-    { location.countryCode ? (
+    { appLoaded ? (
       <div>
         <Header />
 
         <div>
-          <Home />
-          <Search />
+          {/*<Home />*/}
+          {/*<Search />*/}
+          <Movies />
         </div>
       </div>
     ) : (
@@ -33,11 +47,15 @@ const App = ({location, setLocation}) => {
 const mapStateToProps = (state) => {
   return {
     location: state.user.location,
+    moviesGenres: state.movies.genres,
+    tvShowsGenres: state.tvShows.genres,
   }
 }
 
 const mapDispatchToProps = {
   setLocation,
+  fetchMoviesGenres,
+  fetchTvShowsGenres,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

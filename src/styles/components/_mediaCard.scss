@@ -1,0 +1,82 @@
+.media-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  &-tagline {
+    width: 100%;
+    text-decoration: blink;
+    font-size: 14px;
+  }
+
+  &-poster {
+    width: 30%;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-details {
+    width: 67%;
+
+    .rating {
+      display: flex;
+
+      .score {
+        margin-left: 15px;
+      }
+
+      &-vote-count {
+        font-size: 13px;
+      }
+    }
+
+    .genres, .countries,{
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      margin-left: -15px;
+
+      .genre, .country, {
+        margin-left: 15px;
+        font-size: 14px;
+      }
+    }
+
+    .companies {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .company-wrapper {
+      display: flex;
+      align-items: baseline;
+
+      .company {
+        font-size: 14px;
+        margin-left: 15px;
+      }
+
+      .company-img-wrapper {
+        width: 40px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    .budget {
+      display: flex;
+
+      &-text {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  &-details-secondary {
+    width: 100%;
+  }
+}

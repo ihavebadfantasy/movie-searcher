@@ -24,7 +24,7 @@ const Home = ({
     fetchPopularMovies();
     fetchPopularTvShows();
     fetchNewTvShows();
-  }, [])
+  }, []);
 
   useEffect(() => {
     switch (layout) {

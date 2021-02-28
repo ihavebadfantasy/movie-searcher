@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon';
-import { MOVIES_URL } from '../../api/tmdb/urls';
-import { FETCH_NEW_MOVIES, FETCH_POPULAR_MOVIES } from './types';
+import { MOVIES_URL, MOVIES_GENRES_URL, MOVIE_DETAILS } from '../../api/tmdb/urls';
+import { FETCH_NEW_MOVIES, FETCH_POPULAR_MOVIES, FETCH_MOVIES_GENRES, FETCH_CURRENT_MOVIE } from './types';
 import fetchMediaData from '../../api/tmdb/fetchMediaData';
+import { Api as TMDBApi } from '../../api/tmdb/Api';
+import makeUrl from '../../api/makeUrl';
 
 export const fetchNewMovies = (page = 'all') => {
   return async (dispatch, getState) => {
@@ -56,6 +58,43 @@ export const fetchPopularMovies = (page = 'all') => {
     dispatch({
       type: FETCH_POPULAR_MOVIES,
       payload: movies,
+    });
+  }
+}
+
+export const fetchMoviesGenres = () => {
+  return async (dispatch) => {
+    const res = await TMDBApi.$instance.get(MOVIES_GENRES_URL);
+
+    let payload = [];
+    if (res.genres) {
+      payload = res.genres;
+    }
+
+    dispatch({
+      type: FETCH_MOVIES_GENRES,
+      payload,
+    });
+  }
+}
+
+export const fetchCurrentMovie = (id) => {
+  return async (dispatch) => {
+    const url = makeUrl(MOVIE_DETAILS, { id });
+
+    const res = await TMDBApi.$instance.get(url);
+
+    let payload;
+
+    if (res.status && res.status >= 300) {
+      payload = null;
+    } else {
+      payload = res;
+    }
+
+    dispatch({
+      type: FETCH_CURRENT_MOVIE,
+      payload,
     });
   }
 }

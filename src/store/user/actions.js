@@ -2,7 +2,6 @@ import axios from 'axios';
 import { SET_LOCATION } from './types';
 
 export const setLocation = () => {
-  console.log('in location');
   return async (dispatch) => {
     const res = await axios.get('https://extreme-ip-lookup.com/json/');
 

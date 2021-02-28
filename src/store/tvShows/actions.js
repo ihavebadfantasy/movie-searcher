@@ -1,7 +1,8 @@
-import { TV_SHOWS_URL } from '../../api/tmdb/urls';
-import { FETCH_NEW_TV_SHOWS, FETCH_POPULAR_TV_SHOWS } from './types';
+import { TV_SHOWS_URL, TV_SHOWS_GENRES_URL } from '../../api/tmdb/urls';
+import { FETCH_NEW_TV_SHOWS, FETCH_POPULAR_TV_SHOWS, FETCH_TV_SHOWS_GENRES } from './types';
 import { DateTime } from 'luxon';
 import fetchMediaData from '../../api/tmdb/fetchMediaData';
+import { Api as TMDBApi } from '../../api/tmdb/Api';
 
 export const fetchNewTvShows = (page = 'all') => {
   return async (dispatch, getState) => {
@@ -56,6 +57,22 @@ export const fetchPopularTvShows = (page = 'all') => {
     dispatch({
       type: FETCH_POPULAR_TV_SHOWS,
       payload: tvShows,
+    });
+  }
+}
+
+export const fetchTvShowsGenres = () => {
+  return async (dispatch) => {
+    const res = await TMDBApi.$instance.get(TV_SHOWS_GENRES_URL);
+
+    let payload = [];
+    if (res.genres) {
+      payload = res.genres;
+    }
+
+    dispatch({
+      type: FETCH_TV_SHOWS_GENRES,
+      payload,
     });
   }
 }
