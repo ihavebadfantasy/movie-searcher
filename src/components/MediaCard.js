@@ -3,8 +3,9 @@ import { DateTime } from 'luxon';
 import countDuration from '../helpers/countDuration';
 import generateDatestring from '../helpers/generateDatestring';
 import generateMoneyString from '../helpers/generateMoneyString';
+import getDateColorClass from '../helpers/getDateColorClass';
 
-const MediaCard = ({media}) => {
+const MediaCard = ({media, children}) => {
   const renderRating = () => {
     if (media.vote_average && media.vote_count > 0) {
       return (
@@ -101,13 +102,6 @@ const MediaCard = ({media}) => {
     );
   }
 
-  const getReleaseDateColorClass = () => {
-    const releaseDate = DateTime.fromISO(media.release_date);
-    const dateNow = DateTime.now();
-
-    return releaseDate > dateNow ? 'is-warning' : 'is-success';
-  }
-
   const renderCreatedBy = () => {
     return (
       <div className="created-by mt-20">
@@ -170,14 +164,14 @@ const MediaCard = ({media}) => {
         {media.budget && media.revenue && renderBudget()}
 
         {media.release_date && (
-          <div className={`release-date mt-30 nes-text ${getReleaseDateColorClass()}`}>
+          <div className={`release-date mt-30 nes-text ${getDateColorClass(media.release_date)}`}>
             {generateDatestring(media.release_date)}
           </div>
           )
         }
 
         {media.first_air_date && (
-            <div className={`release-date mt-30 nes-text ${getReleaseDateColorClass()}`}>
+            <div className={`release-date mt-30 nes-text ${getDateColorClass(media.release_date)}`}>
               {generateDatestring(media.first_air_date)}
             </div>
           )
@@ -194,6 +188,9 @@ const MediaCard = ({media}) => {
         <div className="overview mt-40">
           {media.overview}
         </div>
+
+        {children}
+
         <div className="homepage mt-30 nes-text is-primary">
           <a href={media.homepage} target="_blank">
             Homepage
