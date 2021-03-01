@@ -2,8 +2,9 @@ import { useRef, useState, useEffect } from 'react';
 import getDateColorClass from '../helpers/getDateColorClass';
 
 const Accordion = ({items, setSelected}) => {
+  // TODO: responsive
   const accordionRef = useRef();
-
+// TODO: make a custom hook: closing with click outside component
   useEffect(() => {
     const closeAccordion = (e) => {
       if (accordionRef.current && accordionRef.current.contains(e.target)) {
@@ -54,7 +55,7 @@ const Accordion = ({items, setSelected}) => {
             return (
               <div
                 className={`wrapper nes-text mt-30 ${contentItemTextColorClass}`}
-                key={item.title}
+                key={item.title || index}
               >
               { contentItem.title && (
                   <div className="title">

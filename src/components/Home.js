@@ -25,7 +25,7 @@ const Home = ({
     fetchPopularTvShows();
     fetchNewTvShows();
   }, []);
-
+// TODO: remove to custom hook
   useEffect(() => {
     switch (layout) {
       case 'phone':

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Animated } from 'react-animated-css';
 
 const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, lastCurrentSlideIndex, slidesPerView }) => {
+  // TODO: fix animation
   const [isVisible, setIsVisible] = useState(true);
   const [slideWidth, setSlideWidth] = useState('0px');
 

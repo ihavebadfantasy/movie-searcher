@@ -2,17 +2,22 @@ import { DateTime } from 'luxon';
 import {
   MOVIES_URL,
   MOVIES_GENRES_URL,
-  MOVIE_DETAILS
+  MOVIE_DETAILS,
+  MOVIES_IMAGES,
+  MOVIES_RECOMMENDATIONS,
+  MOVIES_REVIEWS,
+  MOVIES_SIMILAR,
 } from '../../api/tmdb/urls';
 import {
   FETCH_NEW_MOVIES,
   FETCH_POPULAR_MOVIES,
   FETCH_MOVIES_GENRES,
-  FETCH_CURRENT_MOVIE
+  FETCH_CURRENT_MOVIE,
 } from './types';
 import fetchMediaData from '../../api/tmdb/fetchMediaData';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
 import makeUrl from '../../api/makeUrl';
+import fetchMediaImages from '../../api/tmdb/fetchMediaImages';
 
 export const fetchNewMovies = (page = 'all') => {
   return async (dispatch, getState) => {
@@ -99,6 +104,11 @@ export const fetchCurrentMovie = (id) => {
       payload = null;
     } else {
       payload = res;
+
+      payload.reviews = await fetchMediaData(makeUrl(MOVIES_REVIEWS, { id }), {params: {}}, 1, false, true);
+      payload.images = await fetchMediaImages(makeUrl(MOVIES_IMAGES, { id }));
+      payload.similar = await fetchMediaData(makeUrl(MOVIES_SIMILAR, { id }), {params: {}}, 1, false, true);
+      payload.recommendations = await fetchMediaData(makeUrl(MOVIES_RECOMMENDATIONS, { id }), {params: {}}, 1, false, true);
     }
 
     dispatch({

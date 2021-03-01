@@ -16,7 +16,6 @@ const mapSeasonsToAccordionItems = (seasons) => {
         title: episode.name,
         content: episode.overview,
         date: episode.air_date,
-        selected: false,
       }
     });
 
@@ -25,6 +24,7 @@ const mapSeasonsToAccordionItems = (seasons) => {
       header: season.name,
       headerDate: generateDatestring(season.air_date),
       content,
+      selected: false,
     };
   })
 }

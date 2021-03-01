@@ -1,11 +1,54 @@
+import { useState, useEffect } from 'react';
 import config from '../config';
-import { DateTime } from 'luxon';
 import countDuration from '../helpers/countDuration';
 import generateDatestring from '../helpers/generateDatestring';
 import generateMoneyString from '../helpers/generateMoneyString';
 import getDateColorClass from '../helpers/getDateColorClass';
+import MediaCarousel from './MediaCarousel';
+import Accordion from './Accordion';
+
+const mapReviewsToAccordionItems = (reviews) => {
+  // TODO: fix data in date (timestamp now) ;(
+  return reviews.map((review) => {
+    return {
+      id: review.id,
+      header: review.author,
+      content: [{
+        content: review.content,
+        date: review.created_at,
+      }],
+      selected: false,
+    };
+  });
+}
 
 const MediaCard = ({media, children}) => {
+  const [reviewsAccordionItems, setReviewsAccordionItems] = useState([]);
+
+  useEffect(() => {
+    if (media.reviews) {
+      setReviewsAccordionItems(mapReviewsToAccordionItems(media.reviews));
+    }
+  }, [media]);
+// TODO: remove to custom hook: setting select item for accordion
+  const setSelectedReview = (id) => {
+    const seasons = reviewsAccordionItems.map((review) => {
+      if (review.id === id) {
+        review.selected = !review.selected;
+      } else {
+        review.selected = false;
+      }
+
+      return review;
+    });
+
+    setReviewsAccordionItems(seasons);
+  }
+
+  // TODO: add images slider with lighbox to enlarge image
+
+  console.log(media.reviews);
+
   const renderRating = () => {
     if (media.vote_average && media.vote_count > 0) {
       return (
@@ -170,9 +213,10 @@ const MediaCard = ({media, children}) => {
           )
         }
 
-        {media.first_air_date && (
-            <div className={`release-date mt-30 nes-text ${getDateColorClass(media.release_date)}`}>
-              {generateDatestring(media.first_air_date)}
+        {media.last_air_date && (
+            <div className={`release-date mt-30 nes-text ${getDateColorClass(media.last_air_date)}`}>
+              <span className="small-text gray mr-10">Last Episode on Air:</span>
+              {generateDatestring(media.last_air_date)}
             </div>
           )
         }
@@ -190,6 +234,35 @@ const MediaCard = ({media, children}) => {
         </div>
 
         {children}
+
+        {media.recommendations && (
+          <MediaCarousel
+            containerTheme={['withTitle']}
+            containerClass="mb-30 mt-30 light-border"
+            title="Recommendations"
+            slidesPerPage={4}
+            items={media.recommendations}
+          />
+        )}
+
+        {media.similar && (
+          <MediaCarousel
+            containerTheme={['withTitle']}
+            containerClass="mb-30 mt-30 light-border"
+            title="Similar"
+            slidesPerPage={4}
+            items={media.similar}
+          />
+        )}
+
+        {reviewsAccordionItems && (
+          <div className="mt-30">
+            <Accordion
+              items={reviewsAccordionItems}
+              setSelected={setSelectedReview}
+            />
+          </div>
+        )}
 
         <div className="homepage mt-30 nes-text is-primary">
           <a href={media.homepage} target="_blank">
