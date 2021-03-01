@@ -21,8 +21,8 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData}) => {
         <div>
           {/*<Home />*/}
           {/*<Search />*/}
-          <Movies />
-          {/*<TvShows />*/}
+          {/*<Movies />*/}
+          <TvShows />
         </div>
       </div>
     ) : (

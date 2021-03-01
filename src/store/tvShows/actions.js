@@ -3,6 +3,10 @@ import {
   TV_SHOWS_GENRES_URL,
   TV_SHOW_DETAILS,
   TV_SHOW_SEASON_DETAILS,
+  TV_SHOWS_SIMILAR,
+  TV_SHOWS_RECOMMENDATIONS,
+  TV_SHOWS_REVIEWS,
+  TV_SHOWS_IMAGES,
 } from '../../api/tmdb/urls';
 import {
   FETCH_NEW_TV_SHOWS,
@@ -14,6 +18,7 @@ import { DateTime } from 'luxon';
 import fetchMediaData from '../../api/tmdb/fetchMediaData';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
 import makeUrl from '../../api/makeUrl';
+import fetchMediaImages from '../../api/tmdb/fetchMediaImages';
 
 export const fetchNewTvShows = (page = 'all') => {
   return async (dispatch, getState) => {
@@ -112,6 +117,10 @@ export const fetchCurrentTvShow = (id) => {
       }
 
       payload.seasons = seasons;
+      payload.reviews = await fetchMediaData(makeUrl(TV_SHOWS_REVIEWS, { id }), {params: {}}, 1, false, true);
+      payload.images = await fetchMediaImages(makeUrl(TV_SHOWS_IMAGES, { id }));
+      payload.similar = await fetchMediaData(makeUrl(TV_SHOWS_SIMILAR, { id }), {params: {}}, 1, false, true);
+      payload.recommendations = await fetchMediaData(makeUrl(TV_SHOWS_RECOMMENDATIONS, { id }), {params: {}}, 1, false, true);
     }
 
     dispatch({

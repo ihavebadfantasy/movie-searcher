@@ -47,8 +47,6 @@ const MediaCard = ({media, children}) => {
 
   // TODO: add images slider with lighbox to enlarge image
 
-  console.log(media.reviews);
-
   const renderRating = () => {
     if (media.vote_average && media.vote_count > 0) {
       return (
