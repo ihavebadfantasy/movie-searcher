@@ -3,36 +3,26 @@ import { connect } from 'react-redux';
 import Home from './components/Home';
 import Header from './components/Header';
 import Search from './components/Search';
-import { setLocation } from './store/user/actions';
-import { fetchMoviesGenres } from './store/movies/actions';
-import { fetchTvShowsGenres } from './store/tvShows/actions';
 import Loader from './components/Loader';
 import Movies from './components/Movies';
+import TvShows from './components/TvShows';
+import { loadInitialAppData } from './store/app/actions';
 
-const App = ({location, moviesGenres, tvShowsGenres, setLocation, fetchMoviesGenres, fetchTvShowsGenres}) => {
-  const [appLoaded, setAppLoaded] = useState(false);
-  // TODO: handle app data loading, atm the app will be loading forever if genres fetching will crash
+const App = ({isAppInitialDataLoaded, loadInitialAppData}) => {
   useEffect(() => {
-    setLocation();
-    fetchMoviesGenres();
-    fetchTvShowsGenres();
-  }, [])
-
-  useEffect(() => {
-    if (location.countryCode && moviesGenres.length && tvShowsGenres.length) {
-      setAppLoaded(true);
-    }
-  }, [location, moviesGenres, tvShowsGenres])
+    loadInitialAppData();
+  }, []);
 
   return (<div>
-    { appLoaded ? (
+    { isAppInitialDataLoaded ? (
       <div>
         <Header />
 
         <div>
           {/*<Home />*/}
           {/*<Search />*/}
-          <Movies />
+          {/*<Movies />*/}
+          <TvShows />
         </div>
       </div>
     ) : (
@@ -46,16 +36,12 @@ const App = ({location, moviesGenres, tvShowsGenres, setLocation, fetchMoviesGen
 
 const mapStateToProps = (state) => {
   return {
-    location: state.user.location,
-    moviesGenres: state.movies.genres,
-    tvShowsGenres: state.tvShows.genres,
+    isAppInitialDataLoaded: state.app.isInitialDataLoaded,
   }
 }
 
 const mapDispatchToProps = {
-  setLocation,
-  fetchMoviesGenres,
-  fetchTvShowsGenres,
+  loadInitialAppData,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

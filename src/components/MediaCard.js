@@ -11,7 +11,7 @@ const MediaCard = ({media}) => {
         <div className="rating">
           { media.vote_average > 5 ? (<i className="nes-icon is-large star" />) : (<i className="nes-icon star is-half" />)}
           <div className="score">
-            <p className="rating-score">{media.vote_average.toFixed(2)}/<span className="gray small-text">10</span></p>
+            <p className="rating-score">{media.vote_average.toFixed(1)}/<span className="gray small-text">10</span></p>
             <p className="rating-vote-count gray">({media.vote_count})</p>
           </div>
         </div>
@@ -31,13 +31,18 @@ const MediaCard = ({media}) => {
   const renderGenres = () => {
     return (
       <div className="genres">
-        {media.genres.map((genre) => {
+        {media.genres.map((genre, index) => {
+          const separator = index === media.genres.length - 1 ? '' : ',';
+
           return (
-            <p className="genre is-primary nes-text" key={genre.id}>
-              {genre.name}
+            <p
+              className="genre is-primary nes-text"
+              key={genre.id}>
+              {`${genre.name}${separator} `}
             </p>
           );
-        })}
+        })
+        }
       </div>
     );
   }
@@ -45,10 +50,12 @@ const MediaCard = ({media}) => {
   const renderCountries = () => {
     return (
       <div className="countries">
-        {media.production_countries.map((country) => {
+        {media.production_countries.map((country, index) => {
+          const separator = index === media.production_countries.length - 1 ? '' : ',';
+
           return (
             <p className="country nes-text is-primary" key={country.iso_3166_1}>
-              {country.name}
+              {`${country.name}${separator} `}
             </p>
           );
         })}
@@ -101,6 +108,29 @@ const MediaCard = ({media}) => {
     return releaseDate > dateNow ? 'is-warning' : 'is-success';
   }
 
+  const renderCreatedBy = () => {
+    return (
+      <div className="created-by mt-20">
+        <span className="small-text gray">
+          Created by:
+        </span>
+        {media.created_by.map((author, index) => {
+          const separator = index === media.created_by.length - 1 ? '' : ',';
+
+          return (
+            <span
+              className="nes-text is-primary small-text"
+              key={author.id}
+            >
+              {` ${author.name}${separator}`}
+            </span>
+          );
+        })
+        }
+      </div>
+    );
+  }
+
   return (
     <div className="media-card">
       <p className="media-card-tagline gray mb-30">{media.tagline}</p>
@@ -114,9 +144,18 @@ const MediaCard = ({media}) => {
       <div className="media-card-details">
         {renderRating()}
 
-        <div className="duration mt-20">
-          {countDuration(media.runtime)}
-        </div>
+        {media.type && (
+            <div className="type mt-10">
+              {media.type}
+            </div>
+          )
+        }
+
+        {media.runtime && (
+          <div className="duration mt-20">
+            {countDuration(media.runtime)}
+          </div>
+        )}
 
         <div className="mt-30">
           {renderGenres()}
@@ -126,18 +165,40 @@ const MediaCard = ({media}) => {
 
         {renderCompanies()}
 
-        {renderBudget()}
+        {media.created_by && renderCreatedBy()}
 
-        <div className={`release-date mt-30 nes-text ${getReleaseDateColorClass()}`}>
-          {generateDatestring(media.release_date)}
-        </div>
+        {media.budget && media.revenue && renderBudget()}
+
+        {media.release_date && (
+          <div className={`release-date mt-30 nes-text ${getReleaseDateColorClass()}`}>
+            {generateDatestring(media.release_date)}
+          </div>
+          )
+        }
+
+        {media.first_air_date && (
+            <div className={`release-date mt-30 nes-text ${getReleaseDateColorClass()}`}>
+              {generateDatestring(media.first_air_date)}
+            </div>
+          )
+        }
+
+        {media.status && (
+          <div className="status mt-10">
+            {media.status}
+          </div>
+        )}
       </div>
 
       <div className="media-card-details-secondary">
         <div className="overview mt-40">
           {media.overview}
         </div>
-
+        <div className="homepage mt-30 nes-text is-primary">
+          <a href={media.homepage} target="_blank">
+            Homepage
+          </a>
+        </div>
       </div>
     </div>
   );

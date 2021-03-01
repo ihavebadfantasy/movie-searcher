@@ -1,8 +1,6 @@
-const userState = {
+export default {
   location: {
     country: null,
     countryCode: null,
   }
 }
-
-export default userState;

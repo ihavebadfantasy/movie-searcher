@@ -21,7 +21,11 @@ const Movies = ({movie, fetchCurrentMovie}) => {
             >
               <MediaCard media={movie} />
             </Container>
-        ) : (<Loader color="pattern" />)
+        ) : (
+        <div className="full-screen padding-20 content-centered">
+          <Loader color="pattern" />
+        </div>
+        )
       }
     </div>
   );

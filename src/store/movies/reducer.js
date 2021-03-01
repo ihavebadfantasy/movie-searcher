@@ -1,5 +1,10 @@
 import moviesState from './state';
-import { FETCH_NEW_MOVIES, FETCH_POPULAR_MOVIES, FETCH_MOVIES_GENRES, FETCH_CURRENT_MOVIE } from './types';
+import {
+  FETCH_NEW_MOVIES,
+  FETCH_POPULAR_MOVIES,
+  FETCH_MOVIES_GENRES,
+  FETCH_CURRENT_MOVIE
+} from './types';
 
 export const reducer = (state = moviesState, action) => {
   switch (action.type) {

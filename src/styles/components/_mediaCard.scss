@@ -74,9 +74,22 @@
         margin-left: 20px;
       }
     }
+
+    .status {
+      font-size: 14px;
+    }
   }
 
   &-details-secondary {
     width: 100%;
+
+    .overview {
+      font-size: 15px;
+    }
+
+    .homepage {
+      font-size: 14px;
+      text-decoration: underline;
+    }
   }
 }

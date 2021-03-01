@@ -1,8 +1,19 @@
-import { TV_SHOWS_URL, TV_SHOWS_GENRES_URL } from '../../api/tmdb/urls';
-import { FETCH_NEW_TV_SHOWS, FETCH_POPULAR_TV_SHOWS, FETCH_TV_SHOWS_GENRES } from './types';
+import {
+  TV_SHOWS_URL,
+  TV_SHOWS_GENRES_URL,
+  TV_SHOW_DETAILS,
+  TV_SHOW_SEASON_DETAILS,
+} from '../../api/tmdb/urls';
+import {
+  FETCH_NEW_TV_SHOWS,
+  FETCH_POPULAR_TV_SHOWS,
+  FETCH_TV_SHOWS_GENRES,
+  FETCH_CURRENT_TV_SHOW,
+} from './types';
 import { DateTime } from 'luxon';
 import fetchMediaData from '../../api/tmdb/fetchMediaData';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
+import makeUrl from '../../api/makeUrl';
 
 export const fetchNewTvShows = (page = 'all') => {
   return async (dispatch, getState) => {
@@ -75,4 +86,52 @@ export const fetchTvShowsGenres = () => {
       payload,
     });
   }
+}
+
+export const fetchCurrentTvShow = (id) => {
+  return async (dispatch) => {
+    const url = makeUrl(TV_SHOW_DETAILS, { id });
+
+    const res = await TMDBApi.$instance.get(url);
+
+    let payload;
+
+    if (res.status && res.status >= 300) {
+      payload = null;
+    } else {
+      payload = res;
+
+      const seasons = [];
+
+      for (let season of payload.seasons) {
+        const seasonRes = await fetchSeason(id, season.season_number);
+
+        if (seasonRes) {
+          seasons.push(seasonRes);
+        }
+      }
+
+      payload.seasons = seasons;
+    }
+
+    dispatch({
+      type: FETCH_CURRENT_TV_SHOW,
+      payload,
+    });
+  }
+}
+
+const fetchSeason = async (tvShowId, seasonNumber) => {
+  const url = makeUrl(TV_SHOW_SEASON_DETAILS, {
+    tvId: tvShowId,
+    seasonNumber: seasonNumber,
+  });
+
+  const res = await TMDBApi.$instance.get(url);
+
+  if (res.status && res.status >= 300) {
+    return null;
+  }
+
+  return res;
 }

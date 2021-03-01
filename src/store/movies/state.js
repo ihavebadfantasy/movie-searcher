@@ -1,8 +1,6 @@
-const moviesState = {
+export default {
   popular: [],
   new: [],
   genres: [],
   currentMovie: null,
 }
-
-export default moviesState;

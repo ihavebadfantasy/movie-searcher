@@ -1,7 +1,7 @@
-const tvShowsState = {
+export default {
   popular: [],
   new: [],
   genres: [],
+  currentTvShow: null,
 }
 
-export default tvShowsState;
