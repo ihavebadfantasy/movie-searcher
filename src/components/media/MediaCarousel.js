@@ -1,20 +1,26 @@
 import {useEffect, useState} from 'react';
-import Container from './Container';
-import config from '../config';
-import Loader from './Loader';
-import Carousel from './Carousel';
+import Container from '../base/Container';
+import config from '../../config';
+import Loader from '../base/Loader';
+import Carousel from '../ui/Carousel';
 
-const mapSlides = (items) => {
+const types = {
+  movies: 'movies',
+  tvShows: 'tv-shows',
+}
+
+const mapSlides = (items, type) => {
   return items.map((item) => {
     return {
       id: item.id,
       poster: `${config.api.urls.dbImages}${item.poster_path}`,
       title: item.title || item.name,
+      linkTo: type === types.movies ? `/movies/${item.id}` : `/tv-shows/${item.id}`
     }
   });
 }
 
-const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, items}) => {
+const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, items, type = types.movies}) => {
   slidesPerPage = slidesPerPage || 5;
 
   const [slides, setSlides] = useState(mapSlides(items));
@@ -23,7 +29,7 @@ const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, it
   const [lastCurrentSlideIndex, setLastCurrentSlideIndex] = useState(firstCurrentSlideIndex + slidesPerPage);
 
   useEffect(() => {
-    setSlides(mapSlides(items));
+    setSlides(mapSlides(items, type));
   }, [items])
 
   useEffect(() => {

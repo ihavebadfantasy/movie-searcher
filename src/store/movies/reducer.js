@@ -3,7 +3,8 @@ import {
   FETCH_NEW_MOVIES,
   FETCH_POPULAR_MOVIES,
   FETCH_MOVIES_GENRES,
-  FETCH_CURRENT_MOVIE
+  FETCH_CURRENT_MOVIE,
+  CLEAR_CURRENT_MOVIE,
 } from './types';
 
 export const reducer = (state = moviesState, action) => {
@@ -16,6 +17,8 @@ export const reducer = (state = moviesState, action) => {
       return {...state, genres: action.payload};
     case FETCH_CURRENT_MOVIE:
       return {...state, currentMovie: action.payload};
+    case CLEAR_CURRENT_MOVIE:
+      return {...state, currentMovie: null};
     default:
       return state;
   }

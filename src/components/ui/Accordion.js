@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import getDateColorClass from '../helpers/getDateColorClass';
+import getDateColorClass from '../../helpers/getDateColorClass';
 
 const Accordion = ({items, setSelected}) => {
   // TODO: responsive

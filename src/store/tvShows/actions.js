@@ -13,12 +13,16 @@ import {
   FETCH_POPULAR_TV_SHOWS,
   FETCH_TV_SHOWS_GENRES,
   FETCH_CURRENT_TV_SHOW,
+  CLEAR_CURRENT_TV_SHOW,
 } from './types';
 import { DateTime } from 'luxon';
 import fetchMediaData from '../../api/tmdb/fetchMediaData';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
 import makeUrl from '../../api/makeUrl';
 import fetchMediaImages from '../../api/tmdb/fetchMediaImages';
+import reactor from '../../helpers/reactor/Reactor';
+import { STOP_CURRENT_TV_SHOW_FETCHING } from '../../helpers/reactor/events';
+
 
 export const fetchNewTvShows = (page = 'all') => {
   return async (dispatch, getState) => {
@@ -119,8 +123,8 @@ export const fetchCurrentTvShow = (id) => {
       payload.seasons = seasons;
       payload.reviews = await fetchMediaData(makeUrl(TV_SHOWS_REVIEWS, { id }), {params: {}}, 1, false, true);
       payload.images = await fetchMediaImages(makeUrl(TV_SHOWS_IMAGES, { id }));
-      payload.similar = await fetchMediaData(makeUrl(TV_SHOWS_SIMILAR, { id }), {params: {}}, 1, false, true);
-      payload.recommendations = await fetchMediaData(makeUrl(TV_SHOWS_RECOMMENDATIONS, { id }), {params: {}}, 1, false, true);
+      payload.similar = await fetchMediaData(makeUrl(TV_SHOWS_SIMILAR, { id }), {params: {}}, 1, true, true);
+      payload.recommendations = await fetchMediaData(makeUrl(TV_SHOWS_RECOMMENDATIONS, { id }), {params: {}}, 1, true, true);
     }
 
     dispatch({
@@ -143,4 +147,12 @@ const fetchSeason = async (tvShowId, seasonNumber) => {
   }
 
   return res;
+}
+
+export const clearCurrentTvShow = () => {
+  reactor.dispatchEvent(STOP_CURRENT_TV_SHOW_FETCHING);
+
+  return {
+    type: CLEAR_CURRENT_TV_SHOW,
+  }
 }

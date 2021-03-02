@@ -1,14 +1,14 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import config from '../config';
-import { binaryRadioItems } from '../helpers/forms/radioItems';
-import { toggleSelectedRadio } from '../helpers/forms/toggleSelectedRadio';
-import { toggleCheckbox } from '../helpers/forms/toggleCheckbox';
-import SearchInput from './SearchInput';
-import Sidebar from './Sidebar';
-import Container from './Container';
-import CheckboxFilter from './CheckboxFilter';
-import RadioFilter from './RadioFilter';
+import config from '../../config';
+import { binaryRadioItems } from '../../helpers/forms/radioItems';
+import { toggleSelectedRadio } from '../../helpers/forms/toggleSelectedRadio';
+import { toggleCheckbox } from '../../helpers/forms/toggleCheckbox';
+import SearchInput from '../search/SearchInput';
+import Sidebar from '../base/Sidebar';
+import Container from '../base/Container';
+import CheckboxFilter from '../search/CheckboxFilter';
+import RadioFilter from '../search/RadioFilter';
 
 const typeItems = [
   {

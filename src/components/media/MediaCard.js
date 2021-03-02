@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
-import config from '../config';
-import countDuration from '../helpers/countDuration';
-import generateDatestring from '../helpers/generateDatestring';
-import generateMoneyString from '../helpers/generateMoneyString';
-import getDateColorClass from '../helpers/getDateColorClass';
+import config from '../../config';
+import countDuration from '../../helpers/countDuration';
+import generateDatestring from '../../helpers/generateDatestring';
+import generateMoneyString from '../../helpers/generateMoneyString';
+import getDateColorClass from '../../helpers/getDateColorClass';
 import MediaCarousel from './MediaCarousel';
-import Accordion from './Accordion';
+import Accordion from '../ui/Accordion';
+
+const types = {
+  movies: 'movies',
+  tvShows: 'tv-shows',
+}
 
 const mapReviewsToAccordionItems = (reviews) => {
   // TODO: fix data in date (timestamp now) ;(
@@ -22,7 +27,7 @@ const mapReviewsToAccordionItems = (reviews) => {
   });
 }
 
-const MediaCard = ({media, children}) => {
+const MediaCard = ({media, children, type = types.movies}) => {
   const [reviewsAccordionItems, setReviewsAccordionItems] = useState([]);
 
   useEffect(() => {
@@ -111,9 +116,12 @@ const MediaCard = ({media, children}) => {
         {media.production_companies.map((company) => {
           return (
             <div className="company-wrapper" key={company.id}>
-              <div className="company-img-wrapper">
-                <img src={`${config.api.urls.dbImages}${company.logo_path}`} alt={company.name} />
-              </div>
+              {company.logo_path && (
+                  <div className="company-img-wrapper">
+                    <img src={`${config.api.urls.dbImages}${company.logo_path}`} alt={company.name} />
+                  </div>
+                )
+              }
               <p className="company">
                 {company.name}
               </p>
@@ -202,7 +210,7 @@ const MediaCard = ({media, children}) => {
 
         {media.created_by && renderCreatedBy()}
 
-        {media.budget && media.revenue && renderBudget()}
+        {(media.budget && media.revenue) ? renderBudget() : null}
 
         {media.release_date && (
           <div className={`release-date mt-30 nes-text ${getDateColorClass(media.release_date)}`}>
@@ -233,27 +241,29 @@ const MediaCard = ({media, children}) => {
 
         {children}
 
-        {media.recommendations && (
+        {media.recommendations.length > 0 && (
           <MediaCarousel
             containerTheme={['withTitle']}
             containerClass="mb-30 mt-30 light-border"
             title="Recommendations"
             slidesPerPage={4}
             items={media.recommendations}
+            type={type}
           />
         )}
 
-        {media.similar && (
+        {media.similar.length > 0 && (
           <MediaCarousel
             containerTheme={['withTitle']}
             containerClass="mb-30 mt-30 light-border"
             title="Similar"
             slidesPerPage={4}
             items={media.similar}
+            type={type}
           />
         )}
 
-        {reviewsAccordionItems && (
+        {reviewsAccordionItems.length > 0 && (
           <div className="mt-30">
             <Accordion
               items={reviewsAccordionItems}

@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import Home from './components/Home';
-import Header from './components/Header';
-import Search from './components/Search';
-import Loader from './components/Loader';
-import Movies from './components/Movies';
-import TvShows from './components/TvShows';
+import { BrowserRouter} from 'react-router-dom';
+
+import Header from './components/base/Header';
+import Loader from './components/base/Loader';
+import Navigation from './components/Navigation';
+import ScrollToTop from './components/ScrollToTop';
+
 import { loadInitialAppData } from './store/app/actions';
 
 const App = ({isAppInitialDataLoaded, loadInitialAppData}) => {
@@ -13,24 +14,21 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData}) => {
     loadInitialAppData();
   }, []);
 
-  return (<div>
-    { isAppInitialDataLoaded ? (
-      <div>
-        <Header />
-
-        <div>
-          {/*<Home />*/}
-          {/*<Search />*/}
-          {/*<Movies />*/}
-          <TvShows />
-        </div>
-      </div>
-    ) : (
-      <div className="full-screen padding-20 content-centered">
-        <Loader color="pattern" />
-      </div>
-    )
-    }
+  return (
+    <div>
+      <BrowserRouter>
+        <ScrollToTop>
+          <Header />
+          { isAppInitialDataLoaded ? (
+            <Navigation />
+          ) : (
+              <div className="full-screen padding-20 content-centered">
+                <Loader color="pattern" />
+              </div>
+            )
+          }
+        </ScrollToTop>
+      </BrowserRouter>
   </div>);
 }
 

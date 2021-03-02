@@ -1,8 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Animated } from 'react-animated-css';
+import { Link } from 'react-router-dom';
 
-const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, lastCurrentSlideIndex, slidesPerView }) => {
+const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, lastCurrentSlideIndex, slidesPerView}) => {
   // TODO: fix animation
+  // TODO: add normal styling
+  // TODO: add more data in slider
   const [isVisible, setIsVisible] = useState(true);
   const [slideWidth, setSlideWidth] = useState('0px');
 
@@ -18,18 +21,33 @@ const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, 
   }, [slidesPerView]);
 
   const renderedSlides = slides.map((slide) => {
-    return (
-      <div
-        className="carousel-slide"
-        key={slide.id}
-        style={{width: slideWidth}}
-      >
+    const innerContent = (
+      <>
         <div className="carousel-slide-img">
           <img alt={slide.title} src={slide.poster} />
         </div>
         <h4>
           {slide.title}
         </h4>
+      </>
+    );
+
+    return slide.linkTo ? (
+      <Link
+        to={slide.linkTo}
+        className="carousel-slide"
+        key={slide.id}
+        style={{width: slideWidth}}
+      >
+        {innerContent}
+      </Link>
+    ) : (
+      <div
+        className="carousel-slide"
+        key={slide.id}
+        style={{width: slideWidth}}
+      >
+        {innerContent}
       </div>
     );
   });

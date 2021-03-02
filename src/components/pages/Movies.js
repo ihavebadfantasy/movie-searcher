@@ -1,16 +1,16 @@
 import {useEffect} from 'react';
 import { connect } from 'react-redux';
-import { fetchCurrentMovie } from '../store/movies/actions';
-import Container from './Container';
-import Loader from './Loader';
-import MediaCard from './MediaCard';
+import { fetchCurrentMovie} from '../../store/movies/actions';
+import Container from '../base/Container';
+import Loader from '../base/Loader';
+import MediaCard from '../media/MediaCard';
 
-const hardcodedId = 508442;
-
-const Movies = ({movie, fetchCurrentMovie}) => {
+const Movies = ({movie, fetchCurrentMovie, match}) => {
   useEffect(() => {
-    fetchCurrentMovie(hardcodedId);
-  }, []);
+    const id = match.params.id;
+
+    fetchCurrentMovie(id);
+  }, [match.params.id]);
 
   return (
     <div className="base-container mt-60-resp">

@@ -4,6 +4,7 @@ import {
   FETCH_POPULAR_TV_SHOWS,
   FETCH_TV_SHOWS_GENRES,
   FETCH_CURRENT_TV_SHOW,
+  CLEAR_CURRENT_TV_SHOW,
 } from './types';
 
 export const reducer = (state = tvShowsState, action) => {
@@ -16,6 +17,8 @@ export const reducer = (state = tvShowsState, action) => {
       return {...state, genres: action.payload};
     case FETCH_CURRENT_TV_SHOW:
       return {...state, currentTvShow: action.payload};
+    case CLEAR_CURRENT_TV_SHOW:
+      return {...state, currentTvShow: null};
     default:
       return state;
   }

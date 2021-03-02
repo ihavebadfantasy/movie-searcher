@@ -1,13 +1,11 @@
 import {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
-import { fetchCurrentTvShow } from '../store/tvShows/actions';
-import Container from './Container';
-import Loader from './Loader';
-import MediaCard from './MediaCard';
-import Accordion from './Accordion';
-import generateDatestring from '../helpers/generateDatestring';
-
-const hardcodedId = 85271;
+import { fetchCurrentTvShow } from '../../store/tvShows/actions';
+import Container from '../base/Container';
+import Loader from '../base/Loader';
+import MediaCard from '../media/MediaCard';
+import Accordion from '../ui/Accordion';
+import generateDatestring from '../../helpers/generateDatestring';
 
 const mapSeasonsToAccordionItems = (seasons) => {
   return seasons.map((season) => {
@@ -29,12 +27,14 @@ const mapSeasonsToAccordionItems = (seasons) => {
   })
 }
 
-const TvShows = ({tvShow, fetchCurrentTvShow}) => {
+const TvShows = ({tvShow, fetchCurrentTvShow, match}) => {
   const [seasonsAccordionItems, setSeasonsAccordionItems] = useState([]);
 
   useEffect(() => {
-    fetchCurrentTvShow(hardcodedId);
-  }, []);
+    const id = match.params.id;
+
+    fetchCurrentTvShow(id);
+  }, [match.params.id]);
 
   useEffect(() => {
     if (tvShow && tvShow.seasons) {
@@ -63,7 +63,7 @@ const TvShows = ({tvShow, fetchCurrentTvShow}) => {
           theme={['withTitle']}
           title={tvShow.title}
         >
-          <MediaCard media={tvShow}>
+          <MediaCard media={tvShow} type="tv-shows">
             <div className="mt-30">
               <Accordion
                 items={seasonsAccordionItems}

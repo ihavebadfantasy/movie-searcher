@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import SearchInput from './SearchInput';
-import MediaCarousel from './MediaCarousel';
-import useWindowResize from '../hooks/useWindowResize';
-import { fetchNewMovies, fetchPopularMovies } from '../store/movies/actions';
-import { fetchNewTvShows, fetchPopularTvShows } from '../store/tvShows/actions';
+import SearchInput from '../search/SearchInput';
+import MediaCarousel from '../media/MediaCarousel';
+import useWindowResize from '../../hooks/useWindowResize';
+import { fetchNewMovies, fetchPopularMovies } from '../../store/movies/actions';
+import { fetchNewTvShows, fetchPopularTvShows } from '../../store/tvShows/actions';
+
+const types = {
+  movies: 'movies',
+  tvShows: 'tv-shows',
+}
 
 const Home = ({
    newMovies,
@@ -66,6 +71,7 @@ const Home = ({
         title="The Newest TV-Shows"
         slidesPerPage={slidesPerPage}
         items={newTvShows}
+        type={types.tvShows}
       />
 
       <MediaCarousel
@@ -82,6 +88,7 @@ const Home = ({
         title="The Most Popular TV-Shows"
         slidesPerPage={slidesPerPage}
         items={popularTvShows}
+        type={types.tvShows}
       />
 
     </div>
