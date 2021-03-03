@@ -3,4 +3,6 @@ export default {
   new: [],
   genres: [],
   currentMovie: null,
+  currentMovieSimilar: [],
+  currentMovieRecommendations: [],
 }

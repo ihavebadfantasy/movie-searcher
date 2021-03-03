@@ -5,6 +5,8 @@ import {
   FETCH_MOVIES_GENRES,
   FETCH_CURRENT_MOVIE,
   CLEAR_CURRENT_MOVIE,
+  FETCH_CURRENT_MOVIE_SIMILAR,
+  FETCH_CURRENT_MOVIE_RECOMMENDATIONS
 } from './types';
 
 export const reducer = (state = moviesState, action) => {
@@ -17,8 +19,12 @@ export const reducer = (state = moviesState, action) => {
       return {...state, genres: action.payload};
     case FETCH_CURRENT_MOVIE:
       return {...state, currentMovie: action.payload};
+    case FETCH_CURRENT_MOVIE_SIMILAR:
+      return {...state, currentMovieSimilar: [...state.currentMovieSimilar, ...action.payload]};
+    case FETCH_CURRENT_MOVIE_RECOMMENDATIONS:
+      return {...state, currentMovieRecommendations: [...state.currentMovieRecommendations, ...action.payload]};
     case CLEAR_CURRENT_MOVIE:
-      return {...state, currentMovie: null};
+      return {...state, currentMovie: null, currentMovieRecommendations: [], currentMovieSimilar: []};
     default:
       return state;
   }

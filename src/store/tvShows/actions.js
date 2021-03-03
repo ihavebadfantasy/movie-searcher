@@ -14,6 +14,8 @@ import {
   FETCH_TV_SHOWS_GENRES,
   FETCH_CURRENT_TV_SHOW,
   CLEAR_CURRENT_TV_SHOW,
+  FETCH_CURRENT_TV_SHOW_RECOMMENDATIONS,
+  FETCH_CURRENT_TV_SHOW_SIMILAR,
 } from './types';
 import { DateTime } from 'luxon';
 import fetchMediaData from '../../api/tmdb/fetchMediaData';
@@ -22,6 +24,7 @@ import makeUrl from '../../api/makeUrl';
 import fetchMediaImages from '../../api/tmdb/fetchMediaImages';
 import reactor from '../../helpers/reactor/Reactor';
 import { STOP_CURRENT_TV_SHOW_FETCHING } from '../../helpers/reactor/events';
+import { FETCH_CURRENT_MOVIE_RECOMMENDATIONS, FETCH_CURRENT_MOVIE_SIMILAR } from '../movies/types';
 
 
 export const fetchNewTvShows = (page = 'all') => {
@@ -123,8 +126,8 @@ export const fetchCurrentTvShow = (id) => {
       payload.seasons = seasons;
       payload.reviews = await fetchMediaData(makeUrl(TV_SHOWS_REVIEWS, { id }), {params: {}}, 1, false, true);
       payload.images = await fetchMediaImages(makeUrl(TV_SHOWS_IMAGES, { id }));
-      payload.similar = await fetchMediaData(makeUrl(TV_SHOWS_SIMILAR, { id }), {params: {}}, 1, true, true);
-      payload.recommendations = await fetchMediaData(makeUrl(TV_SHOWS_RECOMMENDATIONS, { id }), {params: {}}, 1, true, true);
+      await dispatch(fetchCurrentTvShowSimilar(id, 1));
+      await dispatch(fetchCurrentTvShowRecommendations(id, 1));
     }
 
     dispatch({
@@ -147,6 +150,44 @@ const fetchSeason = async (tvShowId, seasonNumber) => {
   }
 
   return res;
+}
+
+export const fetchCurrentTvShowSimilar = (id, page) => {
+  return async (dispatch) => {
+    const res = await fetchMediaData(makeUrl(TV_SHOWS_SIMILAR, { id }), {params: {}}, page, true);
+
+    let payload;
+
+    if (res.status && res.status >= 300) {
+      payload = [];
+    } else {
+      payload = res;
+    }
+
+    dispatch({
+      type: FETCH_CURRENT_TV_SHOW_SIMILAR,
+      payload,
+    });
+  }
+}
+
+export const fetchCurrentTvShowRecommendations = (id, page) => {
+  return async (dispatch) => {
+    const res = await fetchMediaData(makeUrl(TV_SHOWS_RECOMMENDATIONS, { id }), {params: {}}, page, true);
+
+    let payload;
+
+    if (res.status && res.status >= 300) {
+      payload = [];
+    } else {
+      payload = res;
+    }
+
+    dispatch({
+      type: FETCH_CURRENT_TV_SHOW_RECOMMENDATIONS,
+      payload,
+    });
+  }
 }
 
 export const clearCurrentTvShow = () => {

@@ -5,6 +5,8 @@ import {
   FETCH_TV_SHOWS_GENRES,
   FETCH_CURRENT_TV_SHOW,
   CLEAR_CURRENT_TV_SHOW,
+  FETCH_CURRENT_TV_SHOW_RECOMMENDATIONS,
+  FETCH_CURRENT_TV_SHOW_SIMILAR,
 } from './types';
 
 export const reducer = (state = tvShowsState, action) => {
@@ -18,7 +20,11 @@ export const reducer = (state = tvShowsState, action) => {
     case FETCH_CURRENT_TV_SHOW:
       return {...state, currentTvShow: action.payload};
     case CLEAR_CURRENT_TV_SHOW:
-      return {...state, currentTvShow: null};
+      return {...state, currentTvShow: null, currentTvShowSimilar: [], currentTvShowRecommendations: []};
+    case FETCH_CURRENT_TV_SHOW_SIMILAR:
+      return {...state, currentTvShowSimilar: [...state.currentTvShowSimilar, ...action.payload]};
+    case FETCH_CURRENT_TV_SHOW_RECOMMENDATIONS:
+      return {...state, currentTvShowRecommendations: [...state.currentTvShowRecommendations, ...action.payload]};
     default:
       return state;
   }

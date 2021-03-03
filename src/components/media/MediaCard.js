@@ -27,14 +27,14 @@ const mapReviewsToAccordionItems = (reviews) => {
   });
 }
 
-const MediaCard = ({media, children, type = types.movies}) => {
+const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimilar, recommendations, loadMoreRecommendations}) => {
   const [reviewsAccordionItems, setReviewsAccordionItems] = useState([]);
-
   useEffect(() => {
     if (media.reviews) {
       setReviewsAccordionItems(mapReviewsToAccordionItems(media.reviews));
     }
   }, [media]);
+
 // TODO: remove to custom hook: setting select item for accordion
   const setSelectedReview = (id) => {
     const seasons = reviewsAccordionItems.map((review) => {
@@ -241,25 +241,27 @@ const MediaCard = ({media, children, type = types.movies}) => {
 
         {children}
 
-        {media.recommendations.length > 0 && (
+        {recommendations.length > 0 && (
           <MediaCarousel
             containerTheme={['withTitle']}
             containerClass="mb-30 mt-30 light-border"
             title="Recommendations"
             slidesPerPage={4}
-            items={media.recommendations}
+            items={recommendations}
             type={type}
+            loadMoreData={loadMoreRecommendations}
           />
         )}
 
-        {media.similar.length > 0 && (
+        {similar.length > 0 && (
           <MediaCarousel
             containerTheme={['withTitle']}
             containerClass="mb-30 mt-30 light-border"
             title="Similar"
             slidesPerPage={4}
-            items={media.similar}
+            items={similar}
             type={type}
+            loadMoreData={loadMoreSimilar}
           />
         )}
 

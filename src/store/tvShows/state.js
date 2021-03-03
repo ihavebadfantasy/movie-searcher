@@ -3,5 +3,7 @@ export default {
   new: [],
   genres: [],
   currentTvShow: null,
+  currentTvShowSimilar: [],
+  currentTvShowRecommendations: [],
 }
 

@@ -1,16 +1,28 @@
 import {useEffect} from 'react';
 import { connect } from 'react-redux';
-import { fetchCurrentMovie} from '../../store/movies/actions';
+import {
+  fetchCurrentMovie,
+  fetchCurrentMovieRecommendations,
+  fetchCurrentMovieSimilar,
+} from '../../store/movies/actions';
 import Container from '../base/Container';
 import Loader from '../base/Loader';
 import MediaCard from '../media/MediaCard';
 
-const Movies = ({movie, fetchCurrentMovie, match}) => {
+const Movies = ({movie, fetchCurrentMovie, match, fetchCurrentMovieSimilar, movieSimilar, movieRecommendations, fetchCurrentMovieRecommendations}) => {
   useEffect(() => {
     const id = match.params.id;
 
     fetchCurrentMovie(id);
   }, [match.params.id]);
+
+  const loadMoreSimilar = (page) => {
+    fetchCurrentMovieSimilar(movie.id, page);
+  }
+
+  const loadMoreRecommendations = (page) => {
+    fetchCurrentMovieRecommendations(movie.id, page);
+  }
 
   return (
     <div className="base-container mt-60-resp">
@@ -19,7 +31,13 @@ const Movies = ({movie, fetchCurrentMovie, match}) => {
               theme={['withTitle']}
               title={movie.title}
             >
-              <MediaCard media={movie} />
+              <MediaCard
+                media={movie}
+                similar={movieSimilar}
+                loadMoreSimilar={loadMoreSimilar}
+                recommendations={movieRecommendations}
+                loadMoreRecommendations={loadMoreRecommendations}
+              />
             </Container>
         ) : (
         <div className="full-screen padding-20 content-centered">
@@ -34,11 +52,15 @@ const Movies = ({movie, fetchCurrentMovie, match}) => {
 const mapStateToProps = state => {
   return {
     movie: state.movies.currentMovie,
+    movieSimilar: state.movies.currentMovieSimilar,
+    movieRecommendations: state.movies.currentMovieRecommendations,
   };
 }
 
 const mapDispatchToProps = {
   fetchCurrentMovie,
+  fetchCurrentMovieSimilar,
+  fetchCurrentMovieRecommendations,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Movies);

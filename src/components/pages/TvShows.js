@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
-import { fetchCurrentTvShow } from '../../store/tvShows/actions';
+import { fetchCurrentTvShow, fetchCurrentTvShowSimilar, fetchCurrentTvShowRecommendations } from '../../store/tvShows/actions';
 import Container from '../base/Container';
 import Loader from '../base/Loader';
 import MediaCard from '../media/MediaCard';
@@ -27,7 +27,7 @@ const mapSeasonsToAccordionItems = (seasons) => {
   })
 }
 
-const TvShows = ({tvShow, fetchCurrentTvShow, match}) => {
+const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, fetchCurrentTvShowRecommendations, tvShowSimilar, tvShowRecommendations}) => {
   const [seasonsAccordionItems, setSeasonsAccordionItems] = useState([]);
 
   useEffect(() => {
@@ -56,6 +56,14 @@ const TvShows = ({tvShow, fetchCurrentTvShow, match}) => {
     setSeasonsAccordionItems(seasons);
   }
 
+  const loadMoreSimilar = (page) => {
+    fetchCurrentTvShowSimilar(tvShow.id, page);
+  }
+
+  const loadMoreRecommendations = (page) => {
+    fetchCurrentTvShowRecommendations(tvShow.id, page);
+  }
+
   return (
     <div className="base-container mt-60-resp">
       { tvShow ? (
@@ -63,7 +71,14 @@ const TvShows = ({tvShow, fetchCurrentTvShow, match}) => {
           theme={['withTitle']}
           title={tvShow.title}
         >
-          <MediaCard media={tvShow} type="tv-shows">
+          <MediaCard
+            media={tvShow}
+            type="tv-shows"
+            recommendations={tvShowRecommendations}
+            loadMoreRecommendations={loadMoreRecommendations}
+            similar={tvShowSimilar}
+            loadMoreSimilar={loadMoreSimilar}
+          >
             <div className="mt-30">
               <Accordion
                 items={seasonsAccordionItems}
@@ -85,11 +100,15 @@ const TvShows = ({tvShow, fetchCurrentTvShow, match}) => {
 const mapStateToProps = state => {
   return {
     tvShow: state.tvShows.currentTvShow,
+    tvShowSimilar: state.tvShows.currentTvShowSimilar,
+    tvShowRecommendations: state.tvShows.currentTvShowRecommendations,
   };
 }
 
 const mapDispatchToProps = {
   fetchCurrentTvShow,
+  fetchCurrentTvShowRecommendations,
+  fetchCurrentTvShowSimilar
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TvShows);

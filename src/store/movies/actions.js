@@ -14,6 +14,8 @@ import {
   FETCH_MOVIES_GENRES,
   FETCH_CURRENT_MOVIE,
   CLEAR_CURRENT_MOVIE,
+  FETCH_CURRENT_MOVIE_RECOMMENDATIONS,
+  FETCH_CURRENT_MOVIE_SIMILAR,
 } from './types';
 import fetchMediaData from '../../api/tmdb/fetchMediaData';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
@@ -101,7 +103,6 @@ export const fetchCurrentMovie = (id) => {
     let loadingIsDiscarded = false;
 
     reactor.addEventListener(STOP_CURRENT_MOVIE_FETCHING, () => {
-      console.log('in action event listener');
       loadingIsDiscarded = true;
     });
 
@@ -118,13 +119,51 @@ export const fetchCurrentMovie = (id) => {
 
       payload.reviews = await fetchMediaData(makeUrl(MOVIES_REVIEWS, { id }), {params: {}}, 1, false, true);
       payload.images = await fetchMediaImages(makeUrl(MOVIES_IMAGES, { id }));
-      payload.similar = await fetchMediaData(makeUrl(MOVIES_SIMILAR, { id }), {params: {}}, 1, true, true);
-      payload.recommendations = await fetchMediaData(makeUrl(MOVIES_RECOMMENDATIONS, { id }), {params: {}}, 1, true, true);
+      await dispatch(fetchCurrentMovieSimilar(id, 1));
+      await dispatch(fetchCurrentMovieRecommendations(id, 1));
     }
 
     dispatch({
       type: FETCH_CURRENT_MOVIE,
       payload: loadingIsDiscarded ? null : payload,
+    });
+  }
+}
+
+export const fetchCurrentMovieSimilar = (id, page) => {
+  return async (dispatch) => {
+    const res = await fetchMediaData(makeUrl(MOVIES_SIMILAR, { id }), {params: {}}, page, true);
+
+    let payload;
+
+    if (res.status && res.status >= 300) {
+      payload = [];
+    } else {
+      payload = res;
+    }
+
+    dispatch({
+      type: FETCH_CURRENT_MOVIE_SIMILAR,
+      payload,
+    });
+  }
+}
+
+export const fetchCurrentMovieRecommendations = (id, page) => {
+  return async (dispatch) => {
+    const res = await fetchMediaData(makeUrl(MOVIES_RECOMMENDATIONS, { id }), {params: {}}, page, true);
+
+    let payload;
+
+    if (res.status && res.status >= 300) {
+      payload = [];
+    } else {
+      payload = res;
+    }
+
+    dispatch({
+      type: FETCH_CURRENT_MOVIE_RECOMMENDATIONS,
+      payload,
     });
   }
 }
