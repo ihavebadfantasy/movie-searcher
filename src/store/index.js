@@ -1,5 +1,6 @@
 import thunk from 'redux-thunk';
 import { combineReducers, applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { reducer as moviesReducer } from './movies/reducer';
 import { reducer as tvShowsReducer } from './tvShows/reducer';
 import { reducer as userReducer } from './user/reducer';
@@ -12,4 +13,4 @@ const rootReducer = combineReducers({
   app: appReducer,
 });
 
-export default createStore(rootReducer, applyMiddleware(thunk));
+export default createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

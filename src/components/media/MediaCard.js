@@ -272,11 +272,13 @@ const MediaCard = ({media, children, type = types.movies}) => {
           </div>
         )}
 
-        <div className="homepage mt-30 nes-text is-primary">
-          <a href={media.homepage} target="_blank">
-            Homepage
-          </a>
-        </div>
+        {media.homepage && (
+          <div className="homepage mt-30 nes-text is-primary">
+            <a href={media.homepage} target="_blank">
+              Homepage
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
