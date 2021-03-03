@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import SearchInput from '../search/SearchInput';
 import MediaCarousel from '../media/MediaCarousel';
-import useWindowResize from '../../hooks/useWindowResize';
 import { fetchNewMovies, fetchPopularMovies } from '../../store/movies/actions';
 import { fetchNewTvShows, fetchPopularTvShows } from '../../store/tvShows/actions';
+import useSlidesPerPage from '../../hooks/useSlidesPerPage';
 
 const types = {
   movies: 'movies',
@@ -21,8 +21,7 @@ const Home = ({
    fetchPopularTvShows,
    fetchNewTvShows
 }) => {
-  const [slidesPerPage, setSlidesPerPage] = useState(5);
-  const [windowWidth, layout] = useWindowResize();
+  const [slidesPerPage] = useSlidesPerPage();
 
   useEffect(() => {
     fetchNewMovies(1);
@@ -30,26 +29,6 @@ const Home = ({
     fetchPopularTvShows(1);
     fetchNewTvShows(1);
   }, []);
-// TODO: remove to custom hook
-  useEffect(() => {
-    switch (layout) {
-      case 'phone':
-        setSlidesPerPage(1);
-        break;
-      case 'phablet':
-        setSlidesPerPage(2);
-        break;
-      case 'tablet':
-        setSlidesPerPage(3);
-        break;
-      case 'containerWidth':
-        setSlidesPerPage(4);
-        break;
-      default:
-        setSlidesPerPage(5);
-    }
-
-  }, [layout]);
 
   const loadMorePopularMovies = (page) => {
     fetchPopularMovies(page);

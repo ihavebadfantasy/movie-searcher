@@ -29,6 +29,10 @@
       .accordion-item-header::after {
         transform: rotate(0deg) translateY(0px);
         right: 60px;
+
+        @include respond-to(phablet) {
+          right: 25px;
+        }
       }
     }
 
@@ -54,6 +58,10 @@
         content: "";
         transform: rotate(180deg) translateY(-20px);
         transition: 0.2s all;
+
+        @include respond-to(phablet) {
+          right: 5px;
+        }
       }
     }
 

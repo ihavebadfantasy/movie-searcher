@@ -4,14 +4,30 @@
   align-items: center;
   justify-content: space-between;
 
+  @include respond-to('phone') {
+    font-size: 14px;
+  }
+
   &-tagline {
     width: 100%;
     text-decoration: blink;
     font-size: 14px;
+
+    @include respond-to('phone') {
+      font-size: 12px;
+    }
   }
 
   &-poster {
     width: 30%;
+
+    @include respond-to('container-width') {
+      width: 40%;
+    }
+
+    @include respond-to('tablet') {
+      width: 100%;
+    }
 
     img {
       width: 100%;
@@ -20,6 +36,16 @@
 
   &-details {
     width: 67%;
+
+    @include respond-to('container-width') {
+      width: 57%;
+    }
+
+    @include respond-to('tablet') {
+      width: 100%;
+
+      margin-top: 30px;
+    }
 
     .rating {
       display: flex;
@@ -30,6 +56,10 @@
 
       &-vote-count {
         font-size: 13px;
+
+        @include respond-to('phone') {
+          font-size: 11px;
+        }
       }
     }
 
@@ -42,6 +72,10 @@
       .genre, .country, {
         margin-left: 15px;
         font-size: 14px;
+
+        @include respond-to('phone') {
+          font-size: 12px;
+        }
       }
     }
 
@@ -57,10 +91,18 @@
       .company {
         font-size: 14px;
         margin-left: 15px;
+
+        @include respond-to('phone') {
+          font-size: 12px;
+        }
       }
 
       .company-img-wrapper {
         width: 40px;
+
+        @include respond-to('phone') {
+          width: 25px;
+        }
         img {
           width: 100%;
         }
@@ -77,6 +119,10 @@
 
     .status {
       font-size: 14px;
+
+      @include respond-to('phone') {
+        font-size: 12px;
+      }
     }
   }
 
@@ -85,6 +131,10 @@
 
     .overview {
       font-size: 15px;
+
+      @include respond-to('phone') {
+        font-size: 13px;
+      }
     }
 
     .homepage {

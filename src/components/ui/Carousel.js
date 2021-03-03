@@ -4,10 +4,29 @@ import { Link } from 'react-router-dom';
 
 const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, lastCurrentSlideIndex, slidesPerView}) => {
   // TODO: fix animation
-  // TODO: add normal styling
   // TODO: add more data in slider
   const [isVisible, setIsVisible] = useState(true);
   const [slideWidth, setSlideWidth] = useState('0px');
+
+  const getFontSize = (str) => {
+    const words = str.split(' ');
+
+    let fontSize = '14px';
+
+    words.forEach((word) => {
+      if (word.length > 13) {
+        fontSize = '11px';
+
+        return;
+      }
+
+      if (word.length > 10) {
+        fontSize = '13px';
+      }
+    })
+
+    return fontSize;
+  }
 
   const sliderContentRef = useCallback((node) => {
     if (node) {
@@ -26,7 +45,10 @@ const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, 
         <div className="carousel-slide-img">
           <img alt={slide.title} src={slide.poster} />
         </div>
-        <h4>
+        <h4
+          className="carousel-slide-title"
+          style={{fontSize: getFontSize(slide.title)}}
+        >
           {slide.title}
         </h4>
       </>

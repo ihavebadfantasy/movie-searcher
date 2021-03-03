@@ -6,6 +6,8 @@ import generateMoneyString from '../../helpers/generateMoneyString';
 import getDateColorClass from '../../helpers/getDateColorClass';
 import MediaCarousel from './MediaCarousel';
 import Accordion from '../ui/Accordion';
+import Rating from './Rating';
+import useSlidesPerPage from '../../hooks/useSlidesPerPage';
 
 const types = {
   movies: 'movies',
@@ -29,6 +31,9 @@ const mapReviewsToAccordionItems = (reviews) => {
 
 const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimilar, recommendations, loadMoreRecommendations}) => {
   const [reviewsAccordionItems, setReviewsAccordionItems] = useState([]);
+
+  const [slidesPerPage] = useSlidesPerPage(4);
+
   useEffect(() => {
     if (media.reviews) {
       setReviewsAccordionItems(mapReviewsToAccordionItems(media.reviews));
@@ -51,29 +56,6 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
   }
 
   // TODO: add images slider with lighbox to enlarge image
-
-  const renderRating = () => {
-    if (media.vote_average && media.vote_count > 0) {
-      return (
-        <div className="rating">
-          { media.vote_average > 5 ? (<i className="nes-icon is-large star" />) : (<i className="nes-icon star is-half" />)}
-          <div className="score">
-            <p className="rating-score">{media.vote_average.toFixed(1)}/<span className="gray small-text">10</span></p>
-            <p className="rating-vote-count gray">({media.vote_count})</p>
-          </div>
-        </div>
-      );
-    }
-    return (
-      <div className="rating">
-        <i className="nes-icon is-large star is-large is-empty" />
-        <div className="score">
-          <p className="rating-score">0/<span className="gray small-text">10</span></p>
-          <p className="rating-vote-count gray">(0)</p>
-        </div>
-      </div>
-    );
-  }
 
   const renderGenres = () => {
     return (
@@ -185,7 +167,10 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
       </div>
 
       <div className="media-card-details">
-        {renderRating()}
+        <Rating
+          voteAverage={media.vote_average}
+          voteCount={media.vote_count}
+        />
 
         {media.type && (
             <div className="type mt-10">
@@ -246,7 +231,7 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
             containerTheme={['withTitle']}
             containerClass="mb-30 mt-30 light-border"
             title="Recommendations"
-            slidesPerPage={4}
+            slidesPerPage={slidesPerPage}
             items={recommendations}
             type={type}
             loadMoreData={loadMoreRecommendations}
@@ -258,7 +243,7 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
             containerTheme={['withTitle']}
             containerClass="mb-30 mt-30 light-border"
             title="Similar"
-            slidesPerPage={4}
+            slidesPerPage={slidesPerPage}
             items={similar}
             type={type}
             loadMoreData={loadMoreSimilar}

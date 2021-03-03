@@ -25,7 +25,7 @@ const Movies = ({movie, fetchCurrentMovie, match, fetchCurrentMovieSimilar, movi
   }
 
   return (
-    <div className="base-container mt-60-resp">
+    <div className="base-container mt-60-resp mb-30">
       { movie ? (
             <Container
               theme={['withTitle']}

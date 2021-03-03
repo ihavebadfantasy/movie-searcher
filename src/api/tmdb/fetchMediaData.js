@@ -3,7 +3,6 @@ import reactor from '../../helpers/reactor/Reactor';
 import { STOP_CURRENT_MOVIE_FETCHING, STOP_CURRENT_TV_SHOW_FETCHING } from '../../helpers/reactor/events';
 
 const fetchMediaData = async(url, config, page, withPostersOnly = false, all = false, media = [], loadingIsDiscarded = false) => {
-  // TODO: add lazy loading, some data like similar, recommendations and so on loads too long and may not even be viewed by user
   if (loadingIsDiscarded) {
     return null;
   }

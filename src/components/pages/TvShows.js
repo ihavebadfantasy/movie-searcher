@@ -65,7 +65,7 @@ const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, 
   }
 
   return (
-    <div className="base-container mt-60-resp">
+    <div className="base-container mt-60-resp mb-30">
       { tvShow ? (
         <Container
           theme={['withTitle']}

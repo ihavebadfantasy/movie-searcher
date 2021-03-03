@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from 'react';
 import getDateColorClass from '../../helpers/getDateColorClass';
 
 const Accordion = ({items, setSelected}) => {
-  // TODO: responsive
   const accordionRef = useRef();
 // TODO: make a custom hook: closing with click outside component
   useEffect(() => {
