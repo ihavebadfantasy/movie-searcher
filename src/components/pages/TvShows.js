@@ -63,13 +63,14 @@ const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, 
   const loadMoreRecommendations = (page) => {
     fetchCurrentTvShowRecommendations(tvShow.id, page);
   }
+  console.log(tvShow);
 
   return (
     <div className="base-container mt-60-resp mb-30">
       { tvShow ? (
         <Container
           theme={['withTitle']}
-          title={tvShow.title}
+          title={tvShow.name}
         >
           <MediaCard
             media={tvShow}
