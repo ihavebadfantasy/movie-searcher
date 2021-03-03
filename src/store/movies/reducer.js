@@ -10,9 +10,9 @@ import {
 export const reducer = (state = moviesState, action) => {
   switch (action.type) {
     case FETCH_NEW_MOVIES:
-      return {...state, new: action.payload};
+      return {...state, new: [...state.new, ...action.payload]};
     case FETCH_POPULAR_MOVIES:
-      return {...state, popular: action.payload};
+      return {...state, popular: [...state.popular, ...action.payload]};
     case FETCH_MOVIES_GENRES:
       return {...state, genres: action.payload};
     case FETCH_CURRENT_MOVIE:

@@ -25,10 +25,10 @@ const Home = ({
   const [windowWidth, layout] = useWindowResize();
 
   useEffect(() => {
-    fetchNewMovies();
-    fetchPopularMovies();
-    fetchPopularTvShows();
-    fetchNewTvShows();
+    fetchNewMovies(1);
+    fetchPopularMovies(1);
+    fetchPopularTvShows(1);
+    fetchNewTvShows(1);
   }, []);
 // TODO: remove to custom hook
   useEffect(() => {
@@ -49,7 +49,24 @@ const Home = ({
         setSlidesPerPage(5);
     }
 
-  }, [layout])
+  }, [layout]);
+
+  const loadMorePopularMovies = (page) => {
+    fetchPopularMovies(page);
+  }
+
+  const loadMoreNewMovies = (page) => {
+    fetchNewMovies(page);
+  }
+
+  const loadMorePopularTvShows = (page) => {
+    fetchPopularTvShows(page);
+  }
+
+  const loadMoreNewTvShows = (page) => {
+    fetchNewTvShows(page);
+  }
+
 
   return (
     <div className="base-container mt-60-resp">
@@ -63,6 +80,7 @@ const Home = ({
         title="The Newest Movies"
         slidesPerPage={slidesPerPage}
         items={newMovies}
+        loadMoreData={loadMoreNewMovies}
       />
 
       <MediaCarousel
@@ -72,6 +90,7 @@ const Home = ({
         slidesPerPage={slidesPerPage}
         items={newTvShows}
         type={types.tvShows}
+        loadMoreData={loadMoreNewTvShows}
       />
 
       <MediaCarousel
@@ -80,6 +99,7 @@ const Home = ({
         title="The Most Popular Movies"
         slidesPerPage={slidesPerPage}
         items={popularMovies}
+        loadMoreData={loadMorePopularMovies}
       />
 
       <MediaCarousel
@@ -89,6 +109,7 @@ const Home = ({
         slidesPerPage={slidesPerPage}
         items={popularTvShows}
         type={types.tvShows}
+        loadMoreData={loadMorePopularTvShows}
       />
 
     </div>

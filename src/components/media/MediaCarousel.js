@@ -20,31 +20,42 @@ const mapSlides = (items, type) => {
   });
 }
 
-const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, items, type = types.movies}) => {
+const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, items, type = types.movies, loadMoreData}) => {
   slidesPerPage = slidesPerPage || 5;
 
   const [slides, setSlides] = useState(mapSlides(items));
   const [currentSlides, setCurrentSlides] = useState([]);
   const [firstCurrentSlideIndex, setFirstCurrentSlideIndex] = useState(0);
   const [lastCurrentSlideIndex, setLastCurrentSlideIndex] = useState(firstCurrentSlideIndex + slidesPerPage);
+  const [currentDataLoadPage, setCurrentDataLoadPage] = useState(1);
 
   useEffect(() => {
     setSlides(mapSlides(items, type));
-  }, [items])
+  }, [items]);
 
   useEffect(() => {
     setLastCurrentSlideIndex(firstCurrentSlideIndex + slidesPerPage);
-  }, [slidesPerPage])
+  }, [slidesPerPage]);
 
   useEffect(() => {
     setCurrentSlides(slides.slice(firstCurrentSlideIndex, lastCurrentSlideIndex));
   }, [slides, firstCurrentSlideIndex, lastCurrentSlideIndex]);
+
+  useEffect(() => {
+    if (currentDataLoadPage === 1) {
+      return;
+    }
+
+    loadMoreData(currentDataLoadPage);
+  }, [currentDataLoadPage])
 
   const next = () => {
     const newFirstCurrentSlideIndex = lastCurrentSlideIndex;
 
     setFirstCurrentSlideIndex(newFirstCurrentSlideIndex);
     setLastCurrentSlideIndex(newFirstCurrentSlideIndex + slidesPerPage);
+
+    setCurrentDataLoadPage(currentDataLoadPage + 1);
   }
 
   const prev = () => {
