@@ -8,4 +8,9 @@ export default {
       dbImages: process.env.REACT_APP_DB_API_IMAGES_BASE_URL,
     }
   },
+  ui: {
+    dimensions: {
+      headerHeight: 112,
+    },
+  },
 };

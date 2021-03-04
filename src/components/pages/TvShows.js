@@ -63,14 +63,14 @@ const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, 
   const loadMoreRecommendations = (page) => {
     fetchCurrentTvShowRecommendations(tvShow.id, page);
   }
-  console.log(tvShow);
 
   return (
-    <div className="base-container mt-60-resp mb-30">
+    <>
       { tvShow ? (
         <Container
           theme={['withTitle']}
           title={tvShow.name}
+          customClass="base-container mt-60-resp mb-30"
         >
           <MediaCard
             media={tvShow}
@@ -89,12 +89,12 @@ const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, 
           </MediaCard>
         </Container>
       ) : (
-        <div className="full-screen padding-20 content-centered">
+        <div className="full-screen-with-header-and-footer padding-20 content-centered">
           <Loader color="pattern" />
         </div>
       )
       }
-    </div>
+    </>
   );
 }
 

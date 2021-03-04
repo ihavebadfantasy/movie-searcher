@@ -1,0 +1,30 @@
+.footer {
+  border-top: 4px solid map-get($colors, 'gray');
+  padding: 20px 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 112px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  .base-container {
+    width: 100%;
+  }
+
+  &-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-contact {
+    font-size: 12px;
+    &-text span {
+      display: block;
+      font-size: 10px;
+    }
+  }
+}

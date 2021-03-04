@@ -25,11 +25,12 @@ const Movies = ({movie, fetchCurrentMovie, match, fetchCurrentMovieSimilar, movi
   }
 
   return (
-    <div className="base-container mt-60-resp mb-30">
+    <>
       { movie ? (
             <Container
               theme={['withTitle']}
               title={movie.title}
+              customClass="base-container mt-60-resp mb-30"
             >
               <MediaCard
                 media={movie}
@@ -40,12 +41,12 @@ const Movies = ({movie, fetchCurrentMovie, match, fetchCurrentMovieSimilar, movi
               />
             </Container>
         ) : (
-        <div className="full-screen padding-20 content-centered">
+        <div className="full-screen-with-header-and-footer padding-20 content-centered">
           <Loader color="pattern" />
         </div>
         )
       }
-    </div>
+    </>
   );
 }
 
