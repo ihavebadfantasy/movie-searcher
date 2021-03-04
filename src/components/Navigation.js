@@ -9,6 +9,7 @@ import { clearCurrentMovie } from '../store/movies/actions';
 import { clearCurrentTvShow } from '../store/tvShows/actions';
 
 const Navigation = ({clearCurrentMovie, clearCurrentTvShow}) => {
+  //TODO: show 404 if page not found
   const history = useHistory();
 
   useEffect(() => {

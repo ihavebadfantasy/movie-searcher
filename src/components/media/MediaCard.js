@@ -8,6 +8,7 @@ import MediaCarousel from './MediaCarousel';
 import Accordion from '../ui/Accordion';
 import Rating from './Rating';
 import useSlidesPerPage from '../../hooks/useSlidesPerPage';
+import setSelectedItem from '../../helpers/accordion/setSelectedItem';
 
 const types = {
   movies: 'movies',
@@ -15,7 +16,6 @@ const types = {
 }
 
 const mapReviewsToAccordionItems = (reviews) => {
-  // TODO: fix data in date (timestamp now) ;(
   return reviews.map((review) => {
     return {
       id: review.id,
@@ -40,20 +40,7 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
     }
   }, [media]);
 
-// TODO: remove to custom hook: setting select item for accordion
-  const setSelectedReview = (id) => {
-    const seasons = reviewsAccordionItems.map((review) => {
-      if (review.id === id) {
-        review.selected = !review.selected;
-      } else {
-        review.selected = false;
-      }
-
-      return review;
-    });
-
-    setReviewsAccordionItems(seasons);
-  }
+  const setSelectedReview = setSelectedItem.bind(null, reviewsAccordionItems, setReviewsAccordionItems);
 
   // TODO: add images slider with lighbox to enlarge image
 

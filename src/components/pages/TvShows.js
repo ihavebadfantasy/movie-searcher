@@ -6,8 +6,10 @@ import Loader from '../base/Loader';
 import MediaCard from '../media/MediaCard';
 import Accordion from '../ui/Accordion';
 import generateDatestring from '../../helpers/generateDatestring';
+import setSelectedItem from '../../helpers/accordion/setSelectedItem';
 
 const mapSeasonsToAccordionItems = (seasons) => {
+  // TODO: show 404 page if media not found
   return seasons.map((season) => {
     const content = season.episodes.map((episode) => {
       return {
@@ -42,19 +44,7 @@ const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, 
     }
   }, [tvShow]);
 
-  const setSelectedSeason = (id) => {
-    const seasons = seasonsAccordionItems.map((season) => {
-      if (season.id === id) {
-        season.selected = !season.selected;
-      } else {
-        season.selected = false;
-      }
-
-      return season;
-    });
-
-    setSeasonsAccordionItems(seasons);
-  }
+  const setSelectedSeason = setSelectedItem.bind(null, seasonsAccordionItems, setSeasonsAccordionItems);
 
   const loadMoreSimilar = (page) => {
     fetchCurrentTvShowSimilar(tvShow.id, page);

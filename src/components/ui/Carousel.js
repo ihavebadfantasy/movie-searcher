@@ -3,8 +3,6 @@ import { Animated } from 'react-animated-css';
 import { Link } from 'react-router-dom';
 
 const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, lastCurrentSlideIndex, slidesPerView}) => {
-  // TODO: fix animation
-  // TODO: add more data in slider
   const [isVisible, setIsVisible] = useState(true);
   const [slideWidth, setSlideWidth] = useState('0px');
 

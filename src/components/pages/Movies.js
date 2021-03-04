@@ -10,6 +10,7 @@ import Loader from '../base/Loader';
 import MediaCard from '../media/MediaCard';
 
 const Movies = ({movie, fetchCurrentMovie, match, fetchCurrentMovieSimilar, movieSimilar, movieRecommendations, fetchCurrentMovieRecommendations}) => {
+  // TODO: show 404 page if media not found
   useEffect(() => {
     const id = match.params.id;
 

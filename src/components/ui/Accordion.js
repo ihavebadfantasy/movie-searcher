@@ -1,14 +1,17 @@
 import { useRef, useState, useEffect } from 'react';
 import getDateColorClass from '../../helpers/getDateColorClass';
+import generateDatestring from '../../helpers/generateDatestring';
 
 const Accordion = ({items, setSelected}) => {
+  // TODO: add scroll to top of the selected item when opening
   const accordionRef = useRef();
-// TODO: make a custom hook: closing with click outside component
+
   useEffect(() => {
     const closeAccordion = (e) => {
       if (accordionRef.current && accordionRef.current.contains(e.target)) {
         return;
       }
+
       const selectedItem = items.find((item) => {
         return item.selected;
       });
@@ -65,7 +68,7 @@ const Accordion = ({items, setSelected}) => {
 
                 { contentItem.date && (
                   <span className="date">
-                    {contentItem.date}
+                    {generateDatestring(contentItem.date)}
                   </span>
                 )
                 }
