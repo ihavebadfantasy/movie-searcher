@@ -1,0 +1,52 @@
+.not-found {
+  background-color: black;
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  height: calc(100vh + 112px);
+  overflow: hidden;
+  position: absolute;
+  z-index: 10;
+  top: -112px;
+
+  .text {
+    font-size: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 0;
+
+    &-wrapper {
+      margin-top: 150px;
+      margin-left: 50px;
+    }
+  }
+
+  .user {
+    form {
+      display: flex;
+      align-items: center;
+    }
+    .input {
+      border-width: 0px;
+      background-color: black;
+      color: white;
+      font-size: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      padding-left: 13px;
+      width: 100%;
+      display: block;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.blink_me {
+  animation: blinker 0.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
