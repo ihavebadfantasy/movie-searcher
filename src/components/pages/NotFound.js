@@ -3,6 +3,7 @@ import getRandomInt from '../../helpers/getRandomInt';
 import { output, defaultOutput } from '../../config/notFound';
 
 const matchInputToOutput = (input) => {
+  // TODO: add back button
   input = input.replaceAll(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g," ").toLowerCase();
 
   for (let key in output) {

@@ -121,26 +121,30 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
   }
 
   const renderCreatedBy = () => {
-    return (
-      <div className="created-by mt-20">
+    if (media.created_by.length > 0) {
+      return (
+        <div className="created-by mt-20">
         <span className="small-text gray">
           Created by:
         </span>
-        {media.created_by.map((author, index) => {
-          const separator = index === media.created_by.length - 1 ? '' : ',';
+          {media.created_by.map((author, index) => {
+            const separator = index === media.created_by.length - 1 ? '' : ',';
 
-          return (
-            <span
-              className="nes-text is-primary small-text"
-              key={author.id}
-            >
+            return (
+              <span
+                className="nes-text is-primary small-text"
+                key={author.id}
+              >
               {` ${author.name}${separator}`}
             </span>
-          );
-        })
-        }
-      </div>
-    );
+            );
+          })
+          }
+        </div>
+      );
+    }
+
+    return null;
   }
 
   return (

@@ -13,4 +13,5 @@ export const TV_SHOWS_IMAGES = 'tv/:id/images';
 export const TV_SHOWS_REVIEWS = 'tv/:id/reviews';
 export const TV_SHOWS_SIMILAR = 'tv/:id/similar';
 export const TV_SHOWS_RECOMMENDATIONS = 'tv/:id/recommendations';
+export const COUNTRIES = '/configuration/countries';
 

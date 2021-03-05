@@ -1,7 +1,7 @@
-const RadioFilter = ({items, toggleSelected, name, text}) => {
+const RadioFilter = ({items, toggleSelected, name, text, width = '40%'}) => {
   const renderedRadios = items.map((item) => {
     return (
-      <label style={{width: '40%'}} key={`${item.label}-${name}`}>
+      <label style={{width}} key={`${item.label}-${name}`}>
         <input
           type="radio"
           className="nes-radio"

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 
 const Header = () => {
+  // TODO: add real logo
+  // TODO: fix styles for search pages
   return (
     <header className="header">
       <div className="base-container">

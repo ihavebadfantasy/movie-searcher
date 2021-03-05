@@ -9,6 +9,7 @@ import generateDatestring from '../../helpers/generateDatestring';
 import setSelectedItem from '../../helpers/accordion/setSelectedItem';
 
 const mapSeasonsToAccordionItems = (seasons) => {
+  // TODO: fix sorting of most popular
   return seasons.map((season) => {
     const content = season.episodes.map((episode) => {
       return {

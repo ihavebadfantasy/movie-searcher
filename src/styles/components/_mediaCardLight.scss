@@ -1,0 +1,15 @@
+.media-card-light {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  justify-content: space-between;
+
+  &-img {
+    width: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+}

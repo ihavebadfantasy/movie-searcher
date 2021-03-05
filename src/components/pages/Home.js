@@ -22,6 +22,7 @@ const Home = ({
    fetchNewTvShows
 }) => {
   const [slidesPerPage] = useSlidesPerPage();
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchNewMovies(1);
@@ -50,7 +51,9 @@ const Home = ({
   return (
     <div className="base-container mt-60-resp">
       <div className="mb-30">
-        <SearchInput />
+        <SearchInput
+          setSearchTerm={setSearchTerm}
+        />
       </div>
 
       <MediaCarousel

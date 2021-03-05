@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
-import axios from 'axios';
-import config from '../../config';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { binaryRadioItems } from '../../helpers/forms/radioItems';
 import { toggleSelectedRadio } from '../../helpers/forms/toggleSelectedRadio';
 import { toggleCheckbox } from '../../helpers/forms/toggleCheckbox';
@@ -9,77 +9,14 @@ import Sidebar from '../base/Sidebar';
 import Container from '../base/Container';
 import CheckboxFilter from '../search/CheckboxFilter';
 import RadioFilter from '../search/RadioFilter';
-
-const typeItems = [
-  {
-    value: 'movies',
-    label: 'Movies',
-    checked: false,
-  },
-  {
-    value: 'tvShows',
-    label: 'TV-Shows',
-    checked: false,
-  },
-];
-
-const ratingItems = [
-  {
-    value: '10',
-    label: '10',
-    checked: false,
-  },
-  {
-    value: '9',
-    label: '9',
-    checked: false,
-  },
-  {
-    value: '8',
-    label: '8',
-    checked: false,
-  },
-  {
-    value: '7',
-    label: '7',
-    checked: false,
-  },
-  {
-    value: '6',
-    label: '6',
-    checked: false,
-  },
-  {
-    value: '5',
-    label: '5',
-    checked: false,
-  },
-  {
-    value: '4',
-    label: '4',
-    checked: false,
-  },
-  {
-    value: '3',
-    label: '3',
-    checked: false,
-  },
-  {
-    value: '2',
-    label: '2',
-    checked: false,
-  },
-  {
-    value: '1',
-    label: '1',
-    checked: false,
-  },
-  {
-    value: 'notRated',
-    label: 'Not Rated',
-    checked: false,
-  },
-];
+import Button from '../ui/Button';
+import { searchByFilters } from '../../store/search/actions';
+import { fetchTMDBCountries } from '../../store/app/actions';
+import ratingItems from '../../config/ratingItems';
+import findSelectedItems from '../../helpers/forms/findSelectedItems';
+import mapItemsToQueryString from '../../helpers/forms/mapItemsToQueryString';
+import Loader from '../base/Loader';
+import MediaCardLight from '../media/MediaCardLight';
 
 let genresRadioItems = JSON.stringify(binaryRadioItems);
 genresRadioItems = JSON.parse(genresRadioItems);
@@ -87,40 +24,56 @@ genresRadioItems = JSON.parse(genresRadioItems);
 let countriesRadioItems = JSON.stringify(binaryRadioItems);
 countriesRadioItems = JSON.parse(countriesRadioItems);
 
-const Search = () => {
-  const [typeCheckboxes, setTypeCheckboxes] = useState(typeItems);
-  const [genres, setGenres] = useState([]);
+// TODO: add years filter and loading
+// TODO: find a way to add release types loading a filtering
+// TODO: find a way search by countries filter
+// TODO: add strict search mode with radio filters in countries checkbox and genres checkbox
+
+const Search = ({searchByFilters, genres, fetchTMDBCountries, countries, isSearching, results}) => {
   const [genresCheckboxes, setGenresCheckboxes] = useState([]);
   const [genresRadios, setGenresRadios] = useState(genresRadioItems);
-  const [countries, setCountries] = useState([]);
   const [countriesCheckboxes, setCountriesCheckboxes] = useState([]);
   const [countriesRadios, setCountriesRadios] = useState(countriesRadioItems);
-  const [ratingCheckboxes, setRatingCheckboxes] = useState(ratingItems);
+  const [ratingRadios, setRatingRadios] = useState(ratingItems);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isSearchInputFocused, setIsSearchInputFocused] = useState(false);
+
 
   useEffect(() => {
-    const fetchGenres = async () => {
-      const res = await axios.get(`${config.api.urls.db}/genre/movie/list`, {
-        params: {
-          'api_key': config.api.keys.db,
-        }
-      });
-
-      setGenres(res.data.genres);
+    if (countries.length === 0) {
+      fetchTMDBCountries();
     }
-
-    const fetchCountries = async () => {
-      const res = await axios.get(`${config.api.urls.db}/configuration/countries`, {
-        params: {
-          'api_key': config.api.keys.db,
-        }
-      });
-
-      setCountries(res.data);
-    }
-
-    fetchGenres();
-    fetchCountries();
   }, []);
+
+  useEffect(() => {
+    initSearch();
+  }, [searchTerm]);
+
+  const onKeyPress = (event) => {
+    if(event.key === 'Enter' && !isSearchInputFocused){
+      initSearch();
+    }
+  }
+
+  const initSearch = () => {
+    const params = {};
+
+    const selectedCountries = mapItemsToQueryString(findSelectedItems(countriesCheckboxes, 'checked'), 'value');
+    const selectedGenres = mapItemsToQueryString(findSelectedItems(genresCheckboxes, 'checked'), 'value');
+    const selectedRating = mapItemsToQueryString(findSelectedItems(ratingRadios, 'checked'), 'value');
+
+    if (selectedGenres.length > 0) {
+      params['with_genres'] = selectedGenres;
+    }
+
+    if (selectedRating.length > 0) {
+      params['vote_count.gte'] = selectedRating;
+    }
+
+    if (!searchTerm) {
+      searchByFilters(params);
+    }
+  }
 
   useEffect(() => {
     const checkboxes = genres.map((genre) => {
@@ -132,7 +85,7 @@ const Search = () => {
     });
 
     setGenresCheckboxes(checkboxes);
-  }, [genres])
+  }, [genres]);
 
   useEffect(() => {
     const checkboxes = countries.map((country) => {
@@ -144,37 +97,61 @@ const Search = () => {
     });
 
     setCountriesCheckboxes(checkboxes);
-  }, [countries])
+  }, [countries]);
 
-  return (
-    <div className="sidebar-page">
-      <Sidebar>
+  const renderResults = () => {
+    if (isSearching) {
+      return (
+        <div className="full-screen content-centered">
+          <Loader />
+        </div>
+      );
+    }
+
+    if (results.length) {
+      return (
         <Container
           theme={['withTitle']}
-          title="Type"
-          customClass="mb-30"
+          title="Results"
+          customClass="mt-60-resp light-border"
         >
-          <CheckboxFilter
-            checkboxes={typeCheckboxes}
-            toggleCheckbox={(value) => {
-              setTypeCheckboxes(toggleCheckbox(typeCheckboxes, value));
-            }}
-          />
+          <div className="flex-wrapper">
+            {results.map((result) => {
+              return (
+                <Link
+                  to={`/movies/${result.id}`}
+                  key={result.id}
+                  className="flex-child"
+                >
+                  <MediaCardLight
+                    title={result.title}
+                    img={result.poster_path}
+                  />
+                </Link>
+              );
+            })}
+          </div>
         </Container>
+      );
+    }
+  }
 
+  return (
+    <div className="sidebar-page" onKeyPress={onKeyPress}>
+      <Sidebar>
         <Container
           theme={['withTitle']}
           title="Genre"
           customClass="mb-30"
         >
-          <RadioFilter
-            items={genresRadios}
-            toggleSelected={(value) => {
-              setGenresRadios(toggleSelectedRadio(genresRadios, value));
-            }}
-            name="genrenazi"
-            text="Search for content with ONLY selected genres in genres list"
-          />
+          {/*<RadioFilter*/}
+          {/*  items={genresRadios}*/}
+          {/*  toggleSelected={(value) => {*/}
+          {/*    setGenresRadios(toggleSelectedRadio(genresRadios, value));*/}
+          {/*  }}*/}
+          {/*  name="genrenazi"*/}
+          {/*  text="Search for content with ONLY selected genres in genres list"*/}
+          {/*/>*/}
 
           <CheckboxFilter
             checkboxes={genresCheckboxes}
@@ -184,48 +161,75 @@ const Search = () => {
           />
         </Container>
 
-        <Container
-          theme={['withTitle']}
-          title="Country"
-          customClass="mb-30"
-        >
-          <RadioFilter
-            items={countriesRadios}
-            toggleSelected={(value) => {
-              setCountriesRadios(toggleSelectedRadio(countriesRadios, value));
-            }}
-            name="countrynazi"
-            text="Search for content with ONLY selected countries from countries list"
-          />
+        {/*<Container*/}
+        {/*  theme={['withTitle']}*/}
+        {/*  title="Country"*/}
+        {/*  customClass="mb-30"*/}
+        {/*>*/}
+        {/*  <RadioFilter*/}
+        {/*    items={countriesRadios}*/}
+        {/*    toggleSelected={(value) => {*/}
+        {/*      setCountriesRadios(toggleSelectedRadio(countriesRadios, value));*/}
+        {/*    }}*/}
+        {/*    name="countrynazi"*/}
+        {/*    text="Search for content with ONLY selected countries from countries list"*/}
+        {/*  />*/}
 
-          <CheckboxFilter
-            checkboxes={countriesCheckboxes}
-            toggleCheckbox={(value) => {
-              setCountriesCheckboxes(toggleCheckbox(countriesCheckboxes, value));
-            }}
-          />
-        </Container>
+        {/*  <CheckboxFilter*/}
+        {/*    checkboxes={countriesCheckboxes}*/}
+        {/*    toggleCheckbox={(value) => {*/}
+        {/*      setCountriesCheckboxes(toggleCheckbox(countriesCheckboxes, value));*/}
+        {/*    }}*/}
+        {/*  />*/}
+        {/*</Container>*/}
 
         <Container
           theme={['withTitle']}
           title="Rating"
           customClass="mb-30"
         >
-          <CheckboxFilter
-            checkboxes={ratingCheckboxes}
-            toggleCheckbox={(value) => {
-              setRatingCheckboxes(toggleCheckbox(ratingCheckboxes, value));
+          <p className="small-text gray">Not less than:</p>
+          <RadioFilter
+            items={ratingRadios}
+            toggleSelected={(value) => {
+              setRatingRadios(toggleSelectedRadio(ratingRadios, value));
             }}
+            width="100%"
           />
         </Container>
+
+        <Button
+          customClass="w-100"
+          text="Search"
+          onClick={initSearch}
+        />
       </Sidebar>
 
       <div className="pd-20 w-70">
-        <SearchInput />
+        <SearchInput
+          setSearchTerm={setSearchTerm}
+          setIsFocused={setIsSearchInputFocused}
+        />
+
+        { renderResults() }
       </div>
     </div>
 
   );
 }
 
-export default Search;
+const mapStateToProps = state => {
+  return {
+    results: state.search.results,
+    genres: state.movies.genres,
+    countries: state.app.tmdbCountries,
+    isSearching: state.search.isSearching,
+  }
+}
+
+const mapDispatchToProps = {
+  searchByFilters,
+  fetchTMDBCountries,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
