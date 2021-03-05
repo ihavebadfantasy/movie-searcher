@@ -22,8 +22,7 @@ import { Api as TMDBApi } from '../../api/tmdb/Api';
 import makeUrl from '../../api/makeUrl';
 import fetchMediaImages from '../../api/tmdb/fetchMediaImages';
 import reactor from '../../helpers/reactor/Reactor';
-import { STOP_CURRENT_MOVIE_FETCHING } from '../../helpers/reactor/events';
-
+import { STOP_CURRENT_MOVIE_FETCHING, REDIRECT_TO_NOT_FOUND_PAGE } from '../../helpers/reactor/events';
 
 export const fetchNewMovies = (page = 'all') => {
   return async (dispatch, getState) => {
@@ -127,6 +126,10 @@ export const fetchCurrentMovie = (id) => {
       type: FETCH_CURRENT_MOVIE,
       payload: loadingIsDiscarded ? null : payload,
     });
+
+    if (!payload) {
+      reactor.dispatchEvent(REDIRECT_TO_NOT_FOUND_PAGE);
+    }
   }
 }
 

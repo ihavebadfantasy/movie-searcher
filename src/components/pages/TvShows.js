@@ -9,7 +9,6 @@ import generateDatestring from '../../helpers/generateDatestring';
 import setSelectedItem from '../../helpers/accordion/setSelectedItem';
 
 const mapSeasonsToAccordionItems = (seasons) => {
-  // TODO: show 404 page if media not found
   return seasons.map((season) => {
     const content = season.episodes.map((episode) => {
       return {

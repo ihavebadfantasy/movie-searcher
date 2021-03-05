@@ -23,8 +23,10 @@ import { Api as TMDBApi } from '../../api/tmdb/Api';
 import makeUrl from '../../api/makeUrl';
 import fetchMediaImages from '../../api/tmdb/fetchMediaImages';
 import reactor from '../../helpers/reactor/Reactor';
-import { STOP_CURRENT_TV_SHOW_FETCHING } from '../../helpers/reactor/events';
-import { FETCH_CURRENT_MOVIE_RECOMMENDATIONS, FETCH_CURRENT_MOVIE_SIMILAR } from '../movies/types';
+import {
+  STOP_CURRENT_TV_SHOW_FETCHING,
+  REDIRECT_TO_NOT_FOUND_PAGE,
+} from '../../helpers/reactor/events';
 
 
 export const fetchNewTvShows = (page = 'all') => {
@@ -102,6 +104,12 @@ export const fetchTvShowsGenres = () => {
 
 export const fetchCurrentTvShow = (id) => {
   return async (dispatch) => {
+    let loadingIsDiscarded = false;
+
+    reactor.addEventListener(STOP_CURRENT_TV_SHOW_FETCHING, () => {
+      loadingIsDiscarded = true;
+    });
+
     const url = makeUrl(TV_SHOW_DETAILS, { id });
 
     const res = await TMDBApi.$instance.get(url);
@@ -132,8 +140,12 @@ export const fetchCurrentTvShow = (id) => {
 
     dispatch({
       type: FETCH_CURRENT_TV_SHOW,
-      payload,
+      payload: loadingIsDiscarded ? null : payload,
     });
+
+    if (!payload) {
+      reactor.dispatchEvent(REDIRECT_TO_NOT_FOUND_PAGE);
+    }
   }
 }
 
