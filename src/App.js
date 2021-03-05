@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter} from 'react-router-dom';
 
@@ -11,6 +11,9 @@ import Footer from './components/base/Footer';
 import { loadInitialAppData } from './store/app/actions';
 
 const App = ({isAppInitialDataLoaded, loadInitialAppData}) => {
+  const [showHeader, setShowHeader] = useState(true);
+  const [showFooter, setShowFooter] = useState(true);
+
   useEffect(() => {
     loadInitialAppData();
   }, []);
@@ -19,16 +22,19 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData}) => {
     <div>
       <BrowserRouter>
         <ScrollToTop>
-          <Header />
+          { showHeader && <Header /> }
           { isAppInitialDataLoaded ? (
-            <Navigation />
+            <Navigation
+              setShowHeader={setShowHeader}
+              setShowFooter={setShowFooter}
+            />
           ) : (
               <div className="full-screen padding-20 content-centered">
                 <Loader color="pattern" />
               </div>
             )
           }
-          <Footer />
+          { showFooter && <Footer /> }
         </ScrollToTop>
       </BrowserRouter>
   </div>);

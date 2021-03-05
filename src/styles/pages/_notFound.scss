@@ -2,20 +2,23 @@
   background-color: black;
   color: white;
   font-family: 'JetBrains Mono', monospace;
-  height: calc(100vh + 112px);
-  overflow: hidden;
-  position: absolute;
-  z-index: 10;
-  top: -112px;
+  min-height: 100vh;
+  height: 100%;
 
   .text {
     font-size: 16px;
     font-family: 'JetBrains Mono', monospace;
     margin-bottom: 0;
+    white-space: pre-wrap;
 
     &-wrapper {
-      margin-top: 150px;
-      margin-left: 50px;
+      padding: 50px;
+      min-height: 100vh;
+      height: 100%;
+
+      @include respond-to('phablet') {
+        padding: 20px;
+      }
     }
   }
 
@@ -30,9 +33,11 @@
       color: white;
       font-size: 16px;
       font-family: 'JetBrains Mono', monospace;
-      padding-left: 13px;
+      padding-left: 10px;
       width: 100%;
       display: block;
+      color: transparent;
+      text-shadow: 0 0 0 white;
 
       &:focus {
         outline: none;

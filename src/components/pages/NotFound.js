@@ -1,22 +1,6 @@
 import {useState, useEffect, useRef} from 'react';
 import getRandomInt from '../../helpers/getRandomInt';
-
-const output = {
-  'почему не грузит': ['Потому что не хочет.', 'Интеренет мне запили!!!'],
-  'почему не нашли': ['Потому что не смогли.', 'Интеренет мне запили!!!'],
-  'почему нельзя найти': ['Потому что не находится.', 'Интеренет мне запили!!!'],
-  'да': 'Путин наш президент!',
-  'как тебя зовут': ['Надежда Инокентьевна.', 'Дейенерис из дома Таргариенов, именуемая первой, Неопалимая, Королева Миэрина, Королева Андалов, Ройнар и Первых Людей, Кхалиси Дотракийского Моря, Разбивающая Оковы и Матерь Драконов.', 'Вова.'],
-  'вернуться назад': ['Там уже тоже не ничего не найдено.', 'Что же там такого интересного-то?'],
-  'назад': ['Отступать не в наших правилах.', 'Пешки не ходят назад. Этот ход не допустим. Желаете проапгрейдить свою фигуру до более продвинутой?'],
-  'обновить': 'Обновлена подписка на Нетфликс, спасибо что остаетесь с нами.',
-  'что': 'Иисус Вас любит.',
-  'почему': ['Зайцы любят есть морковь.', 'хз'],
-  'текст об ошибке': 'Yпс, кажется интеренет отключили за неуплату.',
-  'текст ошибки': 'Yпс, кажется интеренет отключили за неуплату.',
-}
-
-const defaultOutput = [' Конь на Е2, пешка бьет слона', 'Код принят, инициирована загрузка трояна на Ваш компьютер, пожалуйста, не отключайтесь от сети', 'Наряд уже выехал, ожидайте.']
+import { output, defaultOutput } from '../../config/notFound';
 
 const matchInputToOutput = (input) => {
   input = input.replaceAll(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g," ").toLowerCase();
@@ -47,6 +31,7 @@ const NotFound = () => {
   useEffect(() => {
     if (textToRender) {
       setTimeout(() => {
+        window.scrollTo(0,document.body.scrollHeight, { behavior: 'smooth' });
         const nextChar = textToRender[0];
 
         setAllText(allText + nextChar);
@@ -58,8 +43,22 @@ const NotFound = () => {
   }, [textToRender]);
 
   useEffect(() => {
+    window.scrollTo(0,document.body.scrollHeight, { behavior: 'smooth' });
+
+    const setInputFocus = () => {
+      if (inputRef && inputRef.current) {
+        inputRef.current.focus();
+      }
+    }
+
     if (showInput) {
-      inputRef.current.focus();
+      setInputFocus();
+    }
+
+    document.body.addEventListener('click', setInputFocus);
+
+    return () => {
+      document.body.removeEventListener('click', setInputFocus);
     }
   }, [showInput]);
 
@@ -75,9 +74,9 @@ const NotFound = () => {
   return (
     <div className="full-screen not-found">
       <div className="text-wrapper">
-          <pre className="text">
+          <p className="text">
             {allText}
-          </pre>
+          </p>
           <div className="user">
             { showInput && (
               <form onSubmit={onInputSubmit}>

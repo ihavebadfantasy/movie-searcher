@@ -4,6 +4,10 @@ html {
 }
 
 body {
+  scroll-behavior: smooth;
+}
+
+body.with-footer {
   margin: 0 0 map-get($dimensions, 'footer-height');
   padding-bottom: 30px;
 }
