@@ -3,13 +3,27 @@
   display: flex;
   flex-direction: column;
   height: 400px;
-  justify-content: space-between;
+
+  &-title {
+    font-size: 14px;
+    margin-top: 5%;
+
+    @include respond-to('tablet') {
+      text-align: center;
+    }
+  }
 
   &-img {
     width: 100%;
 
     img {
-      width: 100%;
+      width: auto;
+      max-height: 300px;
+
+      @include respond-to('tablet') {
+        display: block;
+        margin: 0 auto;
+      }
     }
   }
 }

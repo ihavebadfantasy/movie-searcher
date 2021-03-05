@@ -141,16 +141,28 @@ body.with-footer {
   padding: 20px;
   justify-content: space-between;
   flex-wrap: wrap;
-}
+  margin-left: -3.3%;
 
-.flex-child {
-  width: 32%;
-
-  @include respond-to('tablet') {
-    width: 48%;
+  @include respond-to('containerWidth') {
+    margin-left: -5%;
   }
 
   @include respond-to('phablet') {
+   margin-left: 0;
+  }
+}
+
+.flex-child {
+  width: 30%;
+  margin-left: 3.3%;
+
+  @include respond-to('container-width') {
+    width: 45%;
+    margin-left: 5%;
+  }
+
+  @include respond-to('tablet') {
     width: 100%;
+    margin-left: 0;
   }
 }

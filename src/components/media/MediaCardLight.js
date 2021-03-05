@@ -1,4 +1,5 @@
 import config from '../../config';
+// TODO: add image placeholder
 
 const MediaCardLight = ({title, img}) => {
   return (

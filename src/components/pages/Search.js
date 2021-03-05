@@ -67,7 +67,7 @@ const Search = ({searchByFilters, genres, fetchTMDBCountries, countries, isSearc
     }
 
     if (selectedRating.length > 0) {
-      params['vote_count.gte'] = selectedRating;
+      params['vote_average.gte'] = selectedRating;
     }
 
     if (!searchTerm) {
@@ -129,7 +129,8 @@ const Search = ({searchByFilters, genres, fetchTMDBCountries, countries, isSearc
                   />
                 </Link>
               );
-            })}
+            })
+            }
           </div>
         </Container>
       );
