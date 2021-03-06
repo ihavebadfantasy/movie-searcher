@@ -1,6 +1,6 @@
 const Sidebar = ({children}) => {
   return (
-    <div className="sidebar">
+    <div className="sidebar pl-0">
       {children}
     </div>
   );
