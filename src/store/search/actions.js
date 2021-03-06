@@ -6,26 +6,61 @@ import {
   SET_RESULTS_CURRENT_PAGE,
   SET_RESULTS_TOTAL_CNT,
   SET_RESULTS_TOTAL_PAGES,
+  SET_GENRES_CHECKBOXES,
+  SET_MIN_VOTE_COUNT_VALUE,
+  SET_RATING_RADIOS,
+  SET_SEARCH_TERM,
+  SET_COUNTRIES_CHECKBOXES,
+  SET_SEARCH_WAS_REQUESTED,
+  SET_YEARS_CHECKBOXES,
 } from './types';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
+import mapItemsToQueryString from '../../helpers/forms/mapItemsToQueryString';
+import findSelectedItems from '../../helpers/forms/findSelectedItems';
 
-export const searchByFilters = (params, overrideResults = false) => {
+export const searchByFilters = (overrideResults = false) => {
   return async (dispatch, getState) => {
     dispatch(setIsSearching(true));
-    console.log(overrideResults);
+    dispatch(setSearchWasRequested(false));
+
     if (overrideResults) {
       dispatch(clearSearchResults());
     }
 
+    const params = {};
+
     const state = getState();
+
     const page = state.search.resultsCurrentPage;
     params.page = page;
+
+    const selectedGenres = mapItemsToQueryString(findSelectedItems(state.search.genresCheckboxes, 'checked'), 'value');
+    const selectedRating = mapItemsToQueryString(findSelectedItems(state.search.ratingRadios, 'checked'), 'value');
+    const selectedYears = mapItemsToQueryString(findSelectedItems(state.search.yearsCheckboxes, 'checked'), 'value');
+
+    if (selectedGenres.length > 0) {
+      params['with_genres'] = selectedGenres;
+    }
+
+    if (selectedRating.length > 0) {
+      params['vote_average.gte'] = selectedRating;
+    }
+
+    if (state.search.minVoteCountValue) {
+      params['vote_count.gte'] = state.search.minVoteCountValue;
+    }
+
+    if (selectedYears.length > 0) {
+      params['primary_release_year'] = selectedYears;
+    }
+
+    if (state.search.searchTerm) {
+      // TODO: add search term handling
+    }
 
     const res = await TMDBApi.$instance.get(MOVIES_URL, {
       params,
     });
-
-    console.log(res);
 
     let payload;
     if (res.status && res.status >= 300) {
@@ -75,6 +110,55 @@ export const setResultsTotalCnt = (totalCnt) => {
 export const clearSearchResults = () => {
   return {
     type: CLEAR_SEARCH_RESULTS,
+  };
+}
+
+export const setRatingRadios = (ratingRadios) => {
+  return {
+    type: SET_RATING_RADIOS,
+    payload: ratingRadios,
+  };
+}
+
+export const setSearchTerm = (searchTerm) => {
+  return {
+    type: SET_SEARCH_TERM,
+    payload: searchTerm,
+  };
+}
+
+export const setMinVoteCountValue = (minVoteCountValue) => {
+  return {
+    type: SET_MIN_VOTE_COUNT_VALUE,
+    payload: minVoteCountValue,
+  };
+}
+
+export const setGenresCheckboxes = (genresCheckboxes) => {
+  return {
+    type: SET_GENRES_CHECKBOXES,
+    payload: genresCheckboxes,
+  };
+}
+
+export const setCountriesCheckboxes = (countriesCheckboxes) => {
+  return {
+    type: SET_COUNTRIES_CHECKBOXES,
+    payload: countriesCheckboxes,
+  };
+}
+
+export const setYearsCheckboxes = (yearsCheckboxes) => {
+  return {
+    type: SET_YEARS_CHECKBOXES,
+    payload: yearsCheckboxes,
+  };
+}
+
+export const setSearchWasRequested = (searchStatus) => {
+  return {
+    type: SET_SEARCH_WAS_REQUESTED,
+    payload: searchStatus,
   };
 }
 

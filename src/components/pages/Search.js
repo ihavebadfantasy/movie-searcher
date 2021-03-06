@@ -8,11 +8,17 @@ import Sidebar from '../base/Sidebar';
 import Container from '../base/Container';
 import Checkbox from '../forms/Checkbox';
 import Radio from '../forms/Radio';
-import { searchByFilters, setResultsCurrentPage } from '../../store/search/actions';
+import {
+  searchByFilters,
+  setResultsCurrentPage,
+  setMinVoteCountValue,
+  setGenresCheckboxes,
+  setRatingRadios,
+  setSearchTerm,
+  setCountriesCheckboxes,
+  setYearsCheckboxes,
+} from '../../store/search/actions';
 import { fetchTMDBCountries } from '../../store/app/actions';
-import ratingItems from '../../config/ratingItems';
-import findSelectedItems from '../../helpers/forms/findSelectedItems';
-import mapItemsToQueryString from '../../helpers/forms/mapItemsToQueryString';
 import SearchResults from '../search/SearchResults';
 import resetAllSelectedCheckboxesAndRadios from '../../helpers/forms/resetAllSelectedCheckboxesAndRadios';
 import ControlButtons from '../search/ControlButtons';
@@ -24,7 +30,8 @@ genresRadioItems = JSON.parse(genresRadioItems);
 let countriesRadioItems = JSON.stringify(binaryRadioItems);
 countriesRadioItems = JSON.parse(countriesRadioItems);
 
-// TODO: add years filter and loading
+// TODO: add search by term + filters
+// TODO: change years filter to a range
 // TODO: find a way to add release_types loading and filtering
 // TODO: find a way search by countries filter
 // TODO: add strict search mode with radio filters in countries checkbox and genres checkbox
@@ -38,25 +45,27 @@ const Search = ({
   results,
   setResultsCurrentPage,
   resultsCurrentPage,
-  resultsTotalPages
+  resultsTotalPages,
+  setMinVoteCountValue,
+  setGenresCheckboxes,
+  setRatingRadios,
+  setSearchTerm,
+  minVoteCountValue,
+  genresCheckboxes,
+  countriesCheckboxes,
+  searchTerm,
+  ratingRadios,
+  searchWasRequested,
+  yearsCheckboxes,
+  setYearsCheckboxes,
 }) => {
-  const [genresCheckboxes, setGenresCheckboxes] = useState([]);
   const [genresRadios, setGenresRadios] = useState(genresRadioItems);
-  const [countriesCheckboxes, setCountriesCheckboxes] = useState([]);
   const [countriesRadios, setCountriesRadios] = useState(countriesRadioItems);
-  const [ratingRadios, setRatingRadios] = useState(ratingItems);
-  const [searchTerm, setSearchTerm] = useState('');
   const [isSearchInputFocused, setIsSearchInputFocused] = useState(false);
-  const [minVoteCountValue, setMinVoteCountValue] = useState('');
-
 
   useEffect(() => {
     if (countries.length === 0) {
       fetchTMDBCountries();
-    }
-
-    return () => {
-      resetAllFilters();
     }
   }, []);
 
@@ -66,34 +75,13 @@ const Search = ({
 
   const onKeyPress = (event) => {
     if(event.key === 'Enter' && !isSearchInputFocused){
-      initSearch();
+      initSearch(1, true);
     }
   }
 
-  const initSearch = (page = resultsCurrentPage || 1, overideResults = false) => {
+  const initSearch = (page = resultsCurrentPage || 1, overrideResults = false) => {
     setResultsCurrentPage(page);
-
-    const params = {};
-
-    // const selectedCountries = mapItemsToQueryString(findSelectedItems(countriesCheckboxes, 'checked'), 'value');
-    const selectedGenres = mapItemsToQueryString(findSelectedItems(genresCheckboxes, 'checked'), 'value');
-    const selectedRating = mapItemsToQueryString(findSelectedItems(ratingRadios, 'checked'), 'value');
-
-    if (selectedGenres.length > 0) {
-      params['with_genres'] = selectedGenres;
-    }
-
-    if (selectedRating.length > 0) {
-      params['vote_average.gte'] = selectedRating;
-    }
-
-    if (minVoteCountValue) {
-      params['vote_count.gte'] = minVoteCountValue;
-    }
-
-    if (!searchTerm) {
-      searchByFilters(params, overideResults);
-    }
+    searchByFilters(overrideResults);
   }
 
   const loadResults = (overrideResults, page) => {
@@ -101,27 +89,31 @@ const Search = ({
   }
 
   useEffect(() => {
-    const checkboxes = genres.map((genre) => {
-      return {
-        value: genre.id,
-        label: genre.name,
-        checked: false,
-      }
-    });
+    if (genresCheckboxes.length === 0) {
+      const checkboxes = genres.map((genre) => {
+        return {
+          value: genre.id,
+          label: genre.name,
+          checked: false,
+        }
+      });
 
-    setGenresCheckboxes(checkboxes);
+      setGenresCheckboxes(checkboxes);
+    }
   }, [genres]);
 
   useEffect(() => {
-    const checkboxes = countries.map((country) => {
-      return {
-        value: country.iso_3166_1,
-        label: country.english_name,
-        checked: false,
-      }
-    });
+    if (countriesCheckboxes.length === 0) {
+      const checkboxes = countries.map((country) => {
+        return {
+          value: country.iso_3166_1,
+          label: country.english_name,
+          checked: false,
+        }
+      });
 
-    setCountriesCheckboxes(checkboxes);
+      setCountriesCheckboxes(checkboxes);
+    }
   }, [countries]);
 
   const resetAllFilters = () => {
@@ -209,9 +201,30 @@ const Search = ({
           />
         </Container>
 
+        <Container
+          theme={['withTitle']}
+          title="Years"
+          customClass="mb-30"
+        >
+
+          {/*<Checkbox*/}
+          {/*  checkboxes={yearsCheckboxes}*/}
+          {/*  toggleCheckbox={(value) => {*/}
+          {/*    setYearsCheckboxes(toggleCheckbox(yearsCheckboxes, value));*/}
+          {/*  }}*/}
+          {/*/>*/}
+          <Radio
+            items={yearsCheckboxes}
+            toggleSelected={(value) => {
+              setYearsCheckboxes(toggleSelectedRadio(yearsCheckboxes, value));
+            }}
+            width="100%"
+          />
+        </Container>
+
         <ControlButtons
           onReset={resetAllFilters}
-          onSearch={initSearch}
+          onSearch={initSearch.bind(1, true)}
         />
       </Sidebar>
 
@@ -226,12 +239,18 @@ const Search = ({
           results={results}
         />
 
-        <Pagination
-          showMore={loadResults.bind(null, false, resultsCurrentPage + 1)}
-          totalPages={resultsTotalPages}
-          currentPage={resultsCurrentPage}
-          switchPage={loadResults.bind(null, true)}
-        />
+        {results.length > 0 && (
+          <Pagination
+            showMore={loadResults.bind(null, false, resultsCurrentPage + 1)}
+            totalPages={resultsTotalPages}
+            currentPage={resultsCurrentPage}
+            switchPage={loadResults.bind(null, true)}
+          />
+        )}
+
+        {results.length < 1 && searchWasRequested && (
+          <p className="mt-60-resp gray">We are so sorry, but nothing matching your request was found. Try to change the filters or double check the spelling of search input value.</p>
+        )}
       </div>
     </div>
 
@@ -246,6 +265,13 @@ const mapStateToProps = state => {
     isSearching: state.search.isSearching,
     resultsCurrentPage: state.search.resultsCurrentPage,
     resultsTotalPages: state.search.resultsTotalPages,
+    searchTerm: state.search.searchTerm,
+    minVoteCountValue: state.search.minVoteCountValue,
+    genresCheckboxes: state.search.genresCheckboxes,
+    countriesCheckboxes: state.search.countriesCheckboxes,
+    ratingRadios: state.search.ratingRadios,
+    searchWasRequested: state.search.searchWasRequested,
+    yearsCheckboxes: state.search.yearsCheckboxes,
   }
 }
 
@@ -253,6 +279,12 @@ const mapDispatchToProps = {
   searchByFilters,
   fetchTMDBCountries,
   setResultsCurrentPage,
+  setSearchTerm,
+  setRatingRadios,
+  setGenresCheckboxes,
+  setMinVoteCountValue,
+  setCountriesCheckboxes,
+  setYearsCheckboxes,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

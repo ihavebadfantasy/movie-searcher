@@ -10,6 +10,7 @@ const detectEndPage = (totalPages, startPage) => {
 }
 
 const Pagination = ({showMore, totalPages, currentPage, switchPage}) => {
+  // TODO: add responsive styles
   const [startPage, setStartPage] = useState(currentPage || 1);
   const [endPage, setEndPage] = useState(startPage + 3);
 
