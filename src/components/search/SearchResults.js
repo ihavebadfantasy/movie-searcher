@@ -18,7 +18,7 @@ const SearchResults = ({isSearching, results}) => {
         <Container
           theme={['withTitle']}
           title="Results"
-          customClass="mt-60-resp light-border"
+          customClass="light-border"
         >
           <div className="flex-wrapper">
             {results.map((result) => {

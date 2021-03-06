@@ -70,8 +70,14 @@ const Search = ({
   }, []);
 
   useEffect(() => {
-    initSearch();
-  }, [searchTerm]);
+    if (results.length < 1) {
+      initSearch(1, true);
+    }
+  }, [])
+
+  // useEffect(() => {
+  //   initSearch(1, true);
+  // }, [searchTerm]);
 
   const onKeyPress = (event) => {
     if(event.key === 'Enter' && !isSearchInputFocused){
@@ -229,10 +235,10 @@ const Search = ({
       </Sidebar>
 
       <div className="pd-20 pr-0 w-70">
-        <SearchInput
-          setSearchTerm={setSearchTerm}
-          setIsFocused={setIsSearchInputFocused}
-        />
+        {/*<SearchInput*/}
+        {/*  setSearchTerm={setSearchTerm}*/}
+        {/*  setIsFocused={setIsSearchInputFocused}*/}
+        {/*/>*/}
 
         <SearchResults
           isSearching={isSearching}
