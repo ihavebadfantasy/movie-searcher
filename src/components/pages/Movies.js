@@ -27,6 +27,7 @@ const Movies = ({movie, fetchCurrentMovie, match, fetchCurrentMovieSimilar, movi
   return (
     <>
       { movie ? (
+        <div className="pb-60-resp">
             <Container
               theme={['withTitle']}
               title={movie.title}
@@ -40,6 +41,7 @@ const Movies = ({movie, fetchCurrentMovie, match, fetchCurrentMovieSimilar, movi
                 loadMoreRecommendations={loadMoreRecommendations}
               />
             </Container>
+        </div>
         ) : (
         <div className="full-screen-with-header-and-footer padding-20 content-centered">
           <Loader color="pattern" />

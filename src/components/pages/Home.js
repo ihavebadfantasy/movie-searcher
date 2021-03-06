@@ -49,7 +49,7 @@ const Home = ({
 
 
   return (
-    <div className="base-container mt-60-resp">
+    <div className="base-container mt-60-resp pb-60-resp">
       <div className="mb-30">
         <SearchInput
           setSearchTerm={setSearchTerm}

@@ -57,27 +57,29 @@ const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, 
   return (
     <>
       { tvShow ? (
-        <Container
-          theme={['withTitle']}
-          title={tvShow.name}
-          customClass="base-container mt-60-resp mb-30"
-        >
-          <MediaCard
-            media={tvShow}
-            type="tv-shows"
-            recommendations={tvShowRecommendations}
-            loadMoreRecommendations={loadMoreRecommendations}
-            similar={tvShowSimilar}
-            loadMoreSimilar={loadMoreSimilar}
+        <div className="pb-60-resp">
+          <Container
+            theme={['withTitle']}
+            title={tvShow.name}
+            customClass="base-container mt-60-resp mb-30"
           >
-            <div className="mt-30">
-              <Accordion
-                items={seasonsAccordionItems}
-                setSelected={setSelectedSeason}
-              />
-            </div>
-          </MediaCard>
-        </Container>
+            <MediaCard
+              media={tvShow}
+              type="tv-shows"
+              recommendations={tvShowRecommendations}
+              loadMoreRecommendations={loadMoreRecommendations}
+              similar={tvShowSimilar}
+              loadMoreSimilar={loadMoreSimilar}
+            >
+              <div className="mt-30">
+                <Accordion
+                  items={seasonsAccordionItems}
+                  setSelected={setSelectedSeason}
+                />
+              </div>
+            </MediaCard>
+          </Container>
+        </div>
       ) : (
         <div className="full-screen-with-header-and-footer padding-20 content-centered">
           <Loader color="pattern" />

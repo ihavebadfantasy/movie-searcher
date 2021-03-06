@@ -81,6 +81,14 @@ body.with-footer {
   }
 }
 
+.pb-60-resp {
+  padding-bottom: 60px;
+
+  @include respond-to('phone') {
+    padding-bottom: 35px;
+  }
+}
+
 .sidebar-page {
   display: flex;
 }
