@@ -13,7 +13,10 @@ import {
   SET_COUNTRIES_CHECKBOXES,
   SET_SEARCH_WAS_REQUESTED,
   SET_YEARS_CHECKBOXES,
+  CLEAR_ALL_SEARCH_STORE,
 } from './types';
+import ratingItems from '../../config/ratingItems';
+import yearsItems from '../../config/yearsItems';
 
 export const reducer = (state = searchState, action) => {
   switch (action.type) {
@@ -42,7 +45,10 @@ export const reducer = (state = searchState, action) => {
     case SET_SEARCH_WAS_REQUESTED:
       return {...state, searchWasRequested: action.payload};
     case SET_YEARS_CHECKBOXES:
-      return {...state, yearsCheckboxes: action.payload}
+      return {...state, yearsCheckboxes: action.payload};
+    case CLEAR_ALL_SEARCH_STORE:
+      console.log('in case');
+      return searchState;
     default:
       return state;
   }

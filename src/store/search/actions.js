@@ -13,6 +13,7 @@ import {
   SET_COUNTRIES_CHECKBOXES,
   SET_SEARCH_WAS_REQUESTED,
   SET_YEARS_CHECKBOXES,
+  CLEAR_ALL_SEARCH_STORE,
 } from './types';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
 import mapItemsToQueryString from '../../helpers/forms/mapItemsToQueryString';
@@ -110,6 +111,13 @@ export const setResultsTotalCnt = (totalCnt) => {
 export const clearSearchResults = () => {
   return {
     type: CLEAR_SEARCH_RESULTS,
+  };
+}
+
+export const clearAllSearchStore = () => {
+  console.log('in clear');
+  return {
+    type: CLEAR_ALL_SEARCH_STORE,
   };
 }
 

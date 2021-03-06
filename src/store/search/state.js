@@ -1,6 +1,3 @@
-import ratingItems from '../../config/ratingItems';
-import yearsItems from '../../config/yearsItems';
-
 export default {
   results: [],
   isSearching: false,
@@ -8,10 +5,10 @@ export default {
   resultsTotalCnt: null,
   resultsCurrentPage: null,
   genresCheckboxes: [],
-  ratingRadios: ratingItems,
+  ratingRadios: [],
   searchTerm: '',
   minVoteCountValue: '',
   countriesCheckboxes: [],
   searchWasRequested: false,
-  yearsCheckboxes: yearsItems,
+  yearsCheckboxes: [],
 }

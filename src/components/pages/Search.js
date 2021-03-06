@@ -23,6 +23,8 @@ import SearchResults from '../search/SearchResults';
 import resetAllSelectedCheckboxesAndRadios from '../../helpers/forms/resetAllSelectedCheckboxesAndRadios';
 import ControlButtons from '../search/ControlButtons';
 import Pagination from '../ui/Pagination';
+import ratingItems from '../../config/ratingItems';
+import yearsItems from '../../config/yearsItems';
 
 let genresRadioItems = JSON.stringify(binaryRadioItems);
 genresRadioItems = JSON.parse(genresRadioItems);
@@ -72,6 +74,16 @@ const Search = ({
   useEffect(() => {
     if (results.length < 1) {
       initSearch(1, true);
+    }
+
+    if (ratingRadios.length < 1) {
+      const rating = JSON.parse(JSON.stringify(ratingItems))
+      setRatingRadios(rating);
+    }
+
+    if (yearsCheckboxes.length < 1) {
+      const years = JSON.parse(JSON.stringify(yearsItems));
+      setYearsCheckboxes(years);
     }
   }, [])
 

@@ -1,8 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { clearAllSearchStore } from '../../store/search/actions';
 
-const Header = () => {
+const Header = ({ clearAllSearchStore }) => {
+  const history = useHistory();
+
+  const onSearchLinkClick = (e) => {
+    e.preventDefault();
+    console.log('in event');
+    clearAllSearchStore();
+    history.push('/search');
+  }
   // TODO: add real logo
-  // TODO: fix styles for search pages
   return (
     <header className="header">
       <div className="base-container">
@@ -12,9 +21,12 @@ const Header = () => {
           </Link>
 
           <nav className="header-menu">
-            <Link to="/search">
+            <a
+              href="/search"
+              onClick={onSearchLinkClick}
+            >
               Search
-            </Link>
+            </a>
           </nav>
         </div>
       </div>
@@ -22,4 +34,8 @@ const Header = () => {
   );
 }
 
-export default Header;
+const mapDispatchToProps = {
+  clearAllSearchStore,
+}
+
+export default connect(null, mapDispatchToProps)(Header);
