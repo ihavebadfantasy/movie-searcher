@@ -1,4 +1,4 @@
-const CheckboxFilter = ({checkboxes, toggleCheckbox}) => {
+const Checkbox = ({checkboxes, toggleCheckbox}) => {
   const renderedCheckboxes = checkboxes.map((checkbox) => {
     return (
       <label style={{width: '100%'}} key={checkbox.value}>
@@ -25,4 +25,4 @@ const CheckboxFilter = ({checkboxes, toggleCheckbox}) => {
   );
 }
 
-export default CheckboxFilter;
+export default Checkbox;

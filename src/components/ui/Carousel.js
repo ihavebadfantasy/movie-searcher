@@ -80,7 +80,7 @@ const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, 
       setIsVisible(true);
     }
   }, [isVisible])
-
+  // TODO: switch to custom buttons
   return (
     <div className="carousel">
       <button

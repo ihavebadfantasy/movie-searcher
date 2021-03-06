@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import SearchInput from '../search/SearchInput';
+import SearchInput from '../forms/SearchInput';
 import MediaCarousel from '../media/MediaCarousel';
 import { fetchNewMovies, fetchPopularMovies } from '../../store/movies/actions';
 import { fetchNewTvShows, fetchPopularTvShows } from '../../store/tvShows/actions';

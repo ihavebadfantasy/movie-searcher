@@ -52,6 +52,6 @@ export default [
   {
     value: '0',
     label: '0',
-    checked: true,
+    checked: false,
   },
 ];

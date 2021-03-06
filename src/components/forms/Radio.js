@@ -1,4 +1,4 @@
-const RadioFilter = ({items, toggleSelected, name, text, width = '40%'}) => {
+const Radio = ({items, toggleSelected, name, text, width = '40%'}) => {
   const renderedRadios = items.map((item) => {
     return (
       <label style={{width}} key={`${item.label}-${name}`}>
@@ -20,7 +20,7 @@ const RadioFilter = ({items, toggleSelected, name, text, width = '40%'}) => {
   })
 
   return (
-    <div className="mv-20 mb-30">
+    <div className="mv-20 mb-30 scrollable-y h-190 scrollbar">
       <p className="gray small-text">
         {text}
       </p>
@@ -29,4 +29,4 @@ const RadioFilter = ({items, toggleSelected, name, text, width = '40%'}) => {
   );
 }
 
-export default RadioFilter;
+export default Radio;

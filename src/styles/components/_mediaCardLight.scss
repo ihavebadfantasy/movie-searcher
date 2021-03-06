@@ -3,6 +3,11 @@
   display: flex;
   flex-direction: column;
   height: 400px;
+  color: black;
+
+  &:hover {
+    color: #0056b3;
+  }
 
   &-title {
     font-size: 14px;

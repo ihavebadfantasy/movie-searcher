@@ -9,7 +9,7 @@ body {
 
 body.with-footer {
   margin: 0 0 map-get($dimensions, 'footer-height');
-  padding-bottom: 30px;
+  // padding-bottom: 30px;
 }
 
 .base-container {
@@ -70,6 +70,14 @@ body.with-footer {
 
   @include respond-to('phone') {
     margin-top: 35px;
+  }
+}
+
+.mb-60-resp {
+  margin-bottom: 60px;
+
+  @include respond-to('phone') {
+    margin-bottom: 35px;
   }
 }
 
