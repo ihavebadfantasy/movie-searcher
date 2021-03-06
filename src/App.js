@@ -13,6 +13,7 @@ import { loadInitialAppData } from './store/app/actions';
 const App = ({isAppInitialDataLoaded, loadInitialAppData}) => {
   const [showHeader, setShowHeader] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
+  const [headerCustomClass, setHeaderCustomClass] = useState('');
 
   useEffect(() => {
     loadInitialAppData();
@@ -22,11 +23,12 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData}) => {
     <div>
       <BrowserRouter>
         <ScrollToTop>
-          { showHeader && <Header /> }
+          { showHeader && <Header customClass={headerCustomClass} /> }
           { isAppInitialDataLoaded ? (
             <Navigation
               setShowHeader={setShowHeader}
               setShowFooter={setShowFooter}
+              setHeaderCustomClass={setHeaderCustomClass}
             />
           ) : (
               <div className="full-screen padding-20 content-centered">

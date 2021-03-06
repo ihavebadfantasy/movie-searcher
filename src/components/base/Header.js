@@ -2,18 +2,17 @@ import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearAllSearchStore } from '../../store/search/actions';
 
-const Header = ({ clearAllSearchStore }) => {
+const Header = ({ clearAllSearchStore, customClass }) => {
   const history = useHistory();
 
   const onSearchLinkClick = (e) => {
     e.preventDefault();
-    console.log('in event');
     clearAllSearchStore();
     history.push('/search');
   }
   // TODO: add real logo
   return (
-    <header className="header">
+    <header className={`header ${customClass}`}>
       <div className="base-container">
         <div className="header-wrapper">
           <Link to="/">

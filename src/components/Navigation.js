@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { Route, useHistory, Switch, Redirect } from 'react-router-dom';
 import Home from './pages/Home';
-import Search from './pages/Search';
+import MultiSearch from './pages/MultiSearch';
 import Movies from './pages/Movies';
 import TvShows from './pages/TvShows';
 import NotFound from './pages/NotFound';
@@ -13,7 +13,7 @@ import routes from '../config/routes';
 import { clearCurrentMovie } from '../store/movies/actions';
 import { clearCurrentTvShow } from '../store/tvShows/actions';
 
-const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setShowHeader}) => {
+const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setShowHeader, setHeaderCustomClass}) => {
   const history = useHistory();
 
   const redirectToNotFoundPage = () => {
@@ -41,12 +41,23 @@ const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setSh
       }
     }
 
+    const setHeaderClass = () => {
+      if (history.location.pathname === '/search') {
+        setHeaderCustomClass('no-border');
+      } else {
+        setHeaderCustomClass('');
+      }
+    }
+
     setHeaderAndFooterState();
+    setHeaderClass();
+
     return history.listen((location) => {
       clearCurrentMovie();
       clearCurrentTvShow();
 
       setHeaderAndFooterState();
+      setHeaderClass();
     });
   },[history]);
 
@@ -54,7 +65,7 @@ const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setSh
     <div>
       <Switch>
         <Route exact path={routes.home} component={Home} />
-        <Route exact path={routes.search} component={Search} />
+        <Route exact path={routes.search} component={MultiSearch} />
         <Route exact path={routes.movies} component={Movies} />
         <Route exact path={routes.tvShows} component={TvShows} />
         <Route exact path={routes.notFound} component={NotFound} />

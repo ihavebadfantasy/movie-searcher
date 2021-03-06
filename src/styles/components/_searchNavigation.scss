@@ -1,0 +1,23 @@
+.search-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-bottom: 3px solid #f12525;
+  border-top: 3px solid #f12525;
+  padding-left: 8%;
+  margin-top: -50px;
+
+  &-item  {
+    &::before {
+      color: #f12525 !important;
+    }
+
+    a {
+      color: black;
+      font-size: 15px;
+      padding-left: 10px;
+      display: block;
+    }
+  }
+}
