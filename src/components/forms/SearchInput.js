@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const SearchInput = ({setSearchTerm, setIsFocused}) => {
+const SearchInput = ({setSearchTerm, setIsFocused, placeholder = 'Start Search'}) => {
   const [value, setValue] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');
 
@@ -31,7 +31,7 @@ const SearchInput = ({setSearchTerm, setIsFocused}) => {
         <input
           type="text"
           className="nes-input"
-          placeholder="Start search"
+          placeholder={placeholder}
           value={value}
           onChange={(e) => {
             setValue(e.target.value);

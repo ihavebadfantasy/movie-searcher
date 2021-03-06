@@ -1,4 +1,4 @@
-import { MOVIES_URL } from '../../api/tmdb/urls';
+import { MOVIES_URL, MULTI_SEARCH_URL } from '../../api/tmdb/urls';
 import {
   SEARCH_BY_FILETRS,
   SET_IS_SEARCHING,
@@ -14,10 +14,50 @@ import {
   SET_SEARCH_WAS_REQUESTED,
   SET_YEARS_CHECKBOXES,
   CLEAR_ALL_SEARCH_STORE,
+  MULTI_SEARCH,
 } from './types';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
 import mapItemsToQueryString from '../../helpers/forms/mapItemsToQueryString';
 import findSelectedItems from '../../helpers/forms/findSelectedItems';
+
+export const multiSearch = (overrideResults = false) => {
+  return async (dispatch, getState) => {
+    dispatch(setIsSearching(true));
+    dispatch(setSearchWasRequested(false));
+
+    if (overrideResults) {
+      dispatch(clearSearchResults());
+    }
+
+    const params = {};
+
+    const state = getState();
+
+    const page = state.search.resultsCurrentPage;
+    const query = state.search.searchTerm;
+    params.page = page;
+    params.query = query;
+
+    const res = await TMDBApi.$instance.get(MULTI_SEARCH_URL, {
+      params,
+    });
+
+    let payload;
+    if (res.status && res.status >= 300) {
+      payload = [];
+    } else {
+      payload = res.results;
+      dispatch(setResultsCurrentPage(res.page));
+      dispatch(setResultsTotalCnt(res.total_results));
+      dispatch(setResultsTotalPages(res.total_pages));
+    }
+
+    dispatch({
+      type: MULTI_SEARCH,
+      payload
+    });
+  }
+}
 
 export const searchByFilters = (overrideResults = false) => {
   return async (dispatch, getState) => {

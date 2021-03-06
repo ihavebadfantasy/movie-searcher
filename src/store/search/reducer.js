@@ -14,13 +14,14 @@ import {
   SET_SEARCH_WAS_REQUESTED,
   SET_YEARS_CHECKBOXES,
   CLEAR_ALL_SEARCH_STORE,
+  MULTI_SEARCH
 } from './types';
-import ratingItems from '../../config/ratingItems';
-import yearsItems from '../../config/yearsItems';
 
 export const reducer = (state = searchState, action) => {
   switch (action.type) {
     case SEARCH_BY_FILETRS:
+      return {...state, results: [...state.results, ...action.payload], isSearching: false, searchWasRequested: true};
+    case MULTI_SEARCH:
       return {...state, results: [...state.results, ...action.payload], isSearching: false, searchWasRequested: true};
     case CLEAR_SEARCH_RESULTS:
       return {...state, results: []};
@@ -47,7 +48,6 @@ export const reducer = (state = searchState, action) => {
     case SET_YEARS_CHECKBOXES:
       return {...state, yearsCheckboxes: action.payload};
     case CLEAR_ALL_SEARCH_STORE:
-      console.log('in case');
       return searchState;
     default:
       return state;
