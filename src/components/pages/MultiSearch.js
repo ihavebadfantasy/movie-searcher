@@ -68,7 +68,6 @@ const MultiSearch = ({searchTerm, setSearchTerm, results, resultsCurrentPage, re
     initSearch(page, overrideResults);
   }
 
-  // TODO: fix loader styles
   // TODO: add not found message removing when clearing search query
 
   return (

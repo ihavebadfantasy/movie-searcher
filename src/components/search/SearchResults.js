@@ -2,7 +2,7 @@ import Loader from '../base/Loader';
 import Container from '../base/Container';
 import { Link } from 'react-router-dom';
 import MediaCardLight from '../media/MediaCardLight';
-
+// TODO: fix loader
 const SearchResults = ({isSearching, results, customClass = ''}) => {
   const renderResults = () => {
     if (isSearching) {

@@ -3,6 +3,7 @@ import Button from '../ui/Button';
 import useWindowResize, { containerWidth } from '../../hooks/useWindowResize';
 
 const Sidebar = ({children}) => {
+  // TODO: add closing when search inited and finished
   const [isClosed, setIsClosed] = useState(false);
   const [windowWidth, layout] = useWindowResize();
 

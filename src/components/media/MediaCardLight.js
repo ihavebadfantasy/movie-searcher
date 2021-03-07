@@ -1,6 +1,5 @@
 import config from '../../config';
 import posterPlaceholder from '../../assets/images/posterPlaceholder.png'
-// TODO: add image placeholder
 
 const MediaCardLight = ({title, img}) => {
   return (
