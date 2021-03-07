@@ -1,18 +1,49 @@
+import { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearAllSearchStore } from '../../store/search/actions';
 
-const Header = ({ clearAllSearchStore, customClass }) => {
+const Header = ({ clearAllSearchStore }) => {
+  const [isSearchPage, setIsSearchPage] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    const detectSearchPage = () => {
+      if (history.location.pathname === '/search') {
+        setIsSearchPage(true);
+      } else {
+        setIsSearchPage(false);
+      }
+    }
+
+    detectSearchPage();
+
+    history.listen(detectSearchPage);
+  }, [history])
 
   const onSearchLinkClick = (e) => {
     e.preventDefault();
     clearAllSearchStore();
     history.push('/search');
   }
+
+  const renderSearchLink = () => {
+    if (!isSearchPage) {
+      return (
+        <a
+          href="/search"
+          onClick={onSearchLinkClick}
+        >
+          Search
+        </a>
+      );
+    }
+
+    return null;
+  }
   // TODO: add real logo
   return (
-    <header className={`header ${customClass}`}>
+    <header className={`header ${isSearchPage ? 'no-border': ''}`}>
       <div className="base-container">
         <div className="header-wrapper">
           <Link to="/">
@@ -20,12 +51,7 @@ const Header = ({ clearAllSearchStore, customClass }) => {
           </Link>
 
           <nav className="header-menu">
-            <a
-              href="/search"
-              onClick={onSearchLinkClick}
-            >
-              Search
-            </a>
+            {renderSearchLink()}
           </nav>
         </div>
       </div>

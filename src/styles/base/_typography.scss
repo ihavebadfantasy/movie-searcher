@@ -31,3 +31,7 @@ html, body, pre, code, kbd, samp {
 .no-border {
   border: none !important;
 }
+
+.red {
+  color: map-get($colors, 'red');
+}

@@ -1,14 +1,23 @@
 import { useState, useEffect } from 'react'
 
-const SearchInput = ({setSearchTerm, setIsFocused, placeholder = 'Start Search'}) => {
-  const [value, setValue] = useState('');
-  const [debouncedValue, setDebouncedValue] = useState('');
+const SearchInput = ({searchTerm, setSearchTerm, setIsFocused, placeholder = 'Start Search'}) => {
+  const [value, setValue] = useState(searchTerm);
+  const [debouncedValue, setDebouncedValue] = useState(searchTerm);
 
   useEffect(() => {
+    if (value !== searchTerm) {
+      setValue(searchTerm);
+    }
+  }, [searchTerm])
 
-    const timeoutId = setTimeout(() => {
-      setDebouncedValue(value);
-    }, 500);
+  useEffect(() => {
+    let timeoutId;
+
+    if (value !== searchTerm) {
+      timeoutId = setTimeout(() => {
+        setDebouncedValue(value);
+      }, 500);
+    }
 
     return () => {
       clearTimeout(timeoutId);
@@ -16,7 +25,9 @@ const SearchInput = ({setSearchTerm, setIsFocused, placeholder = 'Start Search'}
   }, [value]);
 
   useEffect(() => {
-    setSearchTerm(debouncedValue);
+    if (debouncedValue !== searchTerm) {
+      setSearchTerm(debouncedValue);
+    }
   }, [debouncedValue]);
 
   return (

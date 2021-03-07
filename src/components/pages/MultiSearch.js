@@ -1,17 +1,43 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import SearchResults from '../search/SearchResults';
 import SearchInput from '../forms/SearchInput';
 import { setSearchTerm, setResultsCurrentPage, multiSearch } from '../../store/search/actions';
 import Pagination from '../ui/Pagination';
 
 const MultiSearch = ({searchTerm, setSearchTerm, results, resultsCurrentPage, resultsTotalPages, searchWasRequested, isSearching, setResultsCurrentPage, multiSearch}) => {
+  const [searchQuery, setSearchQuery] = useState(searchTerm);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    const parseSearchQuery = () => {
+      const query = history.location.search;
+      if (query) {
+        setSearchTerm(query.slice(query.indexOf('=') + 1));
+      }
+    }
+
+    parseSearchQuery();
+  }, [history])
+
   useEffect(() => {
     if (searchTerm) {
-      initSearch(1, true);
+      setSearchQuery(searchTerm);
     }
   }, [searchTerm]);
+
+  useEffect(() => {
+    if (searchQuery) {
+      history.push({
+        pathname: '/search',
+        search:`?search=${searchQuery}`
+      });
+
+      initSearch(1, true);
+    }
+  }, [searchQuery]);
 
   const initSearch = (page = resultsCurrentPage || 1, overrideResults = false) => {
     setResultsCurrentPage(page);
@@ -21,11 +47,18 @@ const MultiSearch = ({searchTerm, setSearchTerm, results, resultsCurrentPage, re
   const loadResults = (overrideResults, page) => {
     initSearch(page, overrideResults);
   }
+
+  // TODO: remove search navigation to component
+  // TODO: add props to SearchResults styles
+  // TODO: add query handling when searching
+  // TODO: fix loader styles
+  // TODO: add not found message removing when clearing search query
+
   return (
     <div className="mt-30 base-container pb-60-resp">
       <ul className="nes-list is-circle mb-60-resp search-navigation">
         <li className="search-navigation-item">
-          <Link to="/search">
+          <Link to="/search/movies">
             Extended Movies Search
           </Link>
         </li>
@@ -49,6 +82,7 @@ const MultiSearch = ({searchTerm, setSearchTerm, results, resultsCurrentPage, re
       <SearchInput
         setSearchTerm={setSearchTerm}
         placeholder="Search for a movie, tv show, person..."
+        searchTerm={searchTerm}
       />
 
       <div className="mt-60-resp">
