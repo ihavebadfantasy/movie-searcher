@@ -3,14 +3,14 @@ import { SET_LOCATION } from './types';
 
 export const setLocation = () => {
   return async (dispatch) => {
-    const res = await axios.get('https://extreme-ip-lookup.com/json/');
-
+    // const res = await axios.get('https://extreme-ip-lookup.com/json/');
+    let res;
     const location = {
       country: 'USA',
       countryCode: 'US',
     };
 
-    if (res.status < 300) {
+    if (res && res.status < 300) {
       location.country = res.data.country || location.country;
       location.countryCode = res.data.countryCode || location.country_code;
     }

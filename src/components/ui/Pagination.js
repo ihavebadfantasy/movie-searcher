@@ -10,7 +10,7 @@ const detectEndPage = (totalPages, startPage, btnsPerPage) => {
   return startPage + btnsPerPage;
 }
 
-const Pagination = ({showMore, totalPages, currentPage, switchPage}) => {
+const Pagination = ({showMore, totalPages, currentPage, switchPage, customClass = ''}) => {
   const [windowWidth, layout] = useWindowResize();
 
   const [btnsPerPage, setBtnsPerPage] = useState(4);
@@ -69,7 +69,7 @@ const Pagination = ({showMore, totalPages, currentPage, switchPage}) => {
   }
 
   return (
-    <div className="pagination mt-40 mb-60-resp">
+    <div className={`pagination mt-40 mb-60-resp ${customClass}`}>
       {currentPage !== totalPages && (
         <Button
           color="primary"

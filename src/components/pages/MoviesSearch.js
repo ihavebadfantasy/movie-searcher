@@ -65,6 +65,8 @@ const MoviesSearch = ({
         setGenresCheckboxes={setGenresCheckboxes}
         yearsCheckboxes={yearsCheckboxes}
         setYearsCheckboxes={setYearsCheckboxes}
+        paginationClass="mobile-left-margin"
+        resultsClass="thin"
       />
     </div>
   );

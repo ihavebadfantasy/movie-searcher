@@ -3,7 +3,7 @@ import Container from '../base/Container';
 import { Link } from 'react-router-dom';
 import MediaCardLight from '../media/MediaCardLight';
 
-const SearchResults = ({isSearching, results}) => {
+const SearchResults = ({isSearching, results, customClass = ''}) => {
   const renderResults = () => {
     if (isSearching) {
       return (
@@ -20,13 +20,13 @@ const SearchResults = ({isSearching, results}) => {
           title="Results"
           customClass="light-border"
         >
-          <div className="flex-wrapper">
+          <div className={`search-results ${customClass}`}>
             {results.map((result) => {
               return (
                 <Link
                   to={`/movies/${result.id}`}
                   key={result.id}
-                  className="flex-child"
+                  className="search-results-item"
                 >
                   <MediaCardLight
                     title={result.title}

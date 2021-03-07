@@ -3,12 +3,25 @@
   flex-direction: column;
   align-items: center;
 
+  &.mobile-left-margin {
+    @include respond-to('phone') {
+      margin-left: -70px;
+
+      .pagination-load-more-btn {
+        @include respond-to('phone') {
+          width: 90%;
+        }
+      }
+    }
+  }
+
   &-load-more-btn {
     width: 50%;
 
     @include respond-to('phablet') {
       width: 100%;
     }
+
   }
 
   &-pages {

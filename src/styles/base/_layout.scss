@@ -9,6 +9,10 @@ body {
 
 body.with-footer {
   margin: 0 0 map-get($dimensions, 'footer-height');
+
+  @include respond-to('phone') {
+    margin: 0 0 map-get($dimensions, 'footer-height-mobile');
+  }
 }
 
 .overflow-x-hidden {
@@ -193,3 +197,4 @@ body.with-footer {
 .pr-0 {
   padding-right: 0 !important;
 }
+

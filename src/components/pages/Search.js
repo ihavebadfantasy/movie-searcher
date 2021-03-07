@@ -56,6 +56,8 @@ const Search = ({
   searchWasRequested,
   yearsCheckboxes,
   setYearsCheckboxes,
+  paginationClass,
+  resultsClass
 }) => {
   const [genresRadios, setGenresRadios] = useState(genresRadioItems);
   const [countriesRadios, setCountriesRadios] = useState(countriesRadioItems);
@@ -232,6 +234,7 @@ const Search = ({
         <SearchResults
           isSearching={isSearching}
           results={results}
+          customClass={resultsClass}
         />
 
         {results.length > 0 && (
@@ -240,6 +243,7 @@ const Search = ({
             totalPages={resultsTotalPages}
             currentPage={resultsCurrentPage}
             switchPage={loadResults.bind(null, true)}
+            customClass={paginationClass}
           />
         )}
 

@@ -22,6 +22,7 @@ const useWindowResize = () => {
   }, []);
 
   useEffect(() => {
+    console.log(windowWidth, window);
     if (windowWidth <= phone) {
       setLayout('phone');
 

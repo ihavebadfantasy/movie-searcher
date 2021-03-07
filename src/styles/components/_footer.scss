@@ -10,6 +10,10 @@
   align-items: center;
   flex-direction: row;
 
+  @include respond-to('phablet') {
+    height: 200px;
+  }
+
   .base-container {
     width: 100%;
   }
@@ -18,6 +22,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @include respond-to('phablet') {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
   }
 
   &-contact {
@@ -25,6 +34,17 @@
     &-text span {
       display: block;
       font-size: 10px;
+    }
+
+    @include respond-to('phablet') {
+      margin-top: 20px;
+
+      font-size: 10px;
+
+      &-text span {
+        display: block;
+        font-size: 9px;
+      }
     }
   }
 }
