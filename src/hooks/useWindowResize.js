@@ -1,9 +1,9 @@
 import {useState, useEffect} from 'react';
 
-const phone = 450;
-const phablet = 600;
-const tablet = 768;
-const containerWidth = 1150;
+export const phone = 450;
+export const phablet = 600;
+export const tablet = 768;
+export const containerWidth = 1150;
 
 const useWindowResize = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

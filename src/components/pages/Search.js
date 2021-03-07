@@ -119,7 +119,7 @@ const Search = ({
   }
 
   return (
-    <div className="sidebar-page base-container mt-60-resp" onKeyPress={onKeyPress}>
+    <div className="sidebar-page overflow-x-hidden mt-60-resp" onKeyPress={onKeyPress}>
       <Sidebar>
         <Container
           theme={['withTitle']}
@@ -223,7 +223,7 @@ const Search = ({
         />
       </Sidebar>
 
-      <div className="pd-20 pr-0 w-70">
+      <div className="pd-20 pr-0">
         {/*<SearchInput*/}
         {/*  setSearchTerm={setSearchTerm}*/}
         {/*  setIsFocused={setIsSearchInputFocused}*/}

@@ -1,5 +1,53 @@
-.sidebar {
+.sidebar-wrapper {
   width: 30%;
   min-height: 100vh;
   padding: 20px;
+  position: relative;
+  padding-top: 85px;
+  flex-shrink: 0;
+  transition: all 0.2s;
+
+  .sidebar {
+    transition: all 0.2s;
+  }
+
+  &.closed {
+    width: 60px;
+
+    .sidebar {
+      width: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .sidebar-swipe-btn {
+      padding: 6px 10px 7px 8px;
+      div {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  @include respond-to('container-width') {
+    width: 100%;
+  }
+
+  .sidebar-btn-hint {
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    width: 300px;
+  }
+
+  .sidebar-swipe-btn {
+    position: absolute;
+    top: 20px;
+    right: 0px;
+    padding: 6px 10px 9px 8px;
+
+    div {
+      transition: transform 0.4s;
+      transform: rotate(-90deg);
+    }
+  }
 }

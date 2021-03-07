@@ -35,7 +35,6 @@ const SearchNavigation = ({clearAllSearchStore, items}) => {
       );
     })
   }
-  // TODO: remove to toggle button
   return (
     <div className={`search-navigation-wrapper mb-60-resp ${isClosed ? 'closed' : ''}`}>
       <Button
