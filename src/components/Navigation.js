@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route, useHistory, Switch, Redirect } from 'react-router-dom';
 import Home from './pages/Home';
 import MultiSearch from './pages/MultiSearch';
-import Search from './pages/Search';
+import MoviesSearch from './pages/MoviesSearch';
 import Movies from './pages/Movies';
 import TvShows from './pages/TvShows';
 import NotFound from './pages/NotFound';
@@ -60,7 +60,7 @@ const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setSh
         <Route exact path={routes.movies} component={Movies} />
         <Route exact path={routes.tvShows} component={TvShows} />
         <Route exact path={routes.notFound} component={NotFound} />
-        <Route exact path="/search/movies" component={Search} />
+        <Route exact path="/search/movies" component={MoviesSearch} />
         <Route>
           <Redirect to={routes.notFound} />
         </Route>

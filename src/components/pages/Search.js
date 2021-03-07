@@ -12,11 +12,9 @@ import {
   searchByFilters,
   setResultsCurrentPage,
   setMinVoteCountValue,
-  setGenresCheckboxes,
   setRatingRadios,
   setSearchTerm,
   setCountriesCheckboxes,
-  setYearsCheckboxes,
 } from '../../store/search/actions';
 import { fetchTMDBCountries } from '../../store/app/actions';
 import SearchResults from '../search/SearchResults';
@@ -24,7 +22,6 @@ import resetAllSelectedCheckboxesAndRadios from '../../helpers/forms/resetAllSel
 import ControlButtons from '../search/ControlButtons';
 import Pagination from '../ui/Pagination';
 import ratingItems from '../../config/ratingItems';
-import yearsItems from '../../config/yearsItems';
 
 let genresRadioItems = JSON.stringify(binaryRadioItems);
 genresRadioItems = JSON.parse(genresRadioItems);
@@ -40,7 +37,6 @@ countriesRadioItems = JSON.parse(countriesRadioItems);
 
 const Search = ({
   searchByFilters,
-  genres,
   fetchTMDBCountries,
   countries,
   isSearching,
@@ -80,11 +76,6 @@ const Search = ({
       const rating = JSON.parse(JSON.stringify(ratingItems))
       setRatingRadios(rating);
     }
-
-    if (yearsCheckboxes.length < 1) {
-      const years = JSON.parse(JSON.stringify(yearsItems));
-      setYearsCheckboxes(years);
-    }
   }, [])
 
   // useEffect(() => {
@@ -105,20 +96,6 @@ const Search = ({
   const loadResults = (overrideResults, page) => {
     initSearch(page, overrideResults);
   }
-
-  useEffect(() => {
-    if (genresCheckboxes.length === 0) {
-      const checkboxes = genres.map((genre) => {
-        return {
-          value: genre.id,
-          label: genre.name,
-          checked: false,
-        }
-      });
-
-      setGenresCheckboxes(checkboxes);
-    }
-  }, [genres]);
 
   useEffect(() => {
     if (countriesCheckboxes.length === 0) {
@@ -278,18 +255,15 @@ const Search = ({
 const mapStateToProps = state => {
   return {
     results: state.search.results,
-    genres: state.movies.genres,
     countries: state.app.tmdbCountries,
     isSearching: state.search.isSearching,
     resultsCurrentPage: state.search.resultsCurrentPage,
     resultsTotalPages: state.search.resultsTotalPages,
     searchTerm: state.search.searchTerm,
     minVoteCountValue: state.search.minVoteCountValue,
-    genresCheckboxes: state.search.genresCheckboxes,
     countriesCheckboxes: state.search.countriesCheckboxes,
     ratingRadios: state.search.ratingRadios,
     searchWasRequested: state.search.searchWasRequested,
-    yearsCheckboxes: state.search.yearsCheckboxes,
   }
 }
 
@@ -299,10 +273,8 @@ const mapDispatchToProps = {
   setResultsCurrentPage,
   setSearchTerm,
   setRatingRadios,
-  setGenresCheckboxes,
   setMinVoteCountValue,
   setCountriesCheckboxes,
-  setYearsCheckboxes,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

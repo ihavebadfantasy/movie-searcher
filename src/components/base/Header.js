@@ -9,7 +9,7 @@ const Header = ({ clearAllSearchStore }) => {
 
   useEffect(() => {
     const detectSearchPage = () => {
-      if (history.location.pathname === '/search') {
+      if (history.location.pathname.includes('/search')) {
         setIsSearchPage(true);
       } else {
         setIsSearchPage(false);
