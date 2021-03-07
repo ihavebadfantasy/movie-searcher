@@ -7,6 +7,25 @@ import { setSearchTerm, setResultsCurrentPage, multiSearch } from '../../store/s
 import Pagination from '../ui/Pagination';
 import SearchNavigation from '../SearchNavigation';
 
+const navigationItems = [
+  {
+    href: '/search/movies',
+    text: 'Extended Movies Search'
+  },
+  {
+    href: '/search/tv-shows',
+    text: 'Extended Tv Shows Search'
+  },
+  {
+    href: '/search/people',
+    text: 'Search by People'
+  },
+  {
+    href: '/search/companies',
+    text: 'Search by Companies'
+  },
+];
+
 const MultiSearch = ({searchTerm, setSearchTerm, results, resultsCurrentPage, resultsTotalPages, searchWasRequested, isSearching, setResultsCurrentPage, multiSearch}) => {
   const [searchQuery, setSearchQuery] = useState(searchTerm);
 
@@ -49,15 +68,15 @@ const MultiSearch = ({searchTerm, setSearchTerm, results, resultsCurrentPage, re
     initSearch(page, overrideResults);
   }
 
-  // TODO: remove search navigation to component
   // TODO: add props to SearchResults styles
-  // TODO: add query handling when searching
   // TODO: fix loader styles
   // TODO: add not found message removing when clearing search query
 
   return (
     <div className="mt-30 base-container pb-60-resp">
-      <SearchNavigation />
+      <SearchNavigation
+        items={navigationItems}
+      />
       <SearchInput
         setSearchTerm={setSearchTerm}
         placeholder="Search for a movie, tv show, person..."
