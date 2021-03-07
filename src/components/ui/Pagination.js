@@ -1,24 +1,46 @@
 import { useState, useEffect } from 'react';
+import useWindowResize from '../../hooks/useWindowResize';
 import Button from './Button';
 
-const detectEndPage = (totalPages, startPage) => {
-  if (startPage + 3 > totalPages) {
+const detectEndPage = (totalPages, startPage, btnsPerPage) => {
+  if (startPage + btnsPerPage > totalPages) {
     return totalPages;
   }
 
-  return startPage + 3;
+  return startPage + btnsPerPage;
 }
 
 const Pagination = ({showMore, totalPages, currentPage, switchPage}) => {
-  // TODO: add responsive styles
+  const [windowWidth, layout] = useWindowResize();
+
+  const [btnsPerPage, setBtnsPerPage] = useState(4);
   const [startPage, setStartPage] = useState(currentPage || 1);
-  const [endPage, setEndPage] = useState(startPage + 3);
+  const [endPage, setEndPage] = useState(startPage + btnsPerPage);
+
+  useEffect(() => {
+    switch (layout) {
+      case 'phone':
+        setBtnsPerPage(0);
+        break;
+      case 'phablet':
+        setBtnsPerPage(1);
+        break;
+      case 'tablet':
+        setBtnsPerPage(2);
+        break;
+      case 'containerWidth':
+        setBtnsPerPage(3);
+        break;
+      default:
+        setBtnsPerPage(4);
+    }
+  }, [layout])
 
   useEffect(() => {
     if (totalPages) {
-      setEndPage(detectEndPage(totalPages, startPage));
+      setEndPage(detectEndPage(totalPages, startPage, btnsPerPage));
     }
-  }, [totalPages, startPage])
+  }, [totalPages, startPage, btnsPerPage])
 
   const renderPages = () => {
     const pages = [];

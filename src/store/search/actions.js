@@ -155,7 +155,6 @@ export const clearSearchResults = () => {
 }
 
 export const clearAllSearchStore = () => {
-  console.log('in clear');
   return {
     type: CLEAR_ALL_SEARCH_STORE,
   };
