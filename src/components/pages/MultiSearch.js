@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import SearchResults from '../search/SearchResults';
 import SearchInput from '../forms/SearchInput';
 import { setSearchTerm, setResultsCurrentPage, multiSearch } from '../../store/search/actions';
 import Pagination from '../ui/Pagination';
+import SearchNavigation from '../SearchNavigation';
 
 const MultiSearch = ({searchTerm, setSearchTerm, results, resultsCurrentPage, resultsTotalPages, searchWasRequested, isSearching, setResultsCurrentPage, multiSearch}) => {
   const [searchQuery, setSearchQuery] = useState(searchTerm);
@@ -56,29 +57,7 @@ const MultiSearch = ({searchTerm, setSearchTerm, results, resultsCurrentPage, re
 
   return (
     <div className="mt-30 base-container pb-60-resp">
-      <ul className="nes-list is-circle mb-60-resp search-navigation">
-        <li className="search-navigation-item">
-          <Link to="/search/movies">
-            Extended Movies Search
-          </Link>
-        </li>
-        <li className="search-navigation-item">
-          <Link to="/search">
-            Extended Tv-Shows Search
-          </Link>
-        </li>
-        <li className="search-navigation-item">
-          <Link to="/search">
-            Search by People
-          </Link>
-        </li>
-        <li className="search-navigation-item">
-          <Link to="/search">
-            Search by Companies
-          </Link>
-        </li>
-      </ul>
-
+      <SearchNavigation />
       <SearchInput
         setSearchTerm={setSearchTerm}
         placeholder="Search for a movie, tv show, person..."
