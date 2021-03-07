@@ -14,7 +14,9 @@ const Button = ({text, color = 'primary', customClass = '', type = 'button', onC
       onClick={onClick}
       disabled={disabled}
     >
-      {text}
+      <div>
+        {text}
+      </div>
     </button>
   );
 }

@@ -3,12 +3,20 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  border-bottom: 3px solid map-get($colors, 'red');
-  border-top: 3px solid map-get($colors, 'red');
-  padding-left: 8%;
-  margin-top: -50px;
+  transition: transform 0.2s;
+  padding-left: 10%;
+  transform: scaleY(1);
+
+  @include respond-to('container-width') {
+    flex-wrap: wrap;
+    padding-left: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
   &-item  {
+    padding-top: 10px;
+
     &::before {
       color: #f12525 !important;
     }
@@ -18,6 +26,58 @@
       font-size: 15px;
       padding-left: 10px;
       display: block;
+
+      @include respond-to('container-width') {
+        font-size: 14px;
+      }
+    }
+  }
+
+  &-wrapper {
+    position: relative;
+    border-bottom: 3px solid map-get($colors, 'red');
+    border-top: 3px solid map-get($colors, 'red');
+    margin-top: -50px;
+    transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+    max-height: 1000px;
+
+
+    &.closed {
+      max-height: 0px;
+      padding: 0;
+
+      .search-navigation {
+        transform: scaleY(0);
+      }
+
+      .search-navigation-up-btn {
+        padding: 2px 5px 2px 3px !important;
+        div {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .search-navigation-up-btn {
+      position: absolute;
+      bottom: -20px;
+      right: 5px;
+      padding: 2px 3px 2px 5px !important;
+      background-color: map-get($colors, 'red') !important;
+      display: none;
+
+      @include respond-to('tablet') {
+        display: block;
+      }
+
+      div {
+        transition: transform 0.2s;
+        transform: rotate(0deg);
+      }
+
+      &::after {
+        box-shadow: inset -4px -4px map-get($colors, 'red') !important;
+      }
     }
   }
 }

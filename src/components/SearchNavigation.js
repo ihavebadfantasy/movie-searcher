@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearAllSearchStore } from '../store/search/actions';
+import Button from './ui/Button';
 
 const SearchNavigation = ({clearAllSearchStore, items}) => {
+  const [isClosed, setIsClosed] = useState(false);
+
   const history = useHistory();
 
   const onLinkClick = (e) => {
@@ -33,9 +37,20 @@ const SearchNavigation = ({clearAllSearchStore, items}) => {
   }
 
   return (
-    <ul className="nes-list is-circle mb-60-resp search-navigation">
-      {renderNavigationLinks()}
-    </ul>
+    <div className={`search-navigation-wrapper mb-60-resp ${isClosed ? 'closed' : ''}`}>
+      <Button
+        text="&#8593;"
+        customClass="search-navigation-up-btn"
+        onClick={() => {
+          setIsClosed(!isClosed);
+        }}
+      />
+
+      <ul className="nes-list is-circle search-navigation">
+
+        {renderNavigationLinks()}
+      </ul>
+    </div>
   );
 }
 
