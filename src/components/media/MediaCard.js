@@ -42,7 +42,7 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
 
   const setSelectedReview = setSelectedItem.bind(null, reviewsAccordionItems, setReviewsAccordionItems);
 
-  // TODO: add images slider with lighbox to enlarge image
+  // TODO: (secondary feature) add images slider with lighbox to enlarge image
 
   const renderGenres = () => {
     return (

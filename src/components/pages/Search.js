@@ -29,12 +29,6 @@ genresRadioItems = JSON.parse(genresRadioItems);
 let countriesRadioItems = JSON.stringify(binaryRadioItems);
 countriesRadioItems = JSON.parse(countriesRadioItems);
 
-// TODO: add search by term + filters
-// TODO: change years filter to a range
-// TODO: find a way to add release_types loading and filtering
-// TODO: find a way search by countries filter
-// TODO: add strict search mode with radio filters in countries checkbox and genres checkbox
-
 const Search = ({
   searchByFilters,
   fetchTMDBCountries,

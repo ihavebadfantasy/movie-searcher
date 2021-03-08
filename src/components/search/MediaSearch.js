@@ -4,6 +4,14 @@ import { setResultsCurrentPage, searchByFilters } from '../../store/search/actio
 import MediaSearchResults from './MediaSearchResults';
 import MediaSearchFilters from './MediaSearchFilters';
 
+// TODO: (secondary feature) add search by term + filters
+// TODO: (secondary feature) add strict search mode with radio filters in countries checkbox
+
+// TODO: (feature) change years filter to a range
+// TODO: (feature) add filter bt released only, featured only
+// TODO: (complicated feature) find a way search by countries filter
+// TODO: (feature) add strict search mode with radio filters in genres checkbox
+
 const MediaSearch = ({
   resultsCustomClass,
   paginationCustomClass,

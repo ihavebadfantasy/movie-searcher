@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import useWindowResize from '../../hooks/useWindowResize';
 import Button from './Button';
-// TODO: pagination must be more flexible, when I go to the last page than only this page displayed as page buttons
+// TODO: (bug) pagination must be more flexible, when I go to the last page than only this page displayed as page buttons
+// TODO: (bug) pagination should be saved to search store and restored when getting back
 const detectEndPage = (totalPages, startPage, btnsPerPage) => {
   if (startPage + btnsPerPage > totalPages) {
     return totalPages;

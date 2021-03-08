@@ -10,7 +10,7 @@ const types = {
   movies: 'movies',
   tvShows: 'tv-shows',
 }
-
+// TODO: (feature) add search init and redirect to Multi Search when searching in input
 const Home = ({
    newMovies,
    popularMovies,

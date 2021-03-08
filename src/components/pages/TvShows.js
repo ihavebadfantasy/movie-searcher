@@ -9,7 +9,9 @@ import generateDatestring from '../../helpers/generateDatestring';
 import setSelectedItem from '../../helpers/accordion/setSelectedItem';
 
 const mapSeasonsToAccordionItems = (seasons) => {
-  // TODO: fix sorting of most popular
+  // TODO: (bug) fix sorting of most popular in slider
+  // TODO: (feature) add 'Back to search results' button when the user get here from any search page
+
   return seasons.map((season) => {
     const content = season.episodes.map((episode) => {
       return {

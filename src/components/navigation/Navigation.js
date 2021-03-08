@@ -13,7 +13,8 @@ import routes from './routes';
 
 import { clearCurrentMovie } from '../../store/movies/actions';
 import { clearCurrentTvShow } from '../../store/tvShows/actions';
-
+// TODO: (refactor) switch from BrowserRouter to Router and find where reactor is used for navigation in redux, replace it with createHistory()
+// TODO: (refactor) add normal routing with constants and helpers
 const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setShowHeader}) => {
   const history = useHistory();
 

@@ -26,7 +26,7 @@ const navigationItems = [
     text: 'Search by Companies'
   },
 ];
-
+// TODO: (feature) add 'Back to search results' button when the user get here from any search page
 const MoviesSearch = ({
   genres,
   setGenresCheckboxes,

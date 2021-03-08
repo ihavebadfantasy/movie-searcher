@@ -70,7 +70,7 @@ const MultiSearch = ({searchTerm, setSearchTerm, resultsCurrentPage, setResultsC
   const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
   const switchPage = loadResults.bind(null, true);
 
-  // TODO: add not found message removing when clearing search query
+  // TODO: (bug) add not found message removing when clearing search query
 
   return (
     <div className="mt-30 base-container pb-60-resp">
