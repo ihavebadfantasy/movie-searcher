@@ -225,7 +225,7 @@ const Search = ({
         />
       </Sidebar>
 
-      <div className="pd-20 pr-0">
+      <div className="pd-20 pr-0 sidebar-page-main-content">
         {/*<SearchInput*/}
         {/*  setSearchTerm={setSearchTerm}*/}
         {/*  setIsFocused={setIsSearchInputFocused}*/}

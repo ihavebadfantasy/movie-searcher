@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { clearAllSearchStore } from '../store/search/actions';
-import Button from './ui/Button';
+import { clearAllSearchStore } from '../../store/search/actions';
+import Button from '../ui/Button';
 
 const SearchNavigation = ({clearAllSearchStore, items}) => {
   const [isClosed, setIsClosed] = useState(false);

@@ -1,12 +1,12 @@
 import {useEffect} from 'react';
 import { connect } from 'react-redux';
-import SearchNavigation from '../SearchNavigation';
+import SearchNavigation from '../navigation/SearchNavigation';
 import {
   setGenresCheckboxes,
   setYearsCheckboxes,
 } from '../../store/search/actions';
 import moviesYearsItems from '../../config/moviesYearsItems';
-import Search from './Search';
+import MediaSearch from '../search/MediaSearch';
 
 const navigationItems = [
   {
@@ -28,12 +28,12 @@ const navigationItems = [
 ];
 
 const MoviesSearch = ({
-                  genres,
-                  setGenresCheckboxes,
-                  genresCheckboxes,
-                  yearsCheckboxes,
-                  setYearsCheckboxes,
-                }) => {
+  genres,
+  setGenresCheckboxes,
+  genresCheckboxes,
+  yearsCheckboxes,
+  setYearsCheckboxes,
+}) => {
   useEffect(() => {
     if (genresCheckboxes.length === 0) {
       const checkboxes = genres.map((genre) => {
@@ -60,13 +60,13 @@ const MoviesSearch = ({
       <SearchNavigation
         items={navigationItems}
       />
-      <Search
+      <MediaSearch
         genresCheckboxes={genresCheckboxes}
         setGenresCheckboxes={setGenresCheckboxes}
         yearsCheckboxes={yearsCheckboxes}
         setYearsCheckboxes={setYearsCheckboxes}
-        paginationClass="mobile-left-margin"
-        resultsClass="thin"
+        paginationCustomClass="mobile-left-margin"
+        resultsCustomClass="thin"
       />
     </div>
   );

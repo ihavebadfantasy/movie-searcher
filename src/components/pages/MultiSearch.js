@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom'
-import SearchResults from '../search/SearchResults';
 import SearchInput from '../forms/SearchInput';
 import { setSearchTerm, setResultsCurrentPage, multiSearch } from '../../store/search/actions';
-import Pagination from '../ui/Pagination';
-import SearchNavigation from '../SearchNavigation';
+import SearchNavigation from '../navigation/SearchNavigation';
+import MediaSearchResults from '../search/MediaSearchResults';
 
 const navigationItems = [
   {
@@ -26,7 +25,7 @@ const navigationItems = [
   },
 ];
 
-const MultiSearch = ({searchTerm, setSearchTerm, results, resultsCurrentPage, resultsTotalPages, searchWasRequested, isSearching, setResultsCurrentPage, multiSearch}) => {
+const MultiSearch = ({searchTerm, setSearchTerm, resultsCurrentPage, setResultsCurrentPage, multiSearch}) => {
   const [searchQuery, setSearchQuery] = useState(searchTerm);
 
   const history = useHistory();
@@ -68,6 +67,9 @@ const MultiSearch = ({searchTerm, setSearchTerm, results, resultsCurrentPage, re
     initSearch(page, overrideResults);
   }
 
+  const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
+  const switchPage = loadResults.bind(null, true);
+
   // TODO: add not found message removing when clearing search query
 
   return (
@@ -81,25 +83,11 @@ const MultiSearch = ({searchTerm, setSearchTerm, results, resultsCurrentPage, re
         searchTerm={searchTerm}
       />
 
-      <div className="mt-60-resp">
-        <SearchResults
-          isSearching={isSearching}
-          results={results}
-        />
-      </div>
-
-      {results.length > 0 && (
-        <Pagination
-          showMore={loadResults.bind(null, false, resultsCurrentPage + 1)}
-          totalPages={resultsTotalPages}
-          currentPage={resultsCurrentPage}
-          switchPage={loadResults.bind(null, true)}
-        />
-      )}
-
-      {results.length < 1 && searchWasRequested && (
-        <p className="mt-60-resp gray">We are so sorry, but nothing matching your request was found. Try to change the filters or double check the spelling of search input value.</p>
-      )}
+      <MediaSearchResults
+        resultsWrapperClass="mt-60-resp"
+        showMore={showMore}
+        switchPage={switchPage}
+      />
     </div>
   );
 }

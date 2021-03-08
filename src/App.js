@@ -4,8 +4,8 @@ import { BrowserRouter} from 'react-router-dom';
 
 import Header from './components/base/Header';
 import Loader from './components/base/Loader';
-import Navigation from './components/Navigation';
-import ScrollToTop from './components/ScrollToTop';
+import Navigation from './components/navigation/Navigation';
+import ScrollToTop from './components/navigation/ScrollToTop';
 import Footer from './components/base/Footer';
 
 import { loadInitialAppData } from './store/app/actions';

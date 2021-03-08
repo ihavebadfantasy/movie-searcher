@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { Route, useHistory, Switch, Redirect } from 'react-router-dom';
-import Home from './pages/Home';
-import MultiSearch from './pages/MultiSearch';
-import MoviesSearch from './pages/MoviesSearch';
-import Movies from './pages/Movies';
-import TvShows from './pages/TvShows';
-import NotFound from './pages/NotFound';
-import reactor from '../helpers/reactor/Reactor';
-import { REDIRECT_TO_NOT_FOUND_PAGE } from '../helpers/reactor/events';
-import routes from '../config/routes';
+import Home from '../pages/Home';
+import MultiSearch from '../pages/MultiSearch';
+import MoviesSearch from '../pages/MoviesSearch';
+import Movies from '../pages/Movies';
+import TvShows from '../pages/TvShows';
+import NotFound from '../pages/NotFound';
+import reactor from '../../helpers/reactor/Reactor';
+import { REDIRECT_TO_NOT_FOUND_PAGE } from '../../helpers/reactor/events';
+import routes from './routes';
 
-import { clearCurrentMovie } from '../store/movies/actions';
-import { clearCurrentTvShow } from '../store/tvShows/actions';
+import { clearCurrentMovie } from '../../store/movies/actions';
+import { clearCurrentTvShow } from '../../store/tvShows/actions';
 
 const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setShowHeader}) => {
   const history = useHistory();
