@@ -13,6 +13,7 @@
     margin-left: -20px;
     flex-wrap: wrap;
     justify-content: center;
+    height: 320px;
   }
 
   &-slide {
@@ -21,10 +22,19 @@
     flex-grow: 0;
     color: black;
 
+    &-title {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     &-img {
       margin-bottom: 10px;
       img {
         width: 100%;
+        height: 250px;
+        object-fit: cover;
       }
     }
   }

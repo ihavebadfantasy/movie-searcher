@@ -11,6 +11,14 @@ const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, 
 
     let fontSize = '14px';
 
+    if (str.length > 25) {
+      return '11px';
+    }
+
+    if (str.length > 20) {
+      return '13px';
+    }
+
     words.forEach((word) => {
       if (word.length > 13) {
         fontSize = '11px';

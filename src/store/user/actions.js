@@ -3,8 +3,9 @@ import { SET_LOCATION } from './types';
 
 export const setLocation = () => {
   return async (dispatch) => {
-    // const res = await axios.get('https://extreme-ip-lookup.com/json/');
-    let res;
+    // TODO: fix if cors crash (check out mozilla);
+    const res = await axios.get('https://extreme-ip-lookup.com/json/');
+
     const location = {
       country: 'USA',
       countryCode: 'US',
