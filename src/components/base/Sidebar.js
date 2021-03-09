@@ -9,7 +9,6 @@ const Sidebar = ({children, isClosed, setIsClosed}) => {
     if (windowWidth <= containerWidth) {
       setIsClosed(true);
     } else {
-      console.log('before setting closed in sidebar');
       setIsClosed(false)
     }
   }, [windowWidth]);

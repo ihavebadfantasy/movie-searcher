@@ -4,11 +4,14 @@ import {
   setResultsCurrentPage,
   searchByFilters,
   setSearchPageScrollPosition,
-  scrollToSearchPageScrollPosition
+  scrollToSearchPageScrollPosition,
+  setTopScrollPosition,
 } from '../../store/search/actions';
 import MediaSearchResults from './MediaSearchResults';
 import MediaSearchFilters from './MediaSearchFilters';
 import useWindowResize, { containerWidth } from '../../hooks/useWindowResize';
+import reactor from '../../helpers/reactor/Reactor';
+import { SEARCH_NAVIGATION_TOGGLE } from '../../helpers/reactor/events';
 
 // TODO: (secondary feature) add search by term + filters
 // TODO: (secondary feature) add strict search mode with radio filters in countries checkbox
@@ -30,11 +33,36 @@ const MediaSearch = ({
   setYearsCheckboxes,
   setScrollPosition,
   scrollToSearchPageScrollPosition,
+  setTopScrollPosition,
+  topScrollPosition
 }) => {
   const [isSearchInputFocused, setIsSearchInputFocused] = useState(false);
   const [sidebarIsClosed, setSidebarIsClosed] = useState(false);
 
   const [windowWidth] = useWindowResize();
+
+  const resultsWrapperRef = useRef();
+
+  useEffect(() => {
+    const detectTopScrollPosition = () => {
+      let top = 0;
+      if (resultsWrapperRef.current) {
+        top = resultsWrapperRef.current.getBoundingClientRect().top;
+      }
+
+      setTopScrollPosition(top);
+    }
+
+    detectTopScrollPosition();
+
+    window.addEventListener('resize', detectTopScrollPosition);
+    reactor.addEventListener(SEARCH_NAVIGATION_TOGGLE, detectTopScrollPosition);
+
+    return () => {
+      window.removeEventListener('resize', detectTopScrollPosition);
+      reactor.removeEventListener(SEARCH_NAVIGATION_TOGGLE, detectTopScrollPosition);
+    }
+  }, []);
 
   const onKeyPress = (event) => {
     if(event.key === 'Enter' && !isSearchInputFocused){
@@ -44,7 +72,7 @@ const MediaSearch = ({
         setSidebarIsClosed(true);
       }
 
-      setScrollPosition(0);
+      setScrollPosition(topScrollPosition);
       scrollToSearchPageScrollPosition();
     }
   }
@@ -62,16 +90,17 @@ const MediaSearch = ({
     <div
       className="sidebar-page overflow-x-hidden mt-60-resp"
       onKeyPress={onKeyPress}
+      ref={resultsWrapperRef}
     >
       <MediaSearchFilters
-          genresCheckboxes={genresCheckboxes}
-          yearsCheckboxes={yearsCheckboxes}
-          setGenresCheckboxes={setGenresCheckboxes}
-          setYearsCheckboxes={setYearsCheckboxes}
-          initSearch={initSearch}
-          sidebarIsClosed={sidebarIsClosed}
-          setSidebarIsClosed={setSidebarIsClosed}
-        />
+        genresCheckboxes={genresCheckboxes}
+        yearsCheckboxes={yearsCheckboxes}
+        setGenresCheckboxes={setGenresCheckboxes}
+        setYearsCheckboxes={setYearsCheckboxes}
+        initSearch={initSearch}
+        sidebarIsClosed={sidebarIsClosed}
+        setSidebarIsClosed={setSidebarIsClosed}
+      />
 
       <MediaSearchResults
         resultsCustomClass={resultsCustomClass}
@@ -86,6 +115,7 @@ const MediaSearch = ({
 const mapStateToProps = (state) => {
   return {
     resultsCurrentPage: state.search.resultsCurrentPage,
+    topScrollPosition: state.search.topScrollPosition,
   };
 }
 
@@ -94,6 +124,7 @@ const mapDispatchToProps = {
   searchByFilters,
   setScrollPosition: setSearchPageScrollPosition,
   scrollToSearchPageScrollPosition,
+  setTopScrollPosition,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaSearch);

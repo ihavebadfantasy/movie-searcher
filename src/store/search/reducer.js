@@ -16,6 +16,7 @@ import {
   CLEAR_ALL_SEARCH_STORE,
   MULTI_SEARCH,
   SET_SEARCH_PAGE_SCROLL_POSITION,
+  SET_TOP_SCROLL_POSITION,
 } from './types';
 
 export const reducer = (state = searchState, action) => {
@@ -51,7 +52,9 @@ export const reducer = (state = searchState, action) => {
     case CLEAR_ALL_SEARCH_STORE:
       return searchState;
     case SET_SEARCH_PAGE_SCROLL_POSITION:
-      return {...state, searchPageScrollPosition: action.payload}
+      return {...state, searchPageScrollPosition: action.payload};
+    case SET_TOP_SCROLL_POSITION:
+      return {...state, topScrollPosition: action.payload};
     default:
       return state;
   }

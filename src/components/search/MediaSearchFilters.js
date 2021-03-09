@@ -41,6 +41,7 @@ const MediaSearchFilters = ({
   setSidebarIsClosed,
   setScrollPosition,
   scrollToSearchPageScrollPosition,
+  topScrollPosition
 }) => {
   const [windowWidth] = useWindowResize();
 
@@ -62,7 +63,7 @@ const MediaSearchFilters = ({
       setSidebarIsClosed(true);
     }
 
-    setScrollPosition(0);
+    setScrollPosition(topScrollPosition);
     scrollToSearchPageScrollPosition();
   }
 
@@ -153,6 +154,7 @@ const mapStateToProps = state => {
     countries: state.app.tmdbCountries,
     minVoteCountValue: state.search.minVoteCountValue,
     ratingRadios: state.search.ratingRadios,
+    topScrollPosition: state.search.topScrollPosition,
   }
 }
 

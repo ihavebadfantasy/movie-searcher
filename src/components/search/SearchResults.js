@@ -15,6 +15,10 @@ const SearchResults = ({isSearching, results, customClass = ''}) => {
     }
 
     window.addEventListener('scroll', onScroll);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    }
   }, [])
 
   const renderResults = () => {

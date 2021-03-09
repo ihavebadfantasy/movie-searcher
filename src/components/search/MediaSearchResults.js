@@ -14,11 +14,12 @@ const MediaSearchResults = ({
   loadResults,
   setScrollPosition,
   scrollToSearchPageScrollPosition,
+  topScrollPosition,
 }) => {
   const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
   const switchPage = (page) => {
     loadResults(true, page);
-    setScrollPosition(0);
+    setScrollPosition(topScrollPosition);
     scrollToSearchPageScrollPosition();
   };
 
@@ -54,6 +55,7 @@ const mapStateToProps = state => {
     resultsCurrentPage: state.search.resultsCurrentPage,
     resultsTotalPages: state.search.resultsTotalPages,
     searchWasRequested: state.search.searchWasRequested,
+    topScrollPosition: state.search.topScrollPosition,
   }
 }
 

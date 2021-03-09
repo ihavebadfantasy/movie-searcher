@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearAllSearchStore } from '../../store/search/actions';
 import Button from '../ui/Button';
+import reactor from '../../helpers/reactor/Reactor';
+import { SEARCH_NAVIGATION_TOGGLE } from '../../helpers/reactor/events';
 
 const SearchNavigation = ({clearAllSearchStore, items}) => {
   const [isClosed, setIsClosed] = useState(false);
@@ -16,6 +18,13 @@ const SearchNavigation = ({clearAllSearchStore, items}) => {
 
     clearAllSearchStore();
     history.push(path);
+  }
+
+  const toggleNavigation = () => {
+    setIsClosed(!isClosed);
+    setTimeout(() => {
+      reactor.dispatchEvent(SEARCH_NAVIGATION_TOGGLE);
+    }, 400);
   }
 
   const renderNavigationLinks = () => {
@@ -40,9 +49,7 @@ const SearchNavigation = ({clearAllSearchStore, items}) => {
       <Button
         text="&#8593;"
         customClass="search-navigation-up-btn"
-        onClick={() => {
-          setIsClosed(!isClosed);
-        }}
+        onClick={toggleNavigation}
       />
 
       <ul className="nes-list is-circle search-navigation">

@@ -12,4 +12,5 @@ export default {
   searchWasRequested: false,
   yearsCheckboxes: [],
   searchPageScrollPosition: null,
+  topScrollPosition: 0,
 }
