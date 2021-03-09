@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { setResultsCurrentPage, searchByFilters } from '../../store/search/actions';
 import MediaSearchResults from './MediaSearchResults';
 import MediaSearchFilters from './MediaSearchFilters';
+import useWindowResize, { containerWidth } from '../../hooks/useWindowResize';
 
 // TODO: (secondary feature) add search by term + filters
 // TODO: (secondary feature) add strict search mode with radio filters in countries checkbox
@@ -24,9 +25,16 @@ const MediaSearch = ({
   setYearsCheckboxes
 }) => {
   const [isSearchInputFocused, setIsSearchInputFocused] = useState(false);
+  const [sidebarIsClosed, setSidebarIsClosed] = useState(false);
+  const [windowWidth] = useWindowResize();
+
   const onKeyPress = (event) => {
     if(event.key === 'Enter' && !isSearchInputFocused){
       initSearch(1, true);
+
+      if (windowWidth <= containerWidth) {
+        setSidebarIsClosed(true);
+      }
     }
   }
 
@@ -50,6 +58,8 @@ const MediaSearch = ({
           setGenresCheckboxes={setGenresCheckboxes}
           setYearsCheckboxes={setYearsCheckboxes}
           initSearch={initSearch}
+          sidebarIsClosed={sidebarIsClosed}
+          setSidebarIsClosed={setSidebarIsClosed}
         />
 
       <MediaSearchResults

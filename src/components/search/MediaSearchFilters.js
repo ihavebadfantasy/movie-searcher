@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect} from 'react';
 import { connect } from 'react-redux';
 import {
   setMinVoteCountValue,
@@ -14,6 +14,7 @@ import ControlButtons from './ControlButtons';
 import { binaryRadioItems } from '../../helpers/forms/radioItems';
 import ratingItems from '../../config/ratingItems';
 import resetAllSelectedCheckboxesAndRadios from '../../helpers/forms/resetAllSelectedCheckboxesAndRadios';
+import useWindowResize, { containerWidth } from '../../hooks/useWindowResize';
 
 let genresRadioItems = JSON.stringify(binaryRadioItems);
 genresRadioItems = JSON.parse(genresRadioItems);
@@ -34,7 +35,11 @@ const MediaSearchFilters = ({
   setMinVoteCountValue,
   yearsCheckboxes,
   setYearsCheckboxes,
+  sidebarIsClosed,
+  setSidebarIsClosed,
 }) => {
+  const [windowWidth] = useWindowResize();
+
   useEffect(() => {
     if (results.length < 1) {
       initSearch(1, true);
@@ -46,6 +51,14 @@ const MediaSearchFilters = ({
     }
   }, []);
 
+  const startSearch = () => {
+    initSearch(1, true);
+
+    if (windowWidth <= containerWidth) {
+      setSidebarIsClosed(true);
+    }
+  }
+
   const resetAllFilters = () => {
     // setCountriesCheckboxes(resetAllSelectedCheckboxesAndRadios(countriesCheckboxes));
     setGenresCheckboxes(resetAllSelectedCheckboxesAndRadios(genresCheckboxes));
@@ -55,7 +68,10 @@ const MediaSearchFilters = ({
   }
 
   return (
-    <Sidebar>
+    <Sidebar
+      isClosed={sidebarIsClosed}
+      setIsClosed={setSidebarIsClosed}
+    >
       <Container
         theme={['withTitle']}
         title="Genre"
@@ -118,7 +134,7 @@ const MediaSearchFilters = ({
 
       <ControlButtons
         onReset={resetAllFilters}
-        onSearch={initSearch.bind(1, true)}
+        onSearch={startSearch}
       />
     </Sidebar>
   );

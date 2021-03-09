@@ -2,10 +2,8 @@ import { useState, useEffect } from 'react';
 import Button from '../ui/Button';
 import useWindowResize, { containerWidth } from '../../hooks/useWindowResize';
 
-const Sidebar = ({children}) => {
-  // TODO: (feature) add closing when search inited and finished
-  const [isClosed, setIsClosed] = useState(false);
-  const [windowWidth, layout] = useWindowResize();
+const Sidebar = ({children, isClosed, setIsClosed}) => {
+  const [windowWidth] = useWindowResize();
 
   useEffect(() => {
     if (windowWidth <= containerWidth) {
@@ -13,7 +11,7 @@ const Sidebar = ({children}) => {
     } else {
       setIsClosed(false)
     }
-  }, [windowWidth])
+  }, [windowWidth]);
 
   return (
     <div className={`sidebar-wrapper pl-0 ${isClosed ? 'closed' : ''}`}>
