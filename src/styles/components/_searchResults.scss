@@ -78,12 +78,17 @@
     padding: 4px 8px 8px;
     position: fixed;
     bottom: 410px;
-    right: 7px;
+    right: 5%;
     z-index: 999;
     transition: bottom 0.3s;
 
     @include respond-to('container-width') {
       bottom: 450px;
+      right: calc(3%);
+    }
+
+    @include respond-to('phablet') {
+      right: 7px;
     }
 
     &.hidden {

@@ -4,6 +4,7 @@ import { output, defaultOutput } from '../../config/notFound';
 
 const matchInputToOutput = (input) => {
   // TODO: (feature) add back to home button
+
   input = input.replaceAll(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g," ").toLowerCase();
 
   for (let key in output) {

@@ -7,10 +7,11 @@ import MediaCard from '../media/MediaCard';
 import Accordion from '../ui/Accordion';
 import generateDatestring from '../../helpers/generateDatestring';
 import setSelectedItem from '../../helpers/accordion/setSelectedItem';
-
+// TODO: (feature) add actors, director, producer and so on
 const mapSeasonsToAccordionItems = (seasons) => {
   // TODO: (bug) fix sorting of most popular in slider
   // TODO: (feature) add 'Back to search results' button when the user get here from any search page
+  // TODO: (feature) add scroll position restoring when getting back
 
   return seasons.map((season) => {
     const content = season.episodes.map((episode) => {

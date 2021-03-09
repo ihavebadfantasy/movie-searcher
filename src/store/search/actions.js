@@ -21,7 +21,7 @@ import {
 import { Api as TMDBApi } from '../../api/tmdb/Api';
 import mapItemsToQueryString from '../../helpers/forms/mapItemsToQueryString';
 import findSelectedItems from '../../helpers/forms/findSelectedItems';
-
+// TODO: (refactor) fo not initiate search if no params (searchTerm, filters) changed and don't clean also!
 export const multiSearch = (overrideResults = false, showLoader = false) => {
   return async (dispatch, getState) => {
     if (showLoader) {
@@ -230,7 +230,7 @@ export const setTopScrollPosition = (scrollPosition) => {
     payload: scrollPosition,
   };
 }
-// TODO: add smooth scroll
+// TODO: (secondary feature) add smooth scroll helper
 export const scrollToSearchPageScrollPosition = () => {
   return (dispatch, getState) => {
     const state = getState();
