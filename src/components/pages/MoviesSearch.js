@@ -61,10 +61,6 @@ const MoviesSearch = ({
         items={navigationItems}
       />
       <MediaSearch
-        genresCheckboxes={genresCheckboxes}
-        setGenresCheckboxes={setGenresCheckboxes}
-        yearsCheckboxes={yearsCheckboxes}
-        setYearsCheckboxes={setYearsCheckboxes}
         paginationCustomClass="mobile-left-margin"
         resultsCustomClass="thin"
       />

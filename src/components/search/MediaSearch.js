@@ -27,14 +27,10 @@ const MediaSearch = ({
   resultsCurrentPage,
   setResultsCurrentPage,
   searchByFilters,
-  genresCheckboxes,
-  setGenresCheckboxes,
-  yearsCheckboxes,
-  setYearsCheckboxes,
   setScrollPosition,
   scrollToSearchPageScrollPosition,
   setTopScrollPosition,
-  topScrollPosition
+  topScrollPosition,
 }) => {
   const [isSearchInputFocused, setIsSearchInputFocused] = useState(false);
   const [sidebarIsClosed, setSidebarIsClosed] = useState(false);
@@ -93,10 +89,6 @@ const MediaSearch = ({
       ref={resultsWrapperRef}
     >
       <MediaSearchFilters
-        genresCheckboxes={genresCheckboxes}
-        yearsCheckboxes={yearsCheckboxes}
-        setGenresCheckboxes={setGenresCheckboxes}
-        setYearsCheckboxes={setYearsCheckboxes}
         initSearch={initSearch}
         sidebarIsClosed={sidebarIsClosed}
         setSidebarIsClosed={setSidebarIsClosed}

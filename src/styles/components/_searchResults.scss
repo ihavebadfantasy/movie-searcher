@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   margin-top: -30px;
   margin-left: -5%;
+  position: relative;
 
   @include respond-to('container-width') {
     margin-left: -3.3%;
@@ -70,6 +71,23 @@
           height: 250px;
         }
       }
+    }
+  }
+
+  &-scroll-to-top-btn {
+    padding: 4px 8px 8px;
+    position: fixed;
+    bottom: 410px;
+    right: 7px;
+    z-index: 999;
+    transition: bottom 0.3s;
+
+    &.hidden {
+      bottom: -200px;
+    }
+
+    div {
+      transform: rotate(-90deg);
     }
   }
 }

@@ -1,12 +1,38 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { setSearchPageScrollPosition } from '../../store/search/actions';
+import { setSearchPageScrollPosition, scrollToSearchPageScrollPosition } from '../../store/search/actions';
 import Loader from '../base/Loader';
 import Container from '../base/Container';
 import { Link } from 'react-router-dom';
 import MediaCardLight from '../media/MediaCardLight';
-// TODO: add scroll to top button
-const SearchResults = ({isSearching, results, customClass = ''}) => {
+import Button from '../ui/Button';
+const SearchResults = ({
+  isSearching,
+  results,
+  customClass = '',
+  topScrollPosition,
+  setSearchPageScrollPosition,
+  scrollToSearchPageScrollPosition,
+}) => {
+  const [isScrollToTopBtnHidden, setIsScrollToTopBtnHidden] = useState(true);
+
+  useEffect(() => {
+    const setScrollBtnState = () => {
+      if (window.innerHeight + 50 < window.scrollY) {
+        setIsScrollToTopBtnHidden(false);
+      } else {
+        setIsScrollToTopBtnHidden(true);
+      }
+    }
+
+    setScrollBtnState();
+
+    window.addEventListener('scroll', setScrollBtnState);
+
+    return () => {
+      window.removeEventListener('scroll', setScrollBtnState);
+    }
+  })
 
   useEffect(() => {
     const onScroll = () => {
@@ -19,7 +45,12 @@ const SearchResults = ({isSearching, results, customClass = ''}) => {
     return () => {
       window.removeEventListener('scroll', onScroll);
     }
-  }, [])
+  }, []);
+
+  const onScrollBtnClick = () => {
+    setSearchPageScrollPosition(topScrollPosition);
+    scrollToSearchPageScrollPosition();
+  }
 
   const renderResults = () => {
     if (isSearching) {
@@ -53,6 +84,13 @@ const SearchResults = ({isSearching, results, customClass = ''}) => {
               );
             })
             }
+
+            <Button
+              text=">"
+              color="error"
+              customClass={`search-results-scroll-to-top-btn ${isScrollToTopBtnHidden ? 'hidden' : ''}`}
+              onClick={onScrollBtnClick}
+            />
           </div>
         </Container>
       );
@@ -66,8 +104,15 @@ const SearchResults = ({isSearching, results, customClass = ''}) => {
     );
 }
 
-const mapDispatchToProps = {
-  setSearchPageScrollPosition,
+const mapStateToProps = state => {
+  return {
+    topScrollPosition: state.search.topScrollPosition,
+  };
 }
 
-export default connect(null, mapDispatchToProps)(SearchResults);
+const mapDispatchToProps = {
+  setSearchPageScrollPosition,
+  scrollToSearchPageScrollPosition,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

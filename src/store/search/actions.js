@@ -230,12 +230,11 @@ export const setTopScrollPosition = (scrollPosition) => {
     payload: scrollPosition,
   };
 }
-
+// TODO: add smooth scroll
 export const scrollToSearchPageScrollPosition = () => {
   return (dispatch, getState) => {
     const state = getState();
     const y = state.search.searchPageScrollPosition;
-    console.log('before scroll', y);
     window.scrollTo(0, y);
   }
 }

@@ -5,6 +5,8 @@ import {
   setRatingRadios,
   setSearchPageScrollPosition,
   scrollToSearchPageScrollPosition,
+  setGenresCheckboxes,
+  setYearsCheckboxes,
 } from '../../store/search/actions';
 import Sidebar from '../base/Sidebar';
 import Container from '../base/Container';
@@ -155,6 +157,8 @@ const mapStateToProps = state => {
     minVoteCountValue: state.search.minVoteCountValue,
     ratingRadios: state.search.ratingRadios,
     topScrollPosition: state.search.topScrollPosition,
+    genresCheckboxes: state.search.genresCheckboxes,
+    yearsCheckboxes: state.search.yearsCheckboxes,
   }
 }
 
@@ -163,6 +167,8 @@ const mapDispatchToProps = {
   setMinVoteCountValue,
   setScrollPosition: setSearchPageScrollPosition,
   scrollToSearchPageScrollPosition,
+  setYearsCheckboxes,
+  setGenresCheckboxes,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaSearchFilters);
