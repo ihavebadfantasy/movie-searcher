@@ -24,7 +24,7 @@
     @include respond-to('container-width') {
       &~.sidebar-page-main-content {
         height: auto;
-        overflow: scroll;
+        overflow: visible;
       }
     }
 
