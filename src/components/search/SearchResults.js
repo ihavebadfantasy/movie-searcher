@@ -1,9 +1,22 @@
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { setSearchPageScrollPosition } from '../../store/search/actions';
 import Loader from '../base/Loader';
 import Container from '../base/Container';
 import { Link } from 'react-router-dom';
 import MediaCardLight from '../media/MediaCardLight';
-// TODO: fix loader
+// TODO: add scroll to top button
 const SearchResults = ({isSearching, results, customClass = ''}) => {
+
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollY = window.scrollY;
+      setSearchPageScrollPosition(scrollY);
+    }
+
+    window.addEventListener('scroll', onScroll);
+  }, [])
+
   const renderResults = () => {
     if (isSearching) {
       return (
@@ -43,10 +56,14 @@ const SearchResults = ({isSearching, results, customClass = ''}) => {
   }
 
   return (
-    <>
+    <div>
       {renderResults()}
-    </>
+    </div>
     );
 }
 
-export default SearchResults;
+const mapDispatchToProps = {
+  setSearchPageScrollPosition,
+}
+
+export default connect(null, mapDispatchToProps)(SearchResults);

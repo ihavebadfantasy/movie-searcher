@@ -15,14 +15,18 @@ import {
   SET_YEARS_CHECKBOXES,
   CLEAR_ALL_SEARCH_STORE,
   MULTI_SEARCH,
+  SET_SEARCH_PAGE_SCROLL_POSITION,
 } from './types';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
 import mapItemsToQueryString from '../../helpers/forms/mapItemsToQueryString';
 import findSelectedItems from '../../helpers/forms/findSelectedItems';
 
-export const multiSearch = (overrideResults = false) => {
+export const multiSearch = (overrideResults = false, showLoader = false) => {
   return async (dispatch, getState) => {
-    dispatch(setIsSearching(true));
+    if (showLoader) {
+      dispatch(setIsSearching(true));
+    }
+
     dispatch(setSearchWasRequested(false));
 
     if (overrideResults) {
@@ -59,9 +63,12 @@ export const multiSearch = (overrideResults = false) => {
   }
 }
 
-export const searchByFilters = (overrideResults = false) => {
+export const searchByFilters = (overrideResults = false, showLoader = false) => {
   return async (dispatch, getState) => {
-    dispatch(setIsSearching(true));
+    if (showLoader) {
+      dispatch(setIsSearching(true));
+    }
+
     dispatch(setSearchWasRequested(false));
 
     if (overrideResults) {
@@ -207,5 +214,20 @@ export const setSearchWasRequested = (searchStatus) => {
     type: SET_SEARCH_WAS_REQUESTED,
     payload: searchStatus,
   };
+}
+
+export const setSearchPageScrollPosition = (scrollPosition) => {
+  return {
+    type: SET_SEARCH_PAGE_SCROLL_POSITION,
+    payload: scrollPosition,
+  };
+}
+
+export const scrollToSearchPageScrollPosition = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const y = state.search.searchPageScrollPosition;
+    window.scrollTo(0, y);
+  }
 }
 

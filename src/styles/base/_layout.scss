@@ -10,7 +10,7 @@ body {
 body.with-footer {
   margin: 0 0 map-get($dimensions, 'footer-height');
 
-  @include respond-to('phone') {
+  @include respond-to('phablet') {
     margin: 0 0 map-get($dimensions, 'footer-height-mobile');
   }
 }

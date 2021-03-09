@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { clearAllSearchStore } from '../../store/search/actions';
+import { clearAllSearchStore, setSearchTerm } from '../../store/search/actions';
 
-const Header = ({ clearAllSearchStore }) => {
+const Header = ({ clearAllSearchStore, setSearchTerm }) => {
   const [isSearchPage, setIsSearchPage] = useState(false);
   const history = useHistory();
 
@@ -27,6 +27,12 @@ const Header = ({ clearAllSearchStore }) => {
     history.push('/search');
   }
 
+  const onHomeLinkClick = (e) => {
+    e.preventDefault();
+    setSearchTerm('');
+    history.push('/');
+  }
+
   const renderSearchLink = () => {
     if (!isSearchPage) {
       return (
@@ -46,9 +52,12 @@ const Header = ({ clearAllSearchStore }) => {
     <header className={`header ${isSearchPage ? 'no-border': ''}`}>
       <div className="base-container">
         <div className="header-wrapper">
-          <Link to="/">
+          <a
+            href="/"
+            onClick={onHomeLinkClick}
+          >
             <i className="nes-icon is-large heart" />
-          </Link>
+          </a>
 
           <nav className="header-menu">
             {renderSearchLink()}
@@ -61,6 +70,7 @@ const Header = ({ clearAllSearchStore }) => {
 
 const mapDispatchToProps = {
   clearAllSearchStore,
+  setSearchTerm,
 }
 
 export default connect(null, mapDispatchToProps)(Header);

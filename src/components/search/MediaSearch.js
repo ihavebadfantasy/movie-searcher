@@ -1,6 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
-import { setResultsCurrentPage, searchByFilters } from '../../store/search/actions';
+import {
+  setResultsCurrentPage,
+  searchByFilters,
+  setSearchPageScrollPosition,
+  scrollToSearchPageScrollPosition
+} from '../../store/search/actions';
 import MediaSearchResults from './MediaSearchResults';
 import MediaSearchFilters from './MediaSearchFilters';
 import useWindowResize, { containerWidth } from '../../hooks/useWindowResize';
@@ -22,10 +27,13 @@ const MediaSearch = ({
   genresCheckboxes,
   setGenresCheckboxes,
   yearsCheckboxes,
-  setYearsCheckboxes
+  setYearsCheckboxes,
+  setScrollPosition,
+  scrollToSearchPageScrollPosition,
 }) => {
   const [isSearchInputFocused, setIsSearchInputFocused] = useState(false);
   const [sidebarIsClosed, setSidebarIsClosed] = useState(false);
+
   const [windowWidth] = useWindowResize();
 
   const onKeyPress = (event) => {
@@ -35,6 +43,9 @@ const MediaSearch = ({
       if (windowWidth <= containerWidth) {
         setSidebarIsClosed(true);
       }
+
+      setScrollPosition(0);
+      scrollToSearchPageScrollPosition();
     }
   }
 
@@ -47,11 +58,11 @@ const MediaSearch = ({
     initSearch(page, overrideResults);
   }
 
-  const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
-  const switchPage = loadResults.bind(null, true);
-
   return (
-    <div className="sidebar-page overflow-x-hidden mt-60-resp" onKeyPress={onKeyPress}>
+    <div
+      className="sidebar-page overflow-x-hidden mt-60-resp"
+      onKeyPress={onKeyPress}
+    >
       <MediaSearchFilters
           genresCheckboxes={genresCheckboxes}
           yearsCheckboxes={yearsCheckboxes}
@@ -65,8 +76,7 @@ const MediaSearch = ({
       <MediaSearchResults
         resultsCustomClass={resultsCustomClass}
         paginationCustomClass={paginationCustomClass}
-        showMore={showMore}
-        switchPage={switchPage}
+        loadResults={loadResults}
         resultsWrapperClass="pd-20 pr-0 sidebar-page-main-content"
       />
     </div>
@@ -81,7 +91,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   setResultsCurrentPage,
-  searchByFilters
+  searchByFilters,
+  setScrollPosition: setSearchPageScrollPosition,
+  scrollToSearchPageScrollPosition,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaSearch);

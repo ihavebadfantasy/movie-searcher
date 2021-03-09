@@ -11,4 +11,5 @@ export default {
   countriesCheckboxes: [],
   searchWasRequested: false,
   yearsCheckboxes: [],
+  searchPageScrollPosition: null,
 }

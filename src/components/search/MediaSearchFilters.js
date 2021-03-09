@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {
   setMinVoteCountValue,
   setRatingRadios,
+  setSearchPageScrollPosition,
+  scrollToSearchPageScrollPosition,
 } from '../../store/search/actions';
 import Sidebar from '../base/Sidebar';
 import Container from '../base/Container';
@@ -37,6 +39,8 @@ const MediaSearchFilters = ({
   setYearsCheckboxes,
   sidebarIsClosed,
   setSidebarIsClosed,
+  setScrollPosition,
+  scrollToSearchPageScrollPosition,
 }) => {
   const [windowWidth] = useWindowResize();
 
@@ -57,6 +61,9 @@ const MediaSearchFilters = ({
     if (windowWidth <= containerWidth) {
       setSidebarIsClosed(true);
     }
+
+    setScrollPosition(0);
+    scrollToSearchPageScrollPosition();
   }
 
   const resetAllFilters = () => {
@@ -152,6 +159,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   setRatingRadios,
   setMinVoteCountValue,
+  setScrollPosition: setSearchPageScrollPosition,
+  scrollToSearchPageScrollPosition,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaSearchFilters);

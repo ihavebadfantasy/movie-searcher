@@ -1,19 +1,27 @@
 import { connect } from 'react-redux';
+import { setSearchPageScrollPosition, scrollToSearchPageScrollPosition } from '../../store/search/actions';
 import SearchResults from './SearchResults';
 import Pagination from '../ui/Pagination';
-
 const MediaSearchResults = ({
   isSearching,
   resultsCustomClass = '',
   results,
-  showMore,
   resultsTotalPages,
   resultsCurrentPage,
-  switchPage,
   paginationCustomClass = '',
   searchWasRequested,
   resultsWrapperClass = '',
+  loadResults,
+  setScrollPosition,
+  scrollToSearchPageScrollPosition,
 }) => {
+  const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
+  const switchPage = (page) => {
+    loadResults(true, page);
+    setScrollPosition(0);
+    scrollToSearchPageScrollPosition();
+  };
+
   return (
     <div className={resultsWrapperClass}>
       <SearchResults
@@ -49,4 +57,9 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(MediaSearchResults);
+const mapDispatchToProps = {
+  setScrollPosition: setSearchPageScrollPosition,
+  scrollToSearchPageScrollPosition,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MediaSearchResults);

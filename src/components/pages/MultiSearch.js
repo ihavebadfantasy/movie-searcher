@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import SearchInput from '../forms/SearchInput';
-import { setSearchTerm, setResultsCurrentPage, multiSearch } from '../../store/search/actions';
+import {
+  setSearchTerm,
+  setResultsCurrentPage,
+  multiSearch,
+  setSearchWasRequested
+} from '../../store/search/actions';
 import SearchNavigation from '../navigation/SearchNavigation';
 import MediaSearchResults from '../search/MediaSearchResults';
 
@@ -25,7 +30,14 @@ const navigationItems = [
   },
 ];
 
-const MultiSearch = ({searchTerm, setSearchTerm, resultsCurrentPage, setResultsCurrentPage, multiSearch}) => {
+const MultiSearch = ({
+  searchTerm,
+  setSearchTerm,
+  resultsCurrentPage,
+  setResultsCurrentPage,
+  multiSearch,
+  setSearchWasRequested,
+}) => {
   const [searchQuery, setSearchQuery] = useState(searchTerm);
 
   const history = useHistory();
@@ -33,6 +45,7 @@ const MultiSearch = ({searchTerm, setSearchTerm, resultsCurrentPage, setResultsC
   useEffect(() => {
     const parseSearchQuery = () => {
       const query = history.location.search;
+
       if (query) {
         setSearchTerm(query.slice(query.indexOf('=') + 1));
       }
@@ -42,9 +55,7 @@ const MultiSearch = ({searchTerm, setSearchTerm, resultsCurrentPage, setResultsC
   }, [history])
 
   useEffect(() => {
-    if (searchTerm) {
-      setSearchQuery(searchTerm);
-    }
+    setSearchQuery(searchTerm);
   }, [searchTerm]);
 
   useEffect(() => {
@@ -55,6 +66,13 @@ const MultiSearch = ({searchTerm, setSearchTerm, resultsCurrentPage, setResultsC
       });
 
       initSearch(1, true);
+    } else {
+      history.push({
+        pathname: '/search',
+        search: '',
+      });
+
+      setSearchWasRequested(false);
     }
   }, [searchQuery]);
 
@@ -66,11 +84,6 @@ const MultiSearch = ({searchTerm, setSearchTerm, resultsCurrentPage, setResultsC
   const loadResults = (overrideResults, page) => {
     initSearch(page, overrideResults);
   }
-
-  const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
-  const switchPage = loadResults.bind(null, true);
-
-  // TODO: (bug) add not found message removing when clearing search query
 
   return (
     <div className="mt-30 base-container pb-60-resp">
@@ -85,8 +98,7 @@ const MultiSearch = ({searchTerm, setSearchTerm, resultsCurrentPage, setResultsC
 
       <MediaSearchResults
         resultsWrapperClass="mt-60-resp"
-        showMore={showMore}
-        switchPage={switchPage}
+        loadResults={loadResults}
       />
     </div>
   );
@@ -107,7 +119,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   setSearchTerm,
   setResultsCurrentPage,
-  multiSearch
+  multiSearch,
+  setSearchWasRequested,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MultiSearch);

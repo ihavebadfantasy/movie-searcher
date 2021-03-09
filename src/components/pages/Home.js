@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import SearchInput from '../forms/SearchInput';
 import MediaCarousel from '../media/MediaCarousel';
 import { fetchNewMovies, fetchPopularMovies } from '../../store/movies/actions';
 import { fetchNewTvShows, fetchPopularTvShows } from '../../store/tvShows/actions';
+import { setSearchTerm } from '../../store/search/actions';
 import useSlidesPerPage from '../../hooks/useSlidesPerPage';
 
 const types = {
   movies: 'movies',
   tvShows: 'tv-shows',
 }
-// TODO: (feature) add search init and redirect to Multi Search when searching in input
 const Home = ({
    newMovies,
    popularMovies,
@@ -19,10 +19,12 @@ const Home = ({
    fetchNewMovies,
    fetchPopularMovies,
    fetchPopularTvShows,
-   fetchNewTvShows
+   fetchNewTvShows,
+   setSearchTerm,
+   searchTerm,
+   history,
 }) => {
   const [slidesPerPage] = useSlidesPerPage();
-  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchNewMovies(1);
@@ -30,6 +32,12 @@ const Home = ({
     fetchPopularTvShows(1);
     fetchNewTvShows(1);
   }, []);
+
+  useEffect(() => {
+    if (searchTerm) {
+      history.push('/search');
+    }
+  }, [searchTerm])
 
   const loadMorePopularMovies = (page) => {
     fetchPopularMovies(page);
@@ -53,6 +61,8 @@ const Home = ({
       <div className="mb-30">
         <SearchInput
           setSearchTerm={setSearchTerm}
+          placeholder="Search for a movie, tv show, person..."
+          searchTerm={searchTerm}
         />
       </div>
 
@@ -104,6 +114,7 @@ const mapStateToProps = state => {
     popularMovies: state.movies.popular,
     newTvShows: state.tvShows.new,
     popularTvShows: state.tvShows.popular,
+    searchTerm: state.search.searchTerm,
   };
 }
 
@@ -112,6 +123,7 @@ const mapDispatchToProps = {
   fetchPopularMovies,
   fetchNewTvShows,
   fetchPopularTvShows,
+  setSearchTerm,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

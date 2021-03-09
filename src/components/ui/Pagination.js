@@ -60,9 +60,7 @@ const Pagination = ({showMore, totalPages, currentPage, switchPage, customClass 
             if (page === endPage) {
               setStartPage(endPage);
             }
-
             switchPage(page);
-            window.scrollTo(0, 0);
           }}
         />
       );

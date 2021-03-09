@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Button from '../ui/Button';
 import useWindowResize, { containerWidth } from '../../hooks/useWindowResize';
 
@@ -9,6 +9,7 @@ const Sidebar = ({children, isClosed, setIsClosed}) => {
     if (windowWidth <= containerWidth) {
       setIsClosed(true);
     } else {
+      console.log('before setting closed in sidebar');
       setIsClosed(false)
     }
   }, [windowWidth]);

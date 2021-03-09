@@ -14,7 +14,8 @@ import {
   SET_SEARCH_WAS_REQUESTED,
   SET_YEARS_CHECKBOXES,
   CLEAR_ALL_SEARCH_STORE,
-  MULTI_SEARCH
+  MULTI_SEARCH,
+  SET_SEARCH_PAGE_SCROLL_POSITION,
 } from './types';
 
 export const reducer = (state = searchState, action) => {
@@ -49,6 +50,8 @@ export const reducer = (state = searchState, action) => {
       return {...state, yearsCheckboxes: action.payload};
     case CLEAR_ALL_SEARCH_STORE:
       return searchState;
+    case SET_SEARCH_PAGE_SCROLL_POSITION:
+      return {...state, searchPageScrollPosition: action.payload}
     default:
       return state;
   }
