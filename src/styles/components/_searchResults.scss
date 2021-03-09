@@ -82,6 +82,10 @@
     z-index: 999;
     transition: bottom 0.3s;
 
+    @include respond-to('container-width') {
+      bottom: 450px;
+    }
+
     &.hidden {
       bottom: -200px;
     }
