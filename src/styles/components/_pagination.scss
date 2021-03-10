@@ -3,6 +3,16 @@
   flex-direction: column;
   align-items: center;
 
+  .nes-btn:not(.pagination-load-more-btn) {
+    @include respond-to('phablet') {
+      font-size: 12px;
+    }
+
+    @include respond-to('small-phone') {
+      font-size: 10px;
+    }
+  }
+
   &.visible {
     display: flex;
   }
@@ -23,7 +33,12 @@
     width: 50%;
 
     @include respond-to('phablet') {
-      width: 100%;
+      width: calc(100% - 7px);
+      font-size: 16px;
+    }
+
+    @include respond-to('phone') {
+      font-size: 14px;
     }
 
   }
@@ -36,16 +51,29 @@
       align-items: flex-end;
       margin-left: 15px;
 
-      @include respond-to('phablet') {
+      @include respond-to('container-width') {
         margin-left: 10px;
+      }
+
+      @include respond-to('tablet') {
+        margin-left: 5px;
       }
 
       span {
         display: block;
         margin-right: 15px;
 
-        @include respond-to('phablet') {
+        @include respond-to('container-width') {
           margin-right: 10px;
+        }
+
+        @include respond-to('tablet') {
+          margin-right: 5px;
+          font-size: 10px;
+        }
+
+        @include respond-to('phablet') {
+          font-size: 8px;
         }
       }
     }
@@ -57,8 +85,12 @@
         margin-right: 0;
         margin-left: 15px;
 
-        @include respond-to('phablet') {
+        @include respond-to('container-width') {
           margin-left: 10px;
+        }
+
+        @include respond-to('tablet') {
+          margin-left: 5px;
         }
       }
     }
@@ -66,24 +98,36 @@
     &-page-btn {
       margin-left: 15px;
 
-      @include respond-to('phablet') {
+      @include respond-to('container-width') {
         margin-left: 10px;
+      }
+
+      @include respond-to('phablet') {
+        margin-left: 5px;
       }
     }
 
     &-prev-btn {
       margin-right: 30px;
 
-      @include respond-to('phablet') {
+      @include respond-to('container-width') {
         margin-right: 20px;
+      }
+
+      @include respond-to('phablet') {
+        margin-right: 15px;
       }
     }
 
     &-next-btn {
       margin-left: 35px;
 
+      @include respond-to('container-width') {
+        margin-left: 20px;
+      }
+
       @include respond-to('phablet') {
-        margin-left: 25px;
+        margin-left: 15px;
       }
     }
   }

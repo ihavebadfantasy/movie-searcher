@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import useWindowResize from '../../hooks/useWindowResize';
 import Button from './Button';
-// TODO: (bug) fix pagination mobile styles
 const detectEndPage = (totalPages, startPage, btnsPerPage) => {
   if (startPage + btnsPerPage >= totalPages) {
     return totalPages;
@@ -30,10 +29,10 @@ const Pagination = ({
         setBtnsPerPage(0);
         break;
       case 'phablet':
-        setBtnsPerPage(1);
+        setBtnsPerPage(0);
         break;
       case 'tablet':
-        setBtnsPerPage(2);
+        setBtnsPerPage(1);
         break;
       case 'containerWidth':
         setBtnsPerPage(3);
