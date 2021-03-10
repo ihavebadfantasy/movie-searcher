@@ -17,6 +17,7 @@ const SearchResults = ({
   const [isScrollToTopBtnHidden, setIsScrollToTopBtnHidden] = useState(true);
   // TODO: (bug) fix key error in console
   // TODO: (feature-bug) add scroll to top btn sticked to container in all dimensions, remove it to the left on page with filters
+
   useEffect(() => {
     const setScrollBtnState = () => {
       if (window.innerHeight + 50 < window.scrollY) {

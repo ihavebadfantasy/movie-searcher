@@ -22,7 +22,6 @@ const MediaSearchResults = ({
     setScrollPosition(topScrollPosition);
     scrollToSearchPageScrollPosition();
   };
-
   return (
     <div className={resultsWrapperClass}>
       <SearchResults
@@ -31,15 +30,23 @@ const MediaSearchResults = ({
         customClass={resultsCustomClass}
       />
 
-      {results.length > 0 && (
-        <Pagination
-          showMore={showMore}
-          totalPages={resultsTotalPages}
-          currentPage={resultsCurrentPage}
-          switchPage={switchPage}
-          customClass={paginationCustomClass}
-        />
-      )}
+      {/*{results.length > 0 && (*/}
+      {/*  <Pagination*/}
+      {/*    showMore={showMore}*/}
+      {/*    totalPages={resultsTotalPages}*/}
+      {/*    currentPage={resultsCurrentPage}*/}
+      {/*    switchPage={switchPage}*/}
+      {/*    customClass={paginationCustomClass}*/}
+      {/*  />*/}
+      {/*)}*/}
+      <Pagination
+        showMore={showMore}
+        totalPages={resultsTotalPages}
+        currentPage={resultsCurrentPage}
+        switchPage={switchPage}
+        customClass={paginationCustomClass}
+        visible={results.length > 0}
+      />
 
       {results.length < 1 && searchWasRequested && (
         <p className="mt-60-resp gray">We are so sorry, but nothing matching your request was found. Try to change the filters or double check the spelling of search input value.</p>

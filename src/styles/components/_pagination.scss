@@ -1,7 +1,11 @@
 .pagination {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
+
+  &.visible {
+    display: flex;
+  }
 
   &.mobile-left-margin {
     @include respond-to('phone') {
@@ -27,7 +31,7 @@
   &-pages {
     display: flex;
 
-    &-last {
+    &-last, &-first {
       display: flex;
       align-items: flex-end;
       margin-left: 15px;
@@ -42,6 +46,19 @@
 
         @include respond-to('phablet') {
           margin-right: 10px;
+        }
+      }
+    }
+
+    &-first {
+      margin-left: 0;
+
+      span {
+        margin-right: 0;
+        margin-left: 15px;
+
+        @include respond-to('phablet') {
+          margin-left: 10px;
         }
       }
     }
