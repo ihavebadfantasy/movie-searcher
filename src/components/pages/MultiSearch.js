@@ -10,22 +10,23 @@ import {
 } from '../../store/search/actions';
 import SearchNavigation from '../navigation/SearchNavigation';
 import MediaSearchResults from '../search/MediaSearchResults';
+import routes from '../navigation/routes';
 
 const navigationItems = [
   {
-    href: '/search/movies',
+    href: routes.moviesSearch,
     text: 'Extended Movies Search'
   },
   {
-    href: '/search/tv-shows',
+    href: routes.tvShowsSearch,
     text: 'Extended Tv Shows Search'
   },
   {
-    href: '/search/people',
+    href: routes.peopleSearch,
     text: 'Search by People'
   },
   {
-    href: '/search/companies',
+    href: routes.companiesSearch,
     text: 'Search by Companies'
   },
 ];
@@ -61,14 +62,14 @@ const MultiSearch = ({
   useEffect(() => {
     if (searchQuery) {
       history.push({
-        pathname: '/search',
+        pathname: routes.search,
         search:`?search=${searchQuery}`
       });
 
       initSearch(1, true);
     } else {
       history.push({
-        pathname: '/search',
+        pathname: routes.search,
         search: '',
       });
 

@@ -7,22 +7,23 @@ import {
 } from '../../store/search/actions';
 import moviesYearsItems from '../../config/moviesYearsItems';
 import MediaSearch from '../search/MediaSearch';
+import routes from '../navigation/routes';
 
 const navigationItems = [
   {
-    href: '/search',
+    href: routes.search,
     text: 'Multi Search'
   },
   {
-    href: '/search/tv-shows',
+    href: routes.tvShowsSearch,
     text: 'Extended Tv Shows Search'
   },
   {
-    href: '/search/people',
+    href: routes.peopleSearch,
     text: 'Search by People'
   },
   {
-    href: '/search/companies',
+    href: routes.companiesSearch,
     text: 'Search by Companies'
   },
 ];

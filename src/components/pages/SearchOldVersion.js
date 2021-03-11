@@ -29,7 +29,7 @@ genresRadioItems = JSON.parse(genresRadioItems);
 let countriesRadioItems = JSON.stringify(binaryRadioItems);
 countriesRadioItems = JSON.parse(countriesRadioItems);
 
-const Search = ({
+const SearchOldVersion = ({
   searchByFilters,
   fetchTMDBCountries,
   countries,
@@ -128,7 +128,7 @@ const Search = ({
           {/*    setGenresRadios(toggleSelectedRadio(genresRadios, value));*/}
           {/*  }}*/}
           {/*  name="genrenazi"*/}
-          {/*  text="Search for content with ONLY selected genres in genres list"*/}
+          {/*  text="SearchOldVersion for content with ONLY selected genres in genres list"*/}
           {/*/>*/}
 
           <Checkbox
@@ -150,7 +150,7 @@ const Search = ({
         {/*      setCountriesRadios(toggleSelectedRadio(countriesRadios, value));*/}
         {/*    }}*/}
         {/*    name="countrynazi"*/}
-        {/*    text="Search for content with ONLY selected countries from countries list"*/}
+        {/*    text="SearchOldVersion for content with ONLY selected countries from countries list"*/}
         {/*  />*/}
 
         {/*  <Checkbox*/}
@@ -275,4 +275,4 @@ const mapDispatchToProps = {
   setCountriesCheckboxes,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchOldVersion);

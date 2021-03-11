@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearAllSearchStore, setSearchTerm } from '../../store/search/actions';
+import routes from '../navigation/routes';
 
 const Header = ({ clearAllSearchStore, setSearchTerm }) => {
   const [isSearchPage, setIsSearchPage] = useState(false);
@@ -9,7 +10,7 @@ const Header = ({ clearAllSearchStore, setSearchTerm }) => {
 
   useEffect(() => {
     const detectSearchPage = () => {
-      if (history.location.pathname.includes('/search')) {
+      if (history.location.pathname.includes(routes.search)) {
         setIsSearchPage(true);
       } else {
         setIsSearchPage(false);
@@ -24,20 +25,20 @@ const Header = ({ clearAllSearchStore, setSearchTerm }) => {
   const onSearchLinkClick = (e) => {
     e.preventDefault();
     clearAllSearchStore();
-    history.push('/search');
+    history.push(routes.search);
   }
 
   const onHomeLinkClick = (e) => {
     e.preventDefault();
     setSearchTerm('');
-    history.push('/');
+    history.push(routes.home);
   }
 
   const renderSearchLink = () => {
     if (!isSearchPage) {
       return (
         <a
-          href="/search"
+          href={routes.search}
           onClick={onSearchLinkClick}
         >
           Search
@@ -53,7 +54,7 @@ const Header = ({ clearAllSearchStore, setSearchTerm }) => {
       <div className="base-container">
         <div className="header-wrapper">
           <a
-            href="/"
+            href={routes.home}
             onClick={onHomeLinkClick}
           >
             <i className="nes-icon is-large heart" />

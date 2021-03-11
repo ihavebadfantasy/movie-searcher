@@ -8,7 +8,9 @@ import {
 import Container from '../base/Container';
 import Loader from '../base/Loader';
 import MediaCard from '../media/MediaCard';
+
 // TODO: (feature) add actors, director, producer and so on
+
 const Movies = ({movie, fetchCurrentMovie, match, fetchCurrentMovieSimilar, movieSimilar, movieRecommendations, fetchCurrentMovieRecommendations}) => {
   useEffect(() => {
     const id = match.params.id;

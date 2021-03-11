@@ -3,6 +3,8 @@ import Container from '../base/Container';
 import config from '../../config';
 import Loader from '../base/Loader';
 import Carousel from '../ui/Carousel';
+import routes from '../navigation/routes';
+import makeUrl from '../../helpers/makeUrl';
 
 const types = {
   movies: 'movies',
@@ -11,11 +13,13 @@ const types = {
 
 const mapSlides = (items, type) => {
   return items.map((item) => {
+    const id = item.id;
+
     return {
-      id: item.id,
+      id,
       poster: `${config.api.urls.dbImages}${item.poster_path}`,
       title: item.title || item.name,
-      linkTo: type === types.movies ? `/movies/${item.id}` : `/tv-shows/${item.id}`
+      linkTo: type === types.movies ? makeUrl(routes.movies, { id }) : makeUrl(routes.tvShows, { id })
     }
   });
 }

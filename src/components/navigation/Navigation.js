@@ -10,11 +10,9 @@ import NotFound from '../pages/NotFound';
 import reactor from '../../helpers/reactor/Reactor';
 import { REDIRECT_TO_NOT_FOUND_PAGE } from '../../helpers/reactor/events';
 import routes from './routes';
-
 import { clearCurrentMovie } from '../../store/movies/actions';
 import { clearCurrentTvShow } from '../../store/tvShows/actions';
-// TODO: (refactor) switch from BrowserRouter to Router and find where reactor is used for navigation in redux, replace it with createHistory()
-// TODO: (refactor) add normal routing with constants and helpers
+
 const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setShowHeader}) => {
   const history = useHistory();
 
@@ -61,7 +59,7 @@ const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setSh
         <Route exact path={routes.movies} component={Movies} />
         <Route exact path={routes.tvShows} component={TvShows} />
         <Route exact path={routes.notFound} component={NotFound} />
-        <Route exact path="/search/movies" component={MoviesSearch} />
+        <Route exact path={routes.moviesSearch} component={MoviesSearch} />
         <Route>
           <Redirect to={routes.notFound} />
         </Route>

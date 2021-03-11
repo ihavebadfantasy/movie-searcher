@@ -19,7 +19,7 @@ import {
 } from './types';
 import fetchMediaData from '../../api/tmdb/fetchMediaData';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
-import makeUrl from '../../api/makeUrl';
+import makeUrl from '../../helpers/makeUrl';
 import fetchMediaImages from '../../api/tmdb/fetchMediaImages';
 import reactor from '../../helpers/reactor/Reactor';
 import { STOP_CURRENT_MOVIE_FETCHING, REDIRECT_TO_NOT_FOUND_PAGE } from '../../helpers/reactor/events';

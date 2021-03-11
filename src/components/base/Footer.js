@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ReactComponent as TMDBLogo } from '../../assets/images/TMDBLogo.svg';
 
 const Footer = () => {

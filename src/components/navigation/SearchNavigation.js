@@ -5,6 +5,7 @@ import { clearAllSearchStore } from '../../store/search/actions';
 import Button from '../ui/Button';
 import reactor from '../../helpers/reactor/Reactor';
 import { SEARCH_NAVIGATION_TOGGLE } from '../../helpers/reactor/events';
+import routes from './routes';
 
 const SearchNavigation = ({clearAllSearchStore, items}) => {
   const [isClosed, setIsClosed] = useState(false);
@@ -14,7 +15,7 @@ const SearchNavigation = ({clearAllSearchStore, items}) => {
   const onLinkClick = (e) => {
     e.preventDefault();
 
-    const path = e.target.href.slice(e.target.href.indexOf('/search'));
+    const path = e.target.href.slice(e.target.href.indexOf(routes.search));
 
     clearAllSearchStore();
     history.push(path);

@@ -20,7 +20,7 @@ import {
 import { DateTime } from 'luxon';
 import fetchMediaData from '../../api/tmdb/fetchMediaData';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
-import makeUrl from '../../api/makeUrl';
+import makeUrl from '../../helpers/makeUrl';
 import fetchMediaImages from '../../api/tmdb/fetchMediaImages';
 import reactor from '../../helpers/reactor/Reactor';
 import {

@@ -6,6 +6,7 @@ import { fetchNewMovies, fetchPopularMovies } from '../../store/movies/actions';
 import { fetchNewTvShows, fetchPopularTvShows } from '../../store/tvShows/actions';
 import { setSearchTerm } from '../../store/search/actions';
 import useSlidesPerPage from '../../hooks/useSlidesPerPage';
+import routes from '../navigation/routes';
 
 const types = {
   movies: 'movies',
@@ -35,7 +36,7 @@ const Home = ({
 
   useEffect(() => {
     if (searchTerm) {
-      history.push('/search');
+      history.push(routes.search);
     }
   }, [searchTerm])
 
