@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  padding-top: 50px;
 
   @include respond-to('phone') {
     font-size: 14px;

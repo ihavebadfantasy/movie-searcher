@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import {
   fetchCurrentMovie,
@@ -8,10 +8,36 @@ import {
 import Container from '../base/Container';
 import Loader from '../base/Loader';
 import MediaCard from '../media/MediaCard';
+import useWindowResize from '../../hooks/useWindowResize';
+import FixedButton from '../ui/FixedButton';
+import { useLastLocation } from 'react-router-last-location';
+import routes from '../navigation/routes';
 
 // TODO: (feature) add actors, director, producer and so on
 
-const Movies = ({movie, fetchCurrentMovie, match, fetchCurrentMovieSimilar, movieSimilar, movieRecommendations, fetchCurrentMovieRecommendations}) => {
+const Movies = ({
+  movie,
+  fetchCurrentMovie,
+  match,
+  fetchCurrentMovieSimilar,
+  movieSimilar,
+  movieRecommendations,
+  fetchCurrentMovieRecommendations,
+  history
+}) => {
+  const [windowWidth] = useWindowResize();
+  const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
+
+  const containerRef = useRef();
+
+  const lastLocation = useLastLocation();
+
+  useEffect(() => {
+    if (lastLocation && lastLocation.pathname.includes(routes.search)) {
+      setIsBackButtonVisible(true);
+    }
+  }, []);
+
   useEffect(() => {
     const id = match.params.id;
 
@@ -34,7 +60,19 @@ const Movies = ({movie, fetchCurrentMovie, match, fetchCurrentMovieSimilar, movi
               theme={['withTitle']}
               title={movie.title}
               customClass="base-container mt-60-resp mb-30"
+              innerRef={containerRef}
             >
+              { isBackButtonVisible && <FixedButton
+                color="error"
+                containerRef={containerRef}
+                topOffset={30}
+                text="Back to Search Results"
+                shortText="<"
+                onClick={() => {
+                  history.goBack();
+                }}
+              />}
+
               <MediaCard
                 media={movie}
                 similar={movieSimilar}

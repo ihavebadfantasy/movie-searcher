@@ -6,13 +6,14 @@ const colors = {
   disabled: 'is-disabled'
 };
 
-const Button = ({text, color = 'primary', customClass = '', type = 'button', onClick, disabled = false}) => {
+const Button = ({text, color = 'primary', customClass = '', type = 'button', onClick, disabled = false, style={}}) => {
   return (
     <button
       type={type}
       className={`nes-btn ${colors[color]} ${customClass}`}
       onClick={onClick}
       disabled={disabled}
+      style={style}
     >
       <div>
         {text}

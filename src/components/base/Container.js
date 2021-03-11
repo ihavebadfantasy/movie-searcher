@@ -21,11 +21,11 @@ const generateClassesList = (theme, customClass) => {
   return res;
 }
 
-const Container = ({withTitle, dark, titleCentered, rounded, title, customClass, children, theme}) => {
+const Container = ({withTitle, dark, titleCentered, rounded, title, customClass, children, theme, innerRef = null}) => {
   const classes = generateClassesList(theme, customClass);
 
   return (
-    <div className={classes}>
+    <div className={classes} ref={innerRef}>
       {title && <p className="title">{title}</p>}
       {children}
     </div>
