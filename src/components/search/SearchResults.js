@@ -13,12 +13,19 @@ const SearchResults = ({
   topScrollPosition,
   setSearchPageScrollPosition,
   scrollToSearchPageScrollPosition,
+  searchPageScrollPosition,
 }) => {
   const [isScrollToTopBtnHidden, setIsScrollToTopBtnHidden] = useState(true);
   // TODO: (bug) fix key error in console
   // TODO: (feature-bug) add scroll to top btn sticked to container in all dimensions, remove it to the left on page with filters
 
   useEffect(() => {
+    if (searchPageScrollPosition) {
+      //  console.log('in searchResults', searchPageScrollPosition, document.documentElement.scrollHeight, results.length);
+      // TODO: (bug) find a way to scroll back to Search Position
+      scrollToSearchPageScrollPosition();
+    }
+
     const setScrollBtnState = () => {
       if (window.innerHeight + 50 < window.scrollY) {
         setIsScrollToTopBtnHidden(false);
@@ -27,24 +34,22 @@ const SearchResults = ({
       }
     }
 
-    setScrollBtnState();
-
-    window.addEventListener('scroll', setScrollBtnState);
-
-    return () => {
-      window.removeEventListener('scroll', setScrollBtnState);
-    }
-  })
-
-  useEffect(() => {
     const onScroll = () => {
+      console.log('in on scroll');
       const scrollY = window.scrollY;
       setSearchPageScrollPosition(scrollY);
     }
 
-    window.addEventListener('scroll', onScroll);
+    setScrollBtnState();
+
+    window.addEventListener('scroll', setScrollBtnState);
+
+    setTimeout(() => {
+      window.addEventListener('scroll', onScroll);
+    }, 500)
 
     return () => {
+      window.removeEventListener('scroll', setScrollBtnState);
       window.removeEventListener('scroll', onScroll);
     }
   }, []);
@@ -109,6 +114,7 @@ const SearchResults = ({
 const mapStateToProps = state => {
   return {
     topScrollPosition: state.search.topScrollPosition,
+    searchPageScrollPosition: state.search.searchPageScrollPosition,
   };
 }
 

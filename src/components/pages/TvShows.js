@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { fetchCurrentTvShow, fetchCurrentTvShowSimilar, fetchCurrentTvShowRecommendations } from '../../store/tvShows/actions';
 import Container from '../base/Container';
@@ -7,11 +7,13 @@ import MediaCard from '../media/MediaCard';
 import Accordion from '../ui/Accordion';
 import generateDatestring from '../../helpers/generateDatestring';
 import setSelectedItem from '../../helpers/accordion/setSelectedItem';
+import useWindowResize from '../../hooks/useWindowResize';
+import FixedButton from '../ui/FixedButton';
+import { useLastLocation } from 'react-router-last-location';
+import routes from '../navigation/routes';
 // TODO: (feature) add actors, director, producer and so on
 const mapSeasonsToAccordionItems = (seasons) => {
   // TODO: (bug) fix sorting of most popular in slider
-  // TODO: (feature) add 'Back to search results' button when the user get here from any search page
-  // TODO: (feature) add scroll position restoring when getting back
 
   return seasons.map((season) => {
     const content = season.episodes.map((episode) => {
@@ -32,8 +34,20 @@ const mapSeasonsToAccordionItems = (seasons) => {
   })
 }
 
-const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, fetchCurrentTvShowRecommendations, tvShowSimilar, tvShowRecommendations}) => {
+const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, fetchCurrentTvShowRecommendations, tvShowSimilar, tvShowRecommendations, history}) => {
   const [seasonsAccordionItems, setSeasonsAccordionItems] = useState([]);
+  const [windowWidth] = useWindowResize();
+  const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
+
+  const containerRef = useRef();
+
+  const lastLocation = useLastLocation();
+
+  useEffect(() => {
+    if (lastLocation && lastLocation.pathname.includes(routes.search)) {
+      setIsBackButtonVisible(true);
+    }
+  }, []);
 
   useEffect(() => {
     const id = match.params.id;
@@ -65,7 +79,18 @@ const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, 
             theme={['withTitle']}
             title={tvShow.name}
             customClass="base-container mt-60-resp mb-30"
+            innerRef={containerRef}
           >
+            { isBackButtonVisible && <FixedButton
+              color="error"
+              containerRef={containerRef}
+              topOffset={30}
+              text="Back to Search Results"
+              shortText="<"
+              onClick={() => {
+                history.goBack();
+              }}
+            />}
             <MediaCard
               media={tvShow}
               type="tv-shows"

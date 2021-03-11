@@ -21,7 +21,7 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData}) => {
   return (
     <div>
       <BrowserRouter>
-        <ScrollToTop>
+        <ScrollToTop />
           <LastLocationProvider>
             { showHeader && <Header /> }
             { isAppInitialDataLoaded ? (
@@ -37,7 +37,6 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData}) => {
             }
             { showFooter && <Footer /> }
           </LastLocationProvider>
-        </ScrollToTop>
       </BrowserRouter>
   </div>);
 }

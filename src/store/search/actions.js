@@ -235,6 +235,7 @@ export const scrollToSearchPageScrollPosition = () => {
   return (dispatch, getState) => {
     const state = getState();
     const y = state.search.searchPageScrollPosition;
+    console.log(y);
     window.scrollTo(0, y);
   }
 }
