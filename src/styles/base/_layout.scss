@@ -98,6 +98,16 @@ body.with-footer {
 
 .sidebar-page {
   display: flex;
+
+  .search-results-scroll-to-top-btn {
+    display: none;
+  }
+
+  .sidebar-wrapper.closed ~ .sidebar-page-main-content {
+    .search-results-scroll-to-top-btn {
+      display: block;
+    }
+  }
 }
 
 .pd-20 {

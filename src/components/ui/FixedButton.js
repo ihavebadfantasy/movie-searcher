@@ -10,6 +10,7 @@ const FixedButton = ({
   text,
   shortText = null,
   onClick = () => {},
+  customClass = '',
 }) => {
   const [left, setLeft] = useState(leftOffset);
   const [top, setTop] = useState(topOffset);
@@ -58,7 +59,7 @@ const FixedButton = ({
   return (
     <Button
       color={color}
-      customClass="fixed"
+      customClass={`${customClass} fixed`}
       style={{
         left: left + 'px',
         top: top + 'px',

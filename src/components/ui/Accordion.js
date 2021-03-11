@@ -3,7 +3,7 @@ import getDateColorClass from '../../helpers/getDateColorClass';
 import generateDatestring from '../../helpers/generateDatestring';
 
 const Accordion = ({items, setSelected}) => {
-  // TODO: add scroll to top of the selected item when opening
+  // TODO: (feature-bug) add scroll to top of the selected item when opening
   const accordionRef = useRef();
 
   useEffect(() => {

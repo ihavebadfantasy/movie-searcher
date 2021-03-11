@@ -7,7 +7,7 @@ import { fetchNewTvShows, fetchPopularTvShows } from '../../store/tvShows/action
 import { setSearchTerm } from '../../store/search/actions';
 import useSlidesPerPage from '../../hooks/useSlidesPerPage';
 import routes from '../navigation/routes';
-
+// TODO: (bug) fix sorting of most popular in slider tv Show, check movies too
 const types = {
   movies: 'movies',
   tvShows: 'tv-shows',

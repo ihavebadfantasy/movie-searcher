@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-// TODO: add normal query restoring instead of big%20bang
+// TODO: (bug) add normal query restoring instead of big%20bang
 const SearchInput = ({searchTerm, setSearchTerm, setIsFocused, placeholder = 'Start Search'}) => {
   const [value, setValue] = useState(searchTerm);
   const [debouncedValue, setDebouncedValue] = useState(searchTerm);

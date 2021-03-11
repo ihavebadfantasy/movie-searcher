@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { setSearchPageScrollPosition, scrollToSearchPageScrollPosition } from '../../store/search/actions';
 import Loader from '../base/Loader';
@@ -6,6 +6,8 @@ import Container from '../base/Container';
 import { Link } from 'react-router-dom';
 import MediaCardLight from '../media/MediaCardLight';
 import Button from '../ui/Button';
+import FixedButton from '../ui/FixedButton';
+
 const SearchResults = ({
   isSearching,
   results,
@@ -17,7 +19,7 @@ const SearchResults = ({
 }) => {
   const [isScrollToTopBtnHidden, setIsScrollToTopBtnHidden] = useState(true);
   // TODO: (bug) fix key error in console
-  // TODO: (feature-bug) add scroll to top btn sticked to container in all dimensions, remove it to the left on page with filters
+  const containerRef = useRef();
 
   useEffect(() => {
     if (searchPageScrollPosition) {
@@ -74,7 +76,17 @@ const SearchResults = ({
           theme={['withTitle']}
           title="Results"
           customClass="light-border"
+          innerRef={containerRef}
         >
+          <FixedButton
+            color="error"
+            containerRef={containerRef}
+            text=">"
+            topOffset={40}
+            onClick={onScrollBtnClick}
+            customClass={`search-results-scroll-to-top-btn ${isScrollToTopBtnHidden ? 'hidden' : ''}`}
+          />
+
           <div className={`search-results ${customClass}`}>
             {results.map((result) => {
               return (
@@ -92,12 +104,12 @@ const SearchResults = ({
             })
             }
 
-            <Button
-              text=">"
-              color="error"
-              customClass={`search-results-scroll-to-top-btn ${isScrollToTopBtnHidden ? 'hidden' : ''}`}
-              onClick={onScrollBtnClick}
-            />
+            {/*<Button*/}
+            {/*  text=">"*/}
+            {/*  color="error"*/}
+            {/*  customClass={`search-results-scroll-to-top-btn ${isScrollToTopBtnHidden ? 'hidden' : ''}`}*/}
+            {/*  onClick={onScrollBtnClick}*/}
+            {/*/>*/}
           </div>
         </Container>
       );
