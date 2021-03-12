@@ -17,6 +17,7 @@ import {
   MULTI_SEARCH,
   SET_SEARCH_PAGE_SCROLL_POSITION,
   SET_TOP_SCROLL_POSITION,
+  SET_RELEASE_TYPES_CHECKBOXES,
 } from './types';
 
 export const reducer = (state = searchState, action) => {
@@ -55,6 +56,8 @@ export const reducer = (state = searchState, action) => {
       return {...state, searchPageScrollPosition: action.payload};
     case SET_TOP_SCROLL_POSITION:
       return {...state, topScrollPosition: action.payload};
+    case SET_RELEASE_TYPES_CHECKBOXES:
+      return {...state, releaseTypesCheckboxes: action.payload}
     default:
       return state;
   }

@@ -13,4 +13,5 @@ export default {
   yearsCheckboxes: [],
   searchPageScrollPosition: null,
   topScrollPosition: 0,
+  releaseTypesCheckboxes: [],
 }

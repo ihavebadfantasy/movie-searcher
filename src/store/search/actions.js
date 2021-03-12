@@ -17,11 +17,15 @@ import {
   MULTI_SEARCH,
   SET_SEARCH_PAGE_SCROLL_POSITION,
   SET_TOP_SCROLL_POSITION,
+  SET_RELEASE_TYPES_CHECKBOXES,
 } from './types';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
 import mapItemsToQueryString from '../../helpers/forms/mapItemsToQueryString';
 import findSelectedItems from '../../helpers/forms/findSelectedItems';
-// TODO: (refactor) fo not initiate search if no params (searchTerm, filters) changed and don't clean also!
+import getReleaseDateLte from '../../helpers/forms/getReleaseDateLte';
+import getReleaseDateGte from '../../helpers/forms/getReleaseDateGte';
+
+// TODO: (refactor) to not initiate search if no params (searchTerm, filters) changed and don't clean also!
 export const multiSearch = (overrideResults = false, showLoader = false) => {
   return async (dispatch, getState) => {
     if (showLoader) {
@@ -86,6 +90,21 @@ export const searchByFilters = (overrideResults = false, showLoader = false) => 
     const selectedGenres = mapItemsToQueryString(findSelectedItems(state.search.genresCheckboxes, 'checked'), 'value');
     const selectedRating = mapItemsToQueryString(findSelectedItems(state.search.ratingRadios, 'checked'), 'value');
     const selectedYears = mapItemsToQueryString(findSelectedItems(state.search.yearsCheckboxes, 'checked'), 'value');
+    const lteReleaseDate = getReleaseDateLte(state.search.releaseTypesCheckboxes);
+    const gteReleaseDate = getReleaseDateGte(state.search.releaseTypesCheckboxes);
+
+    if (lteReleaseDate) {
+      params['primary_release_date.lte'] = lteReleaseDate;
+    }
+
+    if (gteReleaseDate) {
+      params['primary_release_date.gte'] = gteReleaseDate;
+    }
+
+    if (lteReleaseDate && gteReleaseDate) {
+      delete params['primary_release_date.lte'];
+      delete params['primary_release_date.gte'];
+    }
 
     if (selectedGenres.length > 0) {
       params['with_genres'] = selectedGenres;
@@ -200,6 +219,13 @@ export const setCountriesCheckboxes = (countriesCheckboxes) => {
   return {
     type: SET_COUNTRIES_CHECKBOXES,
     payload: countriesCheckboxes,
+  };
+}
+
+export const setReleaseTypesCheckboxes = (releaseTypeCheckboxes) => {
+  return {
+    type: SET_RELEASE_TYPES_CHECKBOXES,
+    payload: releaseTypeCheckboxes,
   };
 }
 

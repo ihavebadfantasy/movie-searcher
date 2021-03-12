@@ -7,6 +7,7 @@ import {
   scrollToSearchPageScrollPosition,
   setGenresCheckboxes,
   setYearsCheckboxes,
+  setReleaseTypesCheckboxes,
 } from '../../store/search/actions';
 import Sidebar from '../base/Sidebar';
 import Container from '../base/Container';
@@ -19,6 +20,7 @@ import { binaryRadioItems } from '../../helpers/forms/radioItems';
 import ratingItems from '../../config/ratingItems';
 import resetAllSelectedCheckboxesAndRadios from '../../helpers/forms/resetAllSelectedCheckboxesAndRadios';
 import useWindowResize, { containerWidth } from '../../hooks/useWindowResize';
+import { releaseTypesItems } from '../../config/releaseTypesItems';
 
 let genresRadioItems = JSON.stringify(binaryRadioItems);
 genresRadioItems = JSON.parse(genresRadioItems);
@@ -43,7 +45,9 @@ const MediaSearchFilters = ({
   setSidebarIsClosed,
   setScrollPosition,
   scrollToSearchPageScrollPosition,
-  topScrollPosition
+  topScrollPosition,
+  releaseTypesCheckboxes,
+  setReleaseTypesCheckboxes,
 }) => {
   const [windowWidth] = useWindowResize();
 
@@ -55,6 +59,10 @@ const MediaSearchFilters = ({
     if (ratingRadios.length < 1) {
       const rating = JSON.parse(JSON.stringify(ratingItems))
       setRatingRadios(rating);
+    }
+
+    if (releaseTypesCheckboxes.length < 1) {
+      setReleaseTypesCheckboxes(releaseTypesItems);
     }
   }, []);
 
@@ -142,6 +150,20 @@ const MediaSearchFilters = ({
         />
       </Container>
 
+      <Container
+        theme={['withTitle']}
+        title="Release Type"
+        customClass="mb-30"
+      >
+
+        <Checkbox
+          checkboxes={releaseTypesCheckboxes}
+          toggleCheckbox={(value) => {
+            setReleaseTypesCheckboxes(toggleCheckbox(releaseTypesCheckboxes, value));
+          }}
+        />
+      </Container>
+
       <ControlButtons
         onReset={resetAllFilters}
         onSearch={startSearch}
@@ -159,6 +181,7 @@ const mapStateToProps = state => {
     topScrollPosition: state.search.topScrollPosition,
     genresCheckboxes: state.search.genresCheckboxes,
     yearsCheckboxes: state.search.yearsCheckboxes,
+    releaseTypesCheckboxes: state.search.releaseTypesCheckboxes,
   }
 }
 
@@ -169,6 +192,7 @@ const mapDispatchToProps = {
   scrollToSearchPageScrollPosition,
   setYearsCheckboxes,
   setGenresCheckboxes,
+  setReleaseTypesCheckboxes,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaSearchFilters);
