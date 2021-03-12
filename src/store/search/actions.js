@@ -38,16 +38,16 @@ export const multiSearch = (overrideResults = false, showLoader = false) => {
 
     const state = getState();
 
-    const page = state.search.resultsCurrentPage;
-    const query = state.search.searchTerm;
-    params.page = page;
-    params.query = query;
+    params.page = state.search.resultsCurrentPage;
+    params.query = state.search.searchTerm;
+    params.region = state.user.location.countryCode;
 
     const res = await TMDBApi.$instance.get(MULTI_SEARCH_URL, {
       params,
     });
 
     let payload;
+
     if (res.status && res.status >= 300) {
       payload = [];
     } else {

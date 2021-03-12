@@ -35,12 +35,12 @@ export const fetchNewTvShows = (page = 'all') => {
 
     const now = DateTime.now();
     const maxAirDate = now.toISODate();
-    const minAirDate = now.plus({ months: 1 }).toISODate();
+    const minAirDate = now.minus({ months: 1 }).toISODate();
 
     const config = {
       params: {
-        'first_air_date.gte': maxAirDate,
-        'first_air_date.lte': minAirDate,
+        'first_air_date.lte': maxAirDate,
+        'first_air_date.gte': minAirDate,
         'region': state.user.location.countryCode,
         'sort_by': 'first_air_date.desc',
       }
@@ -67,7 +67,7 @@ export const fetchPopularTvShows = (page = 'all') => {
       params: {
         'vote_count.gte': 1000,
         'vote_average.gte': 8,
-        'sort_by': 'popularity.desc',
+        'sort_by': 'vote_average.desc',
       }
     };
 

@@ -30,14 +30,14 @@ export const fetchNewMovies = (page = 'all') => {
 
     const now = DateTime.now();
     const maxReleaseDate = now.toISODate();
-    const minReleaseDate = now.plus({ months: 1 }).toISODate();
+    const minReleaseDate = now.minus({ months: 1 }).toISODate();
 
     const config = {
       params: {
-        'release_date.gte': maxReleaseDate,
-        'release_date.lte': minReleaseDate,
+        'primary_release_date.lte': maxReleaseDate,
+        'primary_release_date.gte': minReleaseDate,
         'region': state.user.location.countryCode,
-        'sort_by': 'release_date.desc',
+        'sort_by': 'primary_release_date.desc',
         page,
       }
     };
@@ -63,7 +63,7 @@ export const fetchPopularMovies = (page = 'all') => {
       params: {
         'vote_count.gte': 1000,
         'vote_average.gte': 8,
-        'sort_by': 'popularity.desc',
+        'sort_by': 'vote_average.desc',
       }
     };
     let movies;
