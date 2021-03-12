@@ -74,9 +74,12 @@ const Accordion = ({items, setSelected}) => {
                 }
 
               { contentItem.content && (
-                <div className="content">
-                  {contentItem.content}
-                </div>
+                <>
+                  <div className="separator" />
+                  <div className="content">
+                    {contentItem.content}
+                  </div>
+                </>
                 )
               }
               </div>

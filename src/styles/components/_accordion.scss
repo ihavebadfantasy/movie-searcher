@@ -72,7 +72,7 @@
       transform-origin: top;
       transition: transform 0.26s ease;
 
-      .wrapper::after, {
+      .wrapper .separator {
         content: '';
         height: 2px;
         width: 80%;
@@ -82,7 +82,7 @@
       }
 
       .wrapper:last-child{
-        &::after {
+        .separator {
           display: none;
         }
       }
