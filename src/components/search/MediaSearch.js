@@ -13,13 +13,6 @@ import useWindowResize, { containerWidth } from '../../hooks/useWindowResize';
 import reactor from '../../helpers/reactor/Reactor';
 import { SEARCH_NAVIGATION_TOGGLE } from '../../helpers/reactor/events';
 
-// TODO: (secondary feature) add search by term + filters
-// TODO: (secondary feature) add strict search mode with radio filters in countries checkbox
-
-// TODO: (complicated feature) find a way search by countries filter
-
-// TODO: (feature) change years filter to a range
-// TODO: (feature) add filter bt released only, featured only
 // TODO: (feature) add strict search mode with radio filters in genres checkbox
 // TODO: (feature) add sorting
 

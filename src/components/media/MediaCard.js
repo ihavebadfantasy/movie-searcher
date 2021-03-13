@@ -42,8 +42,6 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
 
   const setSelectedReview = setSelectedItem.bind(null, reviewsAccordionItems, setReviewsAccordionItems);
 
-  // TODO: (secondary feature) add images slider with lightbox to enlarge image
-
   const renderGenres = () => {
     return (
       <div className="genres">

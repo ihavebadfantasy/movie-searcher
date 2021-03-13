@@ -11,7 +11,7 @@ import useWindowResize from '../../hooks/useWindowResize';
 import FixedButton from '../ui/FixedButton';
 import { useLastLocation } from 'react-router-last-location';
 import routes from '../navigation/routes';
-// TODO: (feature) add actors, director, producer and so on
+
 const mapSeasonsToAccordionItems = (seasons) => {
   return seasons.map((season) => {
     const content = season.episodes.map((episode) => {

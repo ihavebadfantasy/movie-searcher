@@ -13,8 +13,6 @@ import FixedButton from '../ui/FixedButton';
 import { useLastLocation } from 'react-router-last-location';
 import routes from '../navigation/routes';
 
-// TODO: (feature) add actors, director, producer and so on
-
 const Movies = ({
   movie,
   fetchCurrentMovie,
