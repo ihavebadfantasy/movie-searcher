@@ -28,8 +28,6 @@ genresRadioItems = JSON.parse(genresRadioItems);
 let countriesRadioItems = JSON.stringify(binaryRadioItems);
 countriesRadioItems = JSON.parse(countriesRadioItems);
 
-// TODO: (bug) make scroll on filters always visible on mobile!
-
 const MediaSearchFilters = ({
   initSearch,
   genresCheckboxes,
