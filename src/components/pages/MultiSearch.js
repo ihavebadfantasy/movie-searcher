@@ -48,14 +48,15 @@ const MultiSearch = ({
       const query = history.location.search;
 
       if (query) {
-        setSearchTerm(query.slice(query.indexOf('=') + 1));
+        setSearchTerm(query.slice(query.indexOf('=') + 1).replaceAll('%20', ' '));
       }
     }
-
+    console.log('in parse search query', history.location.search)
     parseSearchQuery();
-  }, [history])
+  }, [history]);
 
   useEffect(() => {
+    console.log('in set search term')
     setSearchQuery(searchTerm);
   }, [searchTerm]);
 

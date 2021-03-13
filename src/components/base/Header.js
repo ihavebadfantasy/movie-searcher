@@ -48,7 +48,7 @@ const Header = ({ clearAllSearchStore, setSearchTerm }) => {
 
     return null;
   }
-  // TODO: (feature) add real logo
+
   return (
     <header className={`header ${isSearchPage ? 'no-border': ''}`}>
       <div className="base-container">
