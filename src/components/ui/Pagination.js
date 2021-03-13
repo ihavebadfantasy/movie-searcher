@@ -49,16 +49,16 @@ const Pagination = ({
       if (newStartPage < 1) {
         newStartPage = 1;
       }
-      console.log('new start page', newStartPage);
+
       if (btnsPerPage === 0) {
         newStartPage = currentPage;
       }
 
-      // If we have less available pages than btn per page
-      if (newStartPage + Math.ceil(btnsPerPage / 2)) {
-        setStartPage(1);
-        return;
-      }
+      // TODO: If we have less available pages than btn per page
+      // if (newStartPage + Math.ceil(btnsPerPage / 2)) {
+      //   setStartPage(1);
+      //   return;
+      // }
 
       if ((newStartPage + Math.ceil(btnsPerPage / 2)) < totalPages - 1) {
         setStartPage(newStartPage);
@@ -69,7 +69,6 @@ const Pagination = ({
   }, [currentPage, totalPages, btnsPerPage]);
 
   useEffect(() => {
-    console.log('start page', startPage);
     if (totalPages) {
       setEndPage(detectEndPage(totalPages, startPage, btnsPerPage));
     }
@@ -128,7 +127,6 @@ const Pagination = ({
               customClass="pagination-pages-page-first-btn"
               onClick={() => {
                 switchPage(1);
-                window.scrollTo(0, 0);
               }}
             />
             {startPage > 2 && <span>...</span>}
@@ -146,7 +144,6 @@ const Pagination = ({
               customClass="pagination-pages-page-last-btn"
               onClick={() => {
                 switchPage(totalPages);
-                window.scrollTo(0, 0);
               }}
             />
           </div>

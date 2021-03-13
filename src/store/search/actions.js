@@ -74,17 +74,17 @@ export const multiSearch = (
   }
 }
 
-export const searchByFilters = (overrideResults = false, showLoader = false) => {
+export const searchByFilters = (
+  overrideResults = false,
+  showLoader = false,
+  scrollPageAfterResultsLoaded = false,
+) => {
   return async (dispatch, getState) => {
     if (showLoader) {
       dispatch(setIsSearching(true));
     }
 
     dispatch(setSearchWasRequested(false));
-
-    if (overrideResults) {
-      dispatch(clearSearchResults());
-    }
 
     const params = {};
 
@@ -146,10 +146,18 @@ export const searchByFilters = (overrideResults = false, showLoader = false) => 
       dispatch(setResultsTotalPages(res.total_pages));
     }
 
+    if (overrideResults) {
+      dispatch(clearSearchResults());
+    }
+
     dispatch({
       type: SEARCH_BY_FILETRS,
       payload
     });
+
+    if (scrollPageAfterResultsLoaded) {
+      dispatch(scrollToSearchPageScrollPosition(true));
+    }
   }
 }
 

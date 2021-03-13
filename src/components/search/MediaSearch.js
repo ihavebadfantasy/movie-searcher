@@ -68,13 +68,13 @@ const MediaSearch = ({
     }
   }
 
-  const initSearch = (page = resultsCurrentPage || 1, overrideResults = false) => {
+  const initSearch = (page = resultsCurrentPage || 1, overrideResults = false, scrollToSearchPageScrollPosition = false) => {
     setResultsCurrentPage(page);
-    searchByFilters(overrideResults);
+    searchByFilters(overrideResults, false, scrollToSearchPageScrollPosition);
   }
 
-  const loadResults = (overrideResults, page) => {
-    initSearch(page, overrideResults);
+  const loadResults = (overrideResults, page, scrollToSearchPageScrollPosition) => {
+    initSearch(page, overrideResults, scrollToSearchPageScrollPosition);
   }
 
   return (

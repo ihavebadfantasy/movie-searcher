@@ -76,12 +76,13 @@ const MultiSearch = ({
     }
   }, [searchQuery]);
 
-  const initSearch = (page = resultsCurrentPage || 1, overrideResults = false) => {
+  const initSearch = (page = resultsCurrentPage || 1, overrideResults = false, scrollPageAfterResultsLoaded = false) => {
     setResultsCurrentPage(page);
-    multiSearch(overrideResults);
+    console.log(scrollPageAfterResultsLoaded, 'in init');
+    multiSearch(overrideResults, false, scrollPageAfterResultsLoaded);
   }
 
-  const loadResults = (overrideResults, page, scrollPageAfterResultsLoaded = false) => {
+  const loadResults = (overrideResults, page, scrollPageAfterResultsLoaded) => {
     console.log(scrollPageAfterResultsLoaded);
     initSearch(page, overrideResults, scrollPageAfterResultsLoaded);
   }

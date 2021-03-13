@@ -36,7 +36,6 @@ const SearchResults = ({
     }
 
     const onScroll = () => {
-      console.log('in on scroll');
       const scrollY = window.scrollY;
       setSearchPageScrollPosition(scrollY);
     }
