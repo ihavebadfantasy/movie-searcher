@@ -17,11 +17,13 @@ const MediaSearchResults = ({
   topScrollPosition,
 }) => {
   const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
+
   const switchPage = (page) => {
-    loadResults(true, page);
     setScrollPosition(topScrollPosition);
-    scrollToSearchPageScrollPosition();
+    console.log('before load');
+    loadResults(true, page, true);
   };
+
   return (
     <div className={resultsWrapperClass}>
       <SearchResults
@@ -30,15 +32,6 @@ const MediaSearchResults = ({
         customClass={resultsCustomClass}
       />
 
-      {/*{results.length > 0 && (*/}
-      {/*  <Pagination*/}
-      {/*    showMore={showMore}*/}
-      {/*    totalPages={resultsTotalPages}*/}
-      {/*    currentPage={resultsCurrentPage}*/}
-      {/*    switchPage={switchPage}*/}
-      {/*    customClass={paginationCustomClass}*/}
-      {/*  />*/}
-      {/*)}*/}
       <Pagination
         showMore={showMore}
         totalPages={resultsTotalPages}

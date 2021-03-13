@@ -3,10 +3,19 @@ const colors = {
   success: 'is-success',
   warning: 'is-warning',
   error: 'is-error',
-  disabled: 'is-disabled'
+  disabled: 'is-disabled',
+  white: '',
 };
 
-const Button = ({text, color = 'primary', customClass = '', type = 'button', onClick, disabled = false, style={}}) => {
+const Button = ({
+  text,
+  color = 'primary',
+  customClass = '',
+  type = 'button',
+  onClick,
+  disabled = false,
+  style={},
+}) => {
   return (
     <button
       type={type}

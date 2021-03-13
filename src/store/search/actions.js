@@ -25,18 +25,16 @@ import findSelectedItems from '../../helpers/forms/findSelectedItems';
 import getReleaseDateLte from '../../helpers/forms/getReleaseDateLte';
 import getReleaseDateGte from '../../helpers/forms/getReleaseDateGte';
 
-// TODO: (refactor) to not initiate search if no params (searchTerm, filters) changed and don't clean also!
-export const multiSearch = (overrideResults = false, showLoader = false) => {
+export const multiSearch = (
+  overrideResults = false,
+  showLoader = false,
+  scrollPageAfterResultsLoaded = false) => {
   return async (dispatch, getState) => {
     if (showLoader) {
       dispatch(setIsSearching(true));
     }
 
     dispatch(setSearchWasRequested(false));
-
-    if (overrideResults) {
-      dispatch(clearSearchResults());
-    }
 
     const params = {};
 
@@ -61,10 +59,18 @@ export const multiSearch = (overrideResults = false, showLoader = false) => {
       dispatch(setResultsTotalPages(res.total_pages));
     }
 
+    if (overrideResults) {
+      dispatch(clearSearchResults());
+    }
+
     dispatch({
       type: MULTI_SEARCH,
       payload
     });
+
+    if (scrollPageAfterResultsLoaded) {
+      dispatch(scrollToSearchPageScrollPosition(true));
+    }
   }
 }
 
@@ -123,7 +129,7 @@ export const searchByFilters = (overrideResults = false, showLoader = false) => 
     }
 
     if (state.search.searchTerm) {
-      // TODO: add search term handling
+      // doto: add search term handling
     }
 
     const res = await TMDBApi.$instance.get(MOVIES_URL, {
@@ -256,13 +262,16 @@ export const setTopScrollPosition = (scrollPosition) => {
     payload: scrollPosition,
   };
 }
-// TODO: (secondary feature) add smooth scroll helper
-export const scrollToSearchPageScrollPosition = () => {
+
+export const scrollToSearchPageScrollPosition = (isSmooth = false) => {
   return (dispatch, getState) => {
     const state = getState();
     const y = state.search.searchPageScrollPosition;
-    console.log(y);
-    window.scrollTo(0, y);
+
+    window.scrollTo({
+      top: y,
+      behavior: isSmooth ? 'smooth' :'auto',
+    });
   }
 }
 

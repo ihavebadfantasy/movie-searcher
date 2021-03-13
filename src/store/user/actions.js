@@ -3,7 +3,6 @@ import { SET_LOCATION } from './types';
 
 export const setLocation = () => {
   return async (dispatch) => {
-    // TODO: (bug) fix if cors crash (check out mozilla);
     const res = await axios.get('https://extreme-ip-lookup.com/json/');
 
     const location = {

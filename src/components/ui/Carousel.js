@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Animated } from 'react-animated-css';
 import { Link } from 'react-router-dom';
+import Button from './Button';
 
 const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, lastCurrentSlideIndex, slidesPerView}) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -87,21 +88,20 @@ const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, 
     if (!isVisible) {
       setIsVisible(true);
     }
-  }, [isVisible])
-  // TODO: (refactor) switch to custom buttons
+  }, [isVisible]);
+
   return (
     <div className="carousel">
-      <button
-        type="button"
-        className={isPrevBtnDisabled ? 'nes-btn is-disabled' : 'nes-btn'}
+      <Button
+        color="white"
+        customClass={isPrevBtnDisabled ? 'nes-btn is-disabled' : 'nes-btn'}
         onClick={() => {
           setIsVisible(false);
           prev();
         }}
         disabled={isPrevBtnDisabled}
-      >
-        {'<'}
-      </button>
+        text="<"
+      />
       <div
         className="carousel-content-wrapper"
         ref={sliderContentRef}
@@ -116,17 +116,16 @@ const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, 
       </Animated>
       </div>
 
-      <button
-        type="button"
-        className={isNextBtnDisabled ? 'nes-btn is-disabled' : 'nes-btn'}
+      <Button
+        color="white"
+        customClass={isNextBtnDisabled ? 'nes-btn is-disabled' : 'nes-btn'}
         onClick={() => {
           setIsVisible(false);
           next();
         }}
         disabled={isNextBtnDisabled}
-      >
-        {'>'}
-      </button>
+        text=">"
+      />
     </div>
   );
 }

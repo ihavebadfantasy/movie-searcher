@@ -48,12 +48,11 @@ const MultiSearch = ({
       const query = history.location.search;
 
       if (query) {
-        setSearchTerm(query.slice(query.indexOf('=') + 1));
+        setSearchTerm(query.slice(query.indexOf('=') + 1).replaceAll('%20', ' '));
       }
     }
-
     parseSearchQuery();
-  }, [history])
+  }, [history]);
 
   useEffect(() => {
     setSearchQuery(searchTerm);
@@ -82,8 +81,9 @@ const MultiSearch = ({
     multiSearch(overrideResults);
   }
 
-  const loadResults = (overrideResults, page) => {
-    initSearch(page, overrideResults);
+  const loadResults = (overrideResults, page, scrollPageAfterResultsLoaded = false) => {
+    console.log(scrollPageAfterResultsLoaded);
+    initSearch(page, overrideResults, scrollPageAfterResultsLoaded);
   }
 
   return (

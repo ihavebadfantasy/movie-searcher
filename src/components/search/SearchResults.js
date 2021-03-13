@@ -24,7 +24,6 @@ const SearchResults = ({
   useEffect(() => {
     if (searchPageScrollPosition) {
       //  console.log('in searchResults', searchPageScrollPosition, document.documentElement.scrollHeight, results.length);
-      // TODO: (bug) find a way to scroll back to Search Position
       scrollToSearchPageScrollPosition();
     }
 
