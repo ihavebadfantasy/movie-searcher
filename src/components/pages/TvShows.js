@@ -107,8 +107,10 @@ const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, 
           </Container>
         </div>
       ) : (
-        <div className="full-screen-with-header-and-footer padding-20 content-centered">
-          <Loader color="pattern" />
+        <div className="base-container">
+          <div className="full-screen-with-header-and-footer padding-20 content-centered">
+            <Loader color="pattern" />
+          </div>
         </div>
       )
       }

@@ -1,8 +1,11 @@
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { setSearchPageScrollPosition } from '../../store/search/actions';
 import SearchResults from './SearchResults';
 import Pagination from '../ui/Pagination';
 import SortSelect from './SortSelect';
+import routes from '../navigation/routes';
 
 const MediaSearchResults = ({
   isSearching,
@@ -18,6 +21,17 @@ const MediaSearchResults = ({
   topScrollPosition,
 }) => {
   const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
+  const [isSortSelectVisible, setIsSortSelectVisible] = useState('false');
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if (history.location.pathname === routes.moviesSearch || history.location.pathname === routes.tvShowsSearch) {
+      setIsSortSelectVisible(true);
+    } else {
+      setIsSortSelectVisible(false);
+    }
+  }, [history])
 
   const switchPage = (page) => {
     setScrollPosition(topScrollPosition);
@@ -26,7 +40,7 @@ const MediaSearchResults = ({
 
   return (
     <div className={resultsWrapperClass}>
-      <SortSelect />
+      { isSortSelectVisible && <SortSelect /> }
 
       <SearchResults
         isSearching={isSearching}
