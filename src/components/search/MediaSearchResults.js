@@ -19,6 +19,7 @@ const MediaSearchResults = ({
   loadResults,
   setScrollPosition,
   topScrollPosition,
+  sortTypes,
 }) => {
   const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
   const [isSortSelectVisible, setIsSortSelectVisible] = useState('false');
@@ -47,6 +48,7 @@ const MediaSearchResults = ({
       { isSortSelectVisible && (
         <SortSelect
           initSearchWithFilters={initSearchWithFilters}
+          sortTypes={sortTypes}
         />
       ) }
 

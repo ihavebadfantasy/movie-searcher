@@ -122,7 +122,7 @@ const MediaSearchFilters = ({
         title="Min Vote Count"
         customClass="mb-30"
       >
-        <p className="small-text gray">The minimum amount of people that voted the film:</p>
+        <p className="small-text gray">The minimum amount of people that voted:</p>
         <input
           type="number"
           value={minVoteCountValue}

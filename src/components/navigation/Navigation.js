@@ -4,6 +4,7 @@ import { Route, useHistory, Switch, Redirect } from 'react-router-dom';
 import Home from '../pages/Home';
 import MultiSearch from '../pages/MultiSearch';
 import MoviesSearch from '../pages/MoviesSearch';
+import TvShowsSearch from '../pages/TvShowsSearch';
 import Movies from '../pages/Movies';
 import TvShows from '../pages/TvShows';
 import NotFound from '../pages/NotFound';
@@ -60,6 +61,7 @@ const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setSh
         <Route exact path={routes.tvShows} component={TvShows} />
         <Route exact path={routes.notFound} component={NotFound} />
         <Route exact path={routes.moviesSearch} component={MoviesSearch} />
+        <Route exact path={routes.tvShowsSearch} component={TvShowsSearch} />
         <Route>
           <Redirect to={routes.notFound} />
         </Route>

@@ -5,31 +5,13 @@ import Button from '../ui/Button';
 import Dropdown from '../base/Dropdown';
 import useWindowResize, { tablet } from '../../hooks/useWindowResize';
 
-const sortTypes = [
-  {
-    label: 'Popularity',
-    value: 'popularity',
-  },
-  {
-    label: 'Vote Average',
-    value: 'vote_average',
-  },
-  {
-    label: 'Vote Count',
-    value: 'vote_count',
-  },
-  {
-    label: 'Release Date',
-    value: 'primary_release_date',
-  },
-];
-
 const SortSelect = ({
   sortType,
   sortOrder,
   setSortType,
   setSortOrder,
   initSearchWithFilters,
+  sortTypes
 }) => {
   const [windowWidth] = useWindowResize();
   const [isMobileLayout, setIsMobileLayout] = useState(false);

@@ -14,7 +14,6 @@ import reactor from '../../helpers/reactor/Reactor';
 import { SEARCH_NAVIGATION_TOGGLE } from '../../helpers/reactor/events';
 
 // TODO: (feature) add strict search mode with radio filters in genres checkbox
-// TODO: (feature) add sorting
 
 const MediaSearch = ({
   resultsCustomClass,
@@ -26,6 +25,8 @@ const MediaSearch = ({
   scrollToSearchPageScrollPosition,
   setTopScrollPosition,
   topScrollPosition,
+  searchType,
+  sortTypes,
 }) => {
   const [isSearchInputFocused, setIsSearchInputFocused] = useState(false);
   const [sidebarIsClosed, setSidebarIsClosed] = useState(false);
@@ -70,7 +71,7 @@ const MediaSearch = ({
 
   const initSearch = (page = resultsCurrentPage || 1, overrideResults = false, scrollToSearchPageScrollPosition = false) => {
     setResultsCurrentPage(page);
-    searchByFilters(overrideResults, false, scrollToSearchPageScrollPosition);
+    searchByFilters(searchType, overrideResults, false, scrollToSearchPageScrollPosition);
   }
 
   const loadResults = (overrideResults, page, scrollToSearchPageScrollPosition) => {
@@ -94,6 +95,7 @@ const MediaSearch = ({
         paginationCustomClass={paginationCustomClass}
         loadResults={loadResults}
         resultsWrapperClass="pd-20 pr-0 sidebar-page-main-content"
+        sortTypes={sortTypes}
       />
     </div>
   );

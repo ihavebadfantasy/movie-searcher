@@ -5,11 +5,11 @@ import {
   setGenresCheckboxes,
   setYearsCheckboxes,
 } from '../../store/search/actions';
-import moviesYearsItems from '../../config/moviesYearsItems';
+import tvShowsYearsItems from '../../config/tvShowsYearsItems';
 import MediaSearch from '../search/MediaSearch';
 import routes from '../navigation/routes';
-import { MOVIES } from '../../config/searchByFiltersTypes';
-import moviesExtendedSearchSortTypes from '../../config/moviesExtendedSearchSortTypes';
+import { TV_SHOWS } from '../../config/searchByFiltersTypes';
+import tvShowsExtendedSearchSortTypes from '../../config/tvShowsExtendedSearchSortTypes';
 
 const navigationItems = [
   {
@@ -17,8 +17,8 @@ const navigationItems = [
     text: 'Multi Search'
   },
   {
-    href: routes.tvShowsSearch,
-    text: 'Extended Tv Shows Search'
+    href: routes.moviesSearch,
+    text: 'Extended Movies Search'
   },
   {
     href: routes.peopleSearch,
@@ -30,7 +30,7 @@ const navigationItems = [
   },
 ];
 
-const MoviesSearch = ({
+const TvShowsSearch = ({
   genres,
   setGenresCheckboxes,
   genresCheckboxes,
@@ -53,7 +53,7 @@ const MoviesSearch = ({
 
   useEffect(() => {
     if (yearsCheckboxes.length < 1) {
-      const years = JSON.parse(JSON.stringify(moviesYearsItems));
+      const years = JSON.parse(JSON.stringify(tvShowsYearsItems));
       setYearsCheckboxes(years);
     }
   }, []);
@@ -66,8 +66,8 @@ const MoviesSearch = ({
       <MediaSearch
         paginationCustomClass="mobile-left-margin"
         resultsCustomClass="thin"
-        searchType={MOVIES}
-        sortTypes={moviesExtendedSearchSortTypes}
+        searchType={TV_SHOWS}
+        sortTypes={tvShowsExtendedSearchSortTypes}
       />
     </div>
   );
@@ -75,7 +75,7 @@ const MoviesSearch = ({
 
 const mapStateToProps = state => {
   return {
-    genres: state.movies.genres,
+    genres: state.tvShows.genres,
     genresCheckboxes: state.search.genresCheckboxes,
     yearsCheckboxes: state.search.yearsCheckboxes,
   }
@@ -86,4 +86,4 @@ const mapDispatchToProps = {
   setYearsCheckboxes,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MoviesSearch);
+export default connect(mapStateToProps, mapDispatchToProps)(TvShowsSearch);

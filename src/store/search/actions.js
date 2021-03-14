@@ -1,4 +1,4 @@
-import { MOVIES_URL, MULTI_SEARCH_URL } from '../../api/tmdb/urls';
+import { MOVIES_URL, MULTI_SEARCH_URL, TV_SHOWS_URL } from '../../api/tmdb/urls';
 import {
   SEARCH_BY_FILETRS,
   SET_IS_SEARCHING,
@@ -28,6 +28,7 @@ import findSelectedItems from '../../helpers/forms/findSelectedItems';
 import getReleaseDateLte from '../../helpers/forms/getReleaseDateLte';
 import getReleaseDateGte from '../../helpers/forms/getReleaseDateGte';
 import isObjectsEqual from '../../helpers/isObjectsEqual';
+import { MOVIES, TV_SHOWS } from '../../config/searchByFiltersTypes';
 
 export const multiSearch = (
   overrideResults = false,
@@ -88,6 +89,7 @@ export const multiSearch = (
 }
 
 export const searchByFilters = (
+  type,
   overrideResults = false,
   showLoader = false,
   scrollPageAfterResultsLoaded = false,
@@ -112,19 +114,6 @@ export const searchByFilters = (
     const lteReleaseDate = getReleaseDateLte(state.search.releaseTypesCheckboxes);
     const gteReleaseDate = getReleaseDateGte(state.search.releaseTypesCheckboxes);
 
-    if (lteReleaseDate) {
-      params['primary_release_date.lte'] = lteReleaseDate;
-    }
-
-    if (gteReleaseDate) {
-      params['primary_release_date.gte'] = gteReleaseDate;
-    }
-
-    if (lteReleaseDate && gteReleaseDate) {
-      delete params['primary_release_date.lte'];
-      delete params['primary_release_date.gte'];
-    }
-
     if (selectedGenres.length > 0) {
       params['with_genres'] = selectedGenres;
     }
@@ -137,8 +126,44 @@ export const searchByFilters = (
       params['vote_count.gte'] = state.search.minVoteCountValue;
     }
 
+    if (lteReleaseDate) {
+      switch (type) {
+        case MOVIES:
+          params['primary_release_date.lte'] = lteReleaseDate;
+          break;
+        case TV_SHOWS:
+          params['first_air_date.lte'] = lteReleaseDate;
+          break;
+      }
+    }
+
+    if (gteReleaseDate) {
+      switch (type) {
+        case MOVIES:
+          params['primary_release_date.gte'] = gteReleaseDate;
+          break;
+        case TV_SHOWS:
+          params['first_air_date.gte'] = gteReleaseDate;
+          break;
+      }
+    }
+
+    if (lteReleaseDate && gteReleaseDate) {
+      delete params['primary_release_date.lte'];
+      delete params['primary_release_date.gte'];
+      delete params['first_air_date.lte'];
+      delete params['first_air_date.gte'];
+    }
+
     if (selectedYears.length > 0) {
-      params['primary_release_year'] = selectedYears;
+      switch (type) {
+        case MOVIES:
+          params['primary_release_year'] = selectedYears;
+          break;
+        case TV_SHOWS:
+          params['first_air_date_year'] = selectedYears;
+          break;
+      }
     }
 
     params['sort_by'] = `${state.search.sortType}.${state.search.sortOrder}`;
@@ -151,7 +176,18 @@ export const searchByFilters = (
 
     dispatch(setParams(params));
 
-    const res = await TMDBApi.$instance.get(MOVIES_URL, {
+    let url;
+
+    switch (type) {
+      case MOVIES:
+        url = MOVIES_URL;
+        break;
+      case TV_SHOWS:
+        url = TV_SHOWS_URL;
+        break;
+    }
+
+    const res = await TMDBApi.$instance.get(url, {
       params,
     });
 
