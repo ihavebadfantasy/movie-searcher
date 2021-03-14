@@ -56,7 +56,7 @@ const SearchResults = ({
 
   const onScrollBtnClick = () => {
     setSearchPageScrollPosition(topScrollPosition);
-    scrollToSearchPageScrollPosition();
+    scrollToSearchPageScrollPosition(true);
   }
 
   const renderResults = () => {

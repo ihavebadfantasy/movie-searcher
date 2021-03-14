@@ -14,4 +14,6 @@ export default {
   searchPageScrollPosition: null,
   topScrollPosition: 0,
   releaseTypesCheckboxes: [],
+  sortType: 'popularity',
+  sortOrder: 'desc',
 }

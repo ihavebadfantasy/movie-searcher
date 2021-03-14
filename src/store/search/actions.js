@@ -18,6 +18,8 @@ import {
   SET_SEARCH_PAGE_SCROLL_POSITION,
   SET_TOP_SCROLL_POSITION,
   SET_RELEASE_TYPES_CHECKBOXES,
+  SET_SORT_TYPE,
+  SET_SORT_ORDER,
 } from './types';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
 import mapItemsToQueryString from '../../helpers/forms/mapItemsToQueryString';
@@ -29,6 +31,7 @@ export const multiSearch = (
   overrideResults = false,
   showLoader = false,
   scrollPageAfterResultsLoaded = false) => {
+
   return async (dispatch, getState) => {
     if (showLoader) {
       dispatch(setIsSearching(true));
@@ -65,7 +68,7 @@ export const multiSearch = (
 
     dispatch({
       type: MULTI_SEARCH,
-      payload
+      payload,
     });
 
     if (scrollPageAfterResultsLoaded) {
@@ -131,6 +134,8 @@ export const searchByFilters = (
     if (state.search.searchTerm) {
       // doto: add search term handling
     }
+
+    params['sort_by'] = `${state.search.sortType}.${state.search.sortOrder}`;
 
     const res = await TMDBApi.$instance.get(MOVIES_URL, {
       params,
@@ -254,6 +259,20 @@ export const setSearchWasRequested = (searchStatus) => {
   return {
     type: SET_SEARCH_WAS_REQUESTED,
     payload: searchStatus,
+  };
+}
+
+export const setSortType = (sortType) => {
+  return {
+    type: SET_SORT_TYPE,
+    payload: sortType,
+  };
+}
+
+export const setSortOrder = (sortOrder) => {
+  return {
+    type: SET_SORT_ORDER,
+    payload: sortOrder,
   };
 }
 

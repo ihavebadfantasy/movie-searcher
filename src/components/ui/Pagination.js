@@ -41,7 +41,7 @@ const Pagination = ({
         setBtnsPerPage(4);
     }
   }, [layout]);
-
+// TODO: fix non-smooth scroll when paginating last page
   useEffect(() => {
     if (currentPage && totalPages) {
       let newStartPage = currentPage - Math.floor(btnsPerPage / 2);
@@ -54,11 +54,11 @@ const Pagination = ({
         newStartPage = currentPage;
       }
 
-      // TODO: If we have less available pages than btn per page
-      // if (newStartPage + Math.ceil(btnsPerPage / 2)) {
-      //   setStartPage(1);
-      //   return;
-      // }
+      if (newStartPage + Math.ceil(btnsPerPage / 2) < 1) {
+        setStartPage(1);
+
+        return;
+      }
 
       if ((newStartPage + Math.ceil(btnsPerPage / 2)) < totalPages - 1) {
         setStartPage(newStartPage);

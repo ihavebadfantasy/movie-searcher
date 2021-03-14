@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
-import { setSearchPageScrollPosition, scrollToSearchPageScrollPosition } from '../../store/search/actions';
+import { setSearchPageScrollPosition } from '../../store/search/actions';
 import SearchResults from './SearchResults';
 import Pagination from '../ui/Pagination';
+import SortSelect from './SortSelect';
+
 const MediaSearchResults = ({
   isSearching,
   resultsCustomClass = '',
@@ -13,19 +15,19 @@ const MediaSearchResults = ({
   resultsWrapperClass = '',
   loadResults,
   setScrollPosition,
-  scrollToSearchPageScrollPosition,
   topScrollPosition,
 }) => {
   const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
 
   const switchPage = (page) => {
     setScrollPosition(topScrollPosition);
-    console.log('before load');
     loadResults(true, page, true);
   };
 
   return (
     <div className={resultsWrapperClass}>
+      <SortSelect />
+
       <SearchResults
         isSearching={isSearching}
         results={results}
@@ -61,7 +63,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   setScrollPosition: setSearchPageScrollPosition,
-  scrollToSearchPageScrollPosition,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaSearchResults);
