@@ -11,7 +11,7 @@ const SortSelect = ({
   setSortType,
   setSortOrder,
   initSearchWithFilters,
-  sortTypes
+  sortTypes = [],
 }) => {
   const [windowWidth] = useWindowResize();
   const [isMobileLayout, setIsMobileLayout] = useState(false);

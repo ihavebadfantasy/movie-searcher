@@ -22,7 +22,7 @@ const MediaSearchResults = ({
   sortTypes,
 }) => {
   const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
-  const [isSortSelectVisible, setIsSortSelectVisible] = useState('false');
+  const [isSortSelectVisible, setIsSortSelectVisible] = useState(false);
 
   const history = useHistory();
 
@@ -32,7 +32,7 @@ const MediaSearchResults = ({
     } else {
       setIsSortSelectVisible(false);
     }
-  }, [history])
+  }, [history]);
 
   const switchPage = (page) => {
     setScrollPosition(topScrollPosition);

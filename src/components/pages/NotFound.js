@@ -1,6 +1,9 @@
 import {useState, useEffect, useRef} from 'react';
 import getRandomInt from '../../helpers/getRandomInt';
 import { output, defaultOutput } from '../../config/notFound';
+import { Link } from 'react-router-dom';
+import routes from '../navigation/routes';
+import { Animated } from 'react-animated-css';
 
 const matchInputToOutput = (input) => {
   // TODO: (feature) add back to home button
@@ -27,6 +30,9 @@ const NotFound = () => {
   const [textToRender, setTextToRender] = useState('Упс! Кажется такой страницы не существует или мы просто не смогли ее найти. Что будем делать дальше?');
   const [inputValue, setInputValue] = useState('');
   const [showInput, setShowInput] = useState(false);
+  const [inputsCnt, setInputsCnt] = useState(0);
+  const [isHomeBtnVisible, setIsHomeBtnVisible] = useState(false);
+  const [numberOfInputsToShowHomeBtn] = useState(getRandomInt(7, 1));
 
   const inputRef = useRef();
 
@@ -71,11 +77,33 @@ const NotFound = () => {
     setShowInput(false);
     setTextToRender(matchInputToOutput(inputValue));
     setInputValue('');
+    setInputsCnt(inputsCnt + 1);
   }
+
+  useEffect(() => {
+    if (inputsCnt === numberOfInputsToShowHomeBtn) {
+      setIsHomeBtnVisible(true);
+    }
+  }, [inputsCnt])
 
   return (
     <div className="full-screen not-found">
-      <div className="text-wrapper">
+        <Link
+          to={routes.home}
+          className="not-found-home-btn"
+        >
+          <Animated
+            animateOnMount={false}
+            isVisible={isHomeBtnVisible}
+            animationInDuration={500}
+            animationIn="tada"
+          >
+        <span className="brk-btn">
+          Home
+        </span>
+          </Animated>
+        </Link>
+      <div className={`text-wrapper ${isHomeBtnVisible ? 'with-home-btn' : ''}`}>
           <p className="text">
             {allText}
           </p>
