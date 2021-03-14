@@ -38,9 +38,18 @@ const MediaSearchResults = ({
     loadResults(true, page, true);
   };
 
+  const initSearchWithFilters = () => {
+    console.log('in init');
+    loadResults(true, 1);
+  }
+
   return (
     <div className={resultsWrapperClass}>
-      { isSortSelectVisible && <SortSelect /> }
+      { isSortSelectVisible && (
+        <SortSelect
+          initSearchWithFilters={initSearchWithFilters}
+        />
+      ) }
 
       <SearchResults
         isSearching={isSearching}

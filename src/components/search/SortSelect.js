@@ -29,9 +29,26 @@ const SortSelect = ({
   sortOrder,
   setSortType,
   setSortOrder,
+  initSearchWithFilters,
 }) => {
   const [windowWidth] = useWindowResize();
   const [isMobileLayout, setIsMobileLayout] = useState(false);
+  const [prevSortType, setPrevSortType] = useState(sortType);
+  const [prevSortOrder, setPrevSortOrder] = useState(sortOrder);
+
+  useEffect(() => {
+    if (prevSortOrder !== sortOrder) {
+      initSearchWithFilters();
+      setPrevSortOrder(sortOrder);
+    }
+  }, [sortOrder]);
+
+  useEffect(() => {
+    if (prevSortType !== sortType) {
+      initSearchWithFilters();
+      setPrevSortType(sortType);
+    }
+  }, [sortType]);
 
   const findDropdownValue = () => {
     const selectedValue = sortTypes.find((type) => {
