@@ -78,12 +78,10 @@ const MultiSearch = ({
 
   const initSearch = (page = resultsCurrentPage || 1, overrideResults = false, scrollPageAfterResultsLoaded = false) => {
     setResultsCurrentPage(page);
-    console.log(scrollPageAfterResultsLoaded, 'in init');
     multiSearch(overrideResults, false, scrollPageAfterResultsLoaded);
   }
 
   const loadResults = (overrideResults, page, scrollPageAfterResultsLoaded) => {
-    console.log(scrollPageAfterResultsLoaded);
     initSearch(page, overrideResults, scrollPageAfterResultsLoaded);
   }
 

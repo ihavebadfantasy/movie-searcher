@@ -16,4 +16,5 @@ export default {
   releaseTypesCheckboxes: [],
   sortType: 'popularity',
   sortOrder: 'desc',
+  params: null,
 }

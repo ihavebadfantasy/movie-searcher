@@ -20,6 +20,7 @@ import {
   SET_RELEASE_TYPES_CHECKBOXES,
   SET_SORT_ORDER,
   SET_SORT_TYPE,
+  SET_PARAMS,
 } from './types';
 
 export const reducer = (state = searchState, action) => {
@@ -64,6 +65,8 @@ export const reducer = (state = searchState, action) => {
       return {...state, sortOrder: action.payload};
     case SET_SORT_TYPE:
       return {...state, sortType: action.payload};
+    case SET_PARAMS:
+      return {...state, params: action.payload};
     default:
       return state;
   }

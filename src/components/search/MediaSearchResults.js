@@ -39,7 +39,6 @@ const MediaSearchResults = ({
   };
 
   const initSearchWithFilters = () => {
-    console.log('in init');
     loadResults(true, 1);
   }
 

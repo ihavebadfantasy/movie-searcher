@@ -20,12 +20,14 @@ import {
   SET_RELEASE_TYPES_CHECKBOXES,
   SET_SORT_TYPE,
   SET_SORT_ORDER,
+  SET_PARAMS,
 } from './types';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
 import mapItemsToQueryString from '../../helpers/forms/mapItemsToQueryString';
 import findSelectedItems from '../../helpers/forms/findSelectedItems';
 import getReleaseDateLte from '../../helpers/forms/getReleaseDateLte';
 import getReleaseDateGte from '../../helpers/forms/getReleaseDateGte';
+import isObjectsEqual from '../../helpers/isObjectsEqual';
 
 export const multiSearch = (
   overrideResults = false,
@@ -46,6 +48,14 @@ export const multiSearch = (
     params.page = state.search.resultsCurrentPage;
     params.query = state.search.searchTerm;
     params.region = state.user.location.countryCode;
+
+    const oldParams = state.search.params;
+
+    if (isObjectsEqual(oldParams, params)) {
+      return;
+    }
+
+    dispatch(setParams(params));
 
     const res = await TMDBApi.$instance.get(MULTI_SEARCH_URL, {
       params,
@@ -131,17 +141,22 @@ export const searchByFilters = (
       params['primary_release_year'] = selectedYears;
     }
 
-    if (state.search.searchTerm) {
-      // doto: add search term handling
+    params['sort_by'] = `${state.search.sortType}.${state.search.sortOrder}`;
+
+    const oldParams = state.search.params;
+
+    if (isObjectsEqual(oldParams, params)) {
+      return;
     }
 
-    params['sort_by'] = `${state.search.sortType}.${state.search.sortOrder}`;
+    dispatch(setParams(params));
 
     const res = await TMDBApi.$instance.get(MOVIES_URL, {
       params,
     });
 
     let payload;
+
     if (res.status && res.status >= 300) {
       payload = [];
     } else {
@@ -273,6 +288,13 @@ export const setSortOrder = (sortOrder) => {
   return {
     type: SET_SORT_ORDER,
     payload: sortOrder,
+  };
+}
+
+export const setParams = (params) => {
+  return {
+    type: SET_PARAMS,
+    payload: params,
   };
 }
 
