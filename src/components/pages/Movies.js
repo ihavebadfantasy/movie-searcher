@@ -25,6 +25,7 @@ const Movies = ({
 }) => {
   const [windowWidth] = useWindowResize();
   const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
+  const [backToSearchPath, setBackToSearchPath] = useState(null);
 
   const containerRef = useRef();
 
@@ -33,6 +34,7 @@ const Movies = ({
   useEffect(() => {
     if (lastLocation && lastLocation.pathname.includes(routes.search)) {
       setIsBackButtonVisible(true);
+      setBackToSearchPath(lastLocation.pathname);
     }
   }, []);
 
@@ -67,7 +69,7 @@ const Movies = ({
                 text="Back to Search Results"
                 shortText="<"
                 onClick={() => {
-                  history.goBack();
+                  history.push(backToSearchPath);
                 }}
               />}
 
