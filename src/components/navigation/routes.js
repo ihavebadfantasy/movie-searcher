@@ -7,5 +7,6 @@ export default {
   moviesSearch: '/search/movies',
   tvShowsSearch: '/search/tv-shows',
   peopleSearch: '/search/people',
-  companiesSearch: 'search/companies',
+  companiesSearch: '/search/companies',
+  person: '/person/:id',
 };

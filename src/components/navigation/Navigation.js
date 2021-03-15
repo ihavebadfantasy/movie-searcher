@@ -14,6 +14,7 @@ import routes from './routes';
 import { clearCurrentMovie } from '../../store/movies/actions';
 import { clearCurrentTvShow } from '../../store/tvShows/actions';
 import PeopleSearch from '../pages/PeopleSearch';
+import Person from '../pages/Person';
 
 const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setShowHeader}) => {
   const history = useHistory();
@@ -64,6 +65,7 @@ const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setSh
         <Route exact path={routes.moviesSearch} component={MoviesSearch} />
         <Route exact path={routes.tvShowsSearch} component={TvShowsSearch} />
         <Route exact path={routes.peopleSearch} component={PeopleSearch} />
+        <Route exact path={routes.person} component={Person} />
         <Route>
           <Redirect to={routes.notFound} />
         </Route>

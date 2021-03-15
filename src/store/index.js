@@ -6,6 +6,7 @@ import { reducer as tvShowsReducer } from './tvShows/reducer';
 import { reducer as userReducer } from './user/reducer';
 import { reducer as appReducer } from './app/reducer';
 import { reducer as searchReducer } from './search/reducer';
+import { reducer as personReducer } from './person/reducer';
 
 const rootReducer = combineReducers({
   movies: moviesReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   app: appReducer,
   search: searchReducer,
+  person: personReducer,
 });
 
 export default createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

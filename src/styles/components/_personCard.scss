@@ -1,0 +1,27 @@
+.person-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 50px;
+
+  @include respond-to('phone') {
+    font-size: 14px;
+  }
+
+  &-poster {
+    width: 30%;
+
+    @include respond-to('container-width') {
+      width: 40%;
+    }
+
+    @include respond-to('tablet') {
+      width: 100%;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}

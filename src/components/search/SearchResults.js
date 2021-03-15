@@ -32,6 +32,9 @@ const SearchResults = ({
       case MOVIES:
         setBaseUrl('/movies');
         break;
+      case PEOPLE:
+        setBaseUrl('/person');
+        break;
     }
     if (searchPageScrollPosition) {
       //  console.log('in searchResults', searchPageScrollPosition, document.documentElement.scrollHeight, results.length);
@@ -101,7 +104,17 @@ const SearchResults = ({
               let resultBaseUrl = baseUrl;
 
               if (!resultBaseUrl) {
-                resultBaseUrl = result.media_type === TV_SHOWS ? '/tv-shows' : 'movies'
+                switch (result.media_type) {
+                  case TV_SHOWS:
+                    resultBaseUrl = '/tv-shows';
+                    break;
+                  case MOVIES:
+                    resultBaseUrl = '/movies';
+                    break;
+                  case PEOPLE:
+                    resultBaseUrl = '/person';
+                    break;
+                }
               }
 
               return (

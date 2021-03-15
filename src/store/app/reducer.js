@@ -1,5 +1,9 @@
 import appState from './state';
-import { LOAD_INITIAL_APP_DATA, FETCH_TMDB_COUNTRIES } from './types';
+import {
+  LOAD_INITIAL_APP_DATA,
+  FETCH_TMDB_COUNTRIES,
+  FETCH_TMDB_JOBS
+} from './types';
 
 export const reducer = (state = appState, action) => {
   switch (action.type) {

@@ -16,4 +16,6 @@ export const TV_SHOWS_RECOMMENDATIONS = 'tv/:id/recommendations';
 export const COUNTRIES = '/configuration/countries';
 export const MULTI_SEARCH_URL = '/search/multi';
 export const PEOPLE_SEARCH_URL = '/search/person';
+export const PEARSON_DETAILS_URL = '/person/:id';
+export const JOBS = '/configuration/jobs';
 
