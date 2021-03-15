@@ -6,7 +6,7 @@ import Container from '../base/Container';
 import { Link } from 'react-router-dom';
 import MediaCardLight from '../media/MediaCardLight';
 import FixedButton from '../ui/FixedButton';
-import { MOVIES, TV_SHOWS } from '../../config/searchByFiltersTypes';
+import { MOVIES, TV_SHOWS, PEOPLE } from '../../config/searchByFiltersTypes';
 
 const SearchResults = ({
   isSearching,
@@ -24,6 +24,7 @@ const SearchResults = ({
   const containerRef = useRef();
 
   useEffect(() => {
+    console.log(searchType);
     switch (searchType) {
       case TV_SHOWS:
         setBaseUrl('/tv-shows');

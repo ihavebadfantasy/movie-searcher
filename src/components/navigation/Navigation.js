@@ -13,6 +13,7 @@ import { REDIRECT_TO_NOT_FOUND_PAGE } from '../../helpers/reactor/events';
 import routes from './routes';
 import { clearCurrentMovie } from '../../store/movies/actions';
 import { clearCurrentTvShow } from '../../store/tvShows/actions';
+import PeopleSearch from '../pages/PeopleSearch';
 
 const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setShowHeader}) => {
   const history = useHistory();
@@ -62,6 +63,7 @@ const Navigation = ({clearCurrentMovie, clearCurrentTvShow, setShowFooter, setSh
         <Route exact path={routes.notFound} component={NotFound} />
         <Route exact path={routes.moviesSearch} component={MoviesSearch} />
         <Route exact path={routes.tvShowsSearch} component={TvShowsSearch} />
+        <Route exact path={routes.peopleSearch} component={PeopleSearch} />
         <Route>
           <Redirect to={routes.notFound} />
         </Route>
