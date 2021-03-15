@@ -5,8 +5,8 @@ import Loader from '../base/Loader';
 import Container from '../base/Container';
 import { Link } from 'react-router-dom';
 import MediaCardLight from '../media/MediaCardLight';
-import Button from '../ui/Button';
 import FixedButton from '../ui/FixedButton';
+import { MOVIES, TV_SHOWS } from '../../config/searchByFiltersTypes';
 
 const SearchResults = ({
   isSearching,
@@ -16,12 +16,22 @@ const SearchResults = ({
   setSearchPageScrollPosition,
   scrollToSearchPageScrollPosition,
   searchPageScrollPosition,
+  searchType = null,
 }) => {
   const [isScrollToTopBtnHidden, setIsScrollToTopBtnHidden] = useState(true);
+  const [baseUrl, setBaseUrl] = useState(null);
   // TODO: (bug) fix key error in console
   const containerRef = useRef();
 
   useEffect(() => {
+    switch (searchType) {
+      case TV_SHOWS:
+        setBaseUrl('/tv-shows');
+        break;
+      case MOVIES:
+        setBaseUrl('/movies');
+        break;
+    }
     if (searchPageScrollPosition) {
       //  console.log('in searchResults', searchPageScrollPosition, document.documentElement.scrollHeight, results.length);
       scrollToSearchPageScrollPosition();
@@ -87,27 +97,26 @@ const SearchResults = ({
 
           <div className={`search-results ${customClass}`}>
             {results.map((result) => {
+              let resultBaseUrl = baseUrl;
+
+              if (!resultBaseUrl) {
+                resultBaseUrl = result.media_type === TV_SHOWS ? '/tv-shows' : 'movies'
+              }
+
               return (
                 <Link
-                  to={`/movies/${result.id}`}
+                  to={`${resultBaseUrl}/${result.id}`}
                   key={result.id}
                   className="search-results-item"
                 >
                   <MediaCardLight
-                    title={result.title}
+                    title={result.title || result.name}
                     img={result.poster_path}
                   />
                 </Link>
               );
             })
             }
-
-            {/*<Button*/}
-            {/*  text=">"*/}
-            {/*  color="error"*/}
-            {/*  customClass={`search-results-scroll-to-top-btn ${isScrollToTopBtnHidden ? 'hidden' : ''}`}*/}
-            {/*  onClick={onScrollBtnClick}*/}
-            {/*/>*/}
           </div>
         </Container>
       );

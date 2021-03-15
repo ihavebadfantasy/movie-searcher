@@ -20,6 +20,7 @@ const MediaSearchResults = ({
   setScrollPosition,
   topScrollPosition,
   sortTypes,
+  searchType,
 }) => {
   const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
   const [isSortSelectVisible, setIsSortSelectVisible] = useState(false);
@@ -56,6 +57,7 @@ const MediaSearchResults = ({
         isSearching={isSearching}
         results={results}
         customClass={resultsCustomClass}
+        searchType={searchType}
       />
 
       <Pagination

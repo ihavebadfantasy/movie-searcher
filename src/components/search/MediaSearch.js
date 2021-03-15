@@ -96,6 +96,7 @@ const MediaSearch = ({
         loadResults={loadResults}
         resultsWrapperClass="pd-20 pr-0 sidebar-page-main-content"
         sortTypes={sortTypes}
+        searchType={searchType}
       />
     </div>
   );
