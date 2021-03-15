@@ -30,6 +30,7 @@ const SearchNavigation = ({clearAllSearchStore, items}) => {
 
   const renderNavigationLinks = () => {
     return items.map((item) => {
+      console.log(item.href);
       return (
         <li
           key={item.href}

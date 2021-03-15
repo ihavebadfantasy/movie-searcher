@@ -1,4 +1,9 @@
-import { MOVIES_URL, MULTI_SEARCH_URL, TV_SHOWS_URL } from '../../api/tmdb/urls';
+import {
+  MOVIES_URL,
+  MULTI_SEARCH_URL,
+  TV_SHOWS_URL,
+  PEOPLE_SEARCH_URL,
+} from '../../api/tmdb/urls';
 import {
   SEARCH_BY_FILETRS,
   SET_IS_SEARCHING,
@@ -28,9 +33,15 @@ import findSelectedItems from '../../helpers/forms/findSelectedItems';
 import getReleaseDateLte from '../../helpers/forms/getReleaseDateLte';
 import getReleaseDateGte from '../../helpers/forms/getReleaseDateGte';
 import isObjectsEqual from '../../helpers/isObjectsEqual';
-import { MOVIES, TV_SHOWS } from '../../config/searchByFiltersTypes';
+import {
+  MOVIES,
+  TV_SHOWS,
+  PEOPLE,
+  MULTI
+} from '../../config/searchByFiltersTypes';
 
-export const multiSearch = (
+export const searchByTerm = (
+  type,
   overrideResults = false,
   showLoader = false,
   scrollPageAfterResultsLoaded = false) => {
@@ -58,7 +69,18 @@ export const multiSearch = (
 
     dispatch(setParams(params));
 
-    const res = await TMDBApi.$instance.get(MULTI_SEARCH_URL, {
+    let url;
+
+    switch (type) {
+      case MULTI:
+        url = MULTI_SEARCH_URL;
+        break;
+      case PEOPLE:
+        url = PEOPLE_SEARCH_URL;
+        break;
+    }
+
+    const res = await TMDBApi.$instance.get(url, {
       params,
     });
 

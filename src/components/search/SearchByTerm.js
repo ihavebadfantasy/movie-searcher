@@ -5,8 +5,7 @@ import SearchInput from '../forms/SearchInput';
 import {
   setSearchTerm,
   setResultsCurrentPage,
-  multiSearch,
-  setSearchWasRequested
+  setSearchWasRequested,
 } from '../../store/search/actions';
 import SearchNavigation from '../navigation/SearchNavigation';
 import MediaSearchResults from '../search/MediaSearchResults';
@@ -16,19 +15,14 @@ const SearchByTerm = ({
   setSearchTerm,
   resultsCurrentPage,
   setResultsCurrentPage,
-  multiSearch,
+  searchInit,
   setSearchWasRequested,
   navigationItems,
   searchType = null,
 }) => {
   const [searchQuery, setSearchQuery] = useState(searchTerm);
-  const [pageUrl, setPageUrl] = useState(null);
 
   const history = useHistory();
-
-  useEffect(() => {
-    setPageUrl(history.location.pathname);
-  }, [])
 
   useEffect(() => {
     const parseSearchQuery = () => {
@@ -49,14 +43,14 @@ const SearchByTerm = ({
   useEffect(() => {
     if (searchQuery) {
       history.push({
-        pathname: pageUrl,
+        pathname: history.location.pathname,
         search:`?search=${searchQuery}`
       });
 
       initSearch(1, true);
     } else {
       history.push({
-        pathname: pageUrl,
+        pathname: history.location.pathname,
         search: '',
       });
 
@@ -66,7 +60,7 @@ const SearchByTerm = ({
 
   const initSearch = (page = resultsCurrentPage || 1, overrideResults = false, scrollPageAfterResultsLoaded = false) => {
     setResultsCurrentPage(page);
-    multiSearch(overrideResults, false, scrollPageAfterResultsLoaded);
+    searchInit(overrideResults, false, scrollPageAfterResultsLoaded);
   }
 
   const loadResults = (overrideResults, page, scrollPageAfterResultsLoaded) => {
@@ -108,7 +102,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   setSearchTerm,
   setResultsCurrentPage,
-  multiSearch,
   setSearchWasRequested,
 }
 

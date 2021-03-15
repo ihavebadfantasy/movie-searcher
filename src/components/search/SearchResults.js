@@ -112,7 +112,7 @@ const SearchResults = ({
                 >
                   <MediaCardLight
                     title={result.title || result.name}
-                    img={result.poster_path}
+                    img={result.poster_path || result.profile_path}
                   />
                 </Link>
               );

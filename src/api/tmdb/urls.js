@@ -15,4 +15,5 @@ export const TV_SHOWS_SIMILAR = 'tv/:id/similar';
 export const TV_SHOWS_RECOMMENDATIONS = 'tv/:id/recommendations';
 export const COUNTRIES = '/configuration/countries';
 export const MULTI_SEARCH_URL = '/search/multi';
+export const PEOPLE_SEARCH_URL = '/search/person';
 
