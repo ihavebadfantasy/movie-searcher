@@ -57,8 +57,17 @@
     "voteCount": "Количеству оценок",
     "releaseDate": "Дате Релиза"
   },
+  "dropdownItems": {
+    "popularity": "Популярности",
+    "voteAverage": "Рейтингу",
+    "voteCount": "Количеству оценок",
+    "releaseDate": "Дате Релиза"
+  },
   "checkboxesLabels": {
     "released": "В прокате",
     "featured": "В ожидании"
+  },
+  "mediaSearchResults": {
+    "notFoundMsg":"К сожалению, нам ничего не удалось найти по Вашему запросу. Попробуйте проверить запрос на правильность или поискать что-то еще."
   }
 }

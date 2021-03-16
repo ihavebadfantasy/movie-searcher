@@ -26,16 +26,17 @@ const Home = ({
    setSearchTerm,
    searchTerm,
    history,
+   language,
 }) => {
   const [ t ] = useTranslation('homepage');
   const [slidesPerPage] = useSlidesPerPage();
 
   useEffect(() => {
-    fetchNewMovies(1);
-    fetchPopularMovies(1);
-    fetchPopularTvShows(1);
-    fetchNewTvShows(1);
-  }, []);
+    fetchNewMovies(1, true);
+    fetchPopularMovies(1, true);
+    fetchPopularTvShows(1, true);
+    fetchNewTvShows(1, true);
+  }, [language]);
 
   useEffect(() => {
     if (searchTerm) {
@@ -119,6 +120,7 @@ const mapStateToProps = state => {
     newTvShows: state.tvShows.new,
     popularTvShows: state.tvShows.popular,
     searchTerm: state.search.searchTerm,
+    language: state.user.language,
   };
 }
 

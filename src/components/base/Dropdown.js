@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { Animated } from 'react-animated-css'
+import { useTranslation } from 'react-i18next';
 
 const Dropdown = ({
   items,
   selectedValue = '',
   onSelectItem,
   title = '',
+  localize = false,
 }) => {
+  const [ t ] = useTranslation('dropdownItems');
   const [isOpen, setIsOpen] = useState(false);
 
   const dropdownHeaderRef = useRef();
@@ -42,7 +45,7 @@ const Dropdown = ({
         ref={dropdownHeaderRef}
       >
         <div className="dropdown-selected">
-          {selectedValue}
+          {localize ? t(selectedValue) : selectedValue}
         </div>
       </div>
       <Animated
@@ -66,7 +69,7 @@ const Dropdown = ({
                 onSelectItem(item.value);
               }}
             >
-              {item.label}
+              {localize ? t(item.label) : item.label}
             </div>
           );
         })}

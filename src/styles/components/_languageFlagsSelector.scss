@@ -1,0 +1,37 @@
+.language-flags-selector {
+  .usa-flag{
+    height: 45px;
+    transition: all 0.3s;
+    opacity: 0.5;
+
+    // TODO: remove to mixin
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &.active {
+      opacity: 1;
+      height: 55px;
+    }
+  }
+
+  .russia-flag{
+    height: 53px;
+    margin-left: 10px;
+    transition: all 0.3s;
+    opacity: 0.5;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &.active {
+      opacity: 1;
+      height: 63px;
+    }
+  }
+}

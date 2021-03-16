@@ -16,6 +16,8 @@ import {
   CLEAR_CURRENT_MOVIE,
   FETCH_CURRENT_MOVIE_RECOMMENDATIONS,
   FETCH_CURRENT_MOVIE_SIMILAR,
+  CLEAR_POPULAR_MOVIES,
+  CLEAR_NEW_MOVIES,
 } from './types';
 import fetchMediaData from '../../api/tmdb/fetchMediaData';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
@@ -24,8 +26,12 @@ import fetchMediaImages from '../../api/tmdb/fetchMediaImages';
 import reactor from '../../helpers/reactor/Reactor';
 import { STOP_CURRENT_MOVIE_FETCHING, REDIRECT_TO_NOT_FOUND_PAGE } from '../../helpers/reactor/events';
 
-export const fetchNewMovies = (page = 'all') => {
+export const fetchNewMovies = (page = 'all', overrideResults = false) => {
   return async (dispatch, getState) => {
+    if (overrideResults) {
+      dispatch(clearNewMovies());
+    }
+
     const state = getState();
 
     const now = DateTime.now();
@@ -57,8 +63,12 @@ export const fetchNewMovies = (page = 'all') => {
   }
 }
 
-export const fetchPopularMovies = (page = 'all') => {
+export const fetchPopularMovies = (page = 'all', overrideResults = false) => {
   return async (dispatch) => {
+    if (overrideResults) {
+      dispatch(clearPopularMovies());
+    }
+
     const config = {
       params: {
         'vote_count.gte': 1000,
@@ -97,8 +107,12 @@ export const fetchMoviesGenres = () => {
   }
 }
 
-export const fetchCurrentMovie = (id) => {
+export const fetchCurrentMovie = (id, overrideResults = false) => {
   return async (dispatch) => {
+    if (overrideResults) {
+      dispatch(clearCurrentMovie());
+    }
+
     let loadingIsDiscarded = false;
 
     reactor.addEventListener(STOP_CURRENT_MOVIE_FETCHING, () => {
@@ -176,6 +190,18 @@ export const clearCurrentMovie = () => {
 
   return {
     type: CLEAR_CURRENT_MOVIE,
+  }
+}
+
+export const clearNewMovies = () => {
+  return {
+    type: CLEAR_NEW_MOVIES,
+  }
+}
+
+export const clearPopularMovies = () => {
+  return {
+    type: CLEAR_POPULAR_MOVIES,
   }
 }
 

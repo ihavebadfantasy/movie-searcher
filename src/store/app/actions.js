@@ -1,13 +1,14 @@
 import { LOAD_INITIAL_APP_DATA } from './types';
 import { FETCH_TMDB_COUNTRIES, FETCH_TMDB_JOBS } from './types';
 import { COUNTRIES, JOBS } from '../../api/tmdb/urls';
-import { setLocation } from '../user/actions';
+import { setLocation, setLanguage } from '../user/actions';
 import { fetchMoviesGenres } from '../movies/actions';
 import { fetchTvShowsGenres } from '../tvShows/actions';
 import { Api as TMDBApi } from '../../api/tmdb/Api';
 
 export const loadInitialAppData = () => {
   return async (dispatch) => {
+    dispatch(setLanguage(localStorage.getItem('i18nextLng')));
     await dispatch(setLocation());
     await dispatch(fetchTvShowsGenres());
     await dispatch(fetchMoviesGenres());

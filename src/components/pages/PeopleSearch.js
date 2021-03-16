@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   searchByTerm,
@@ -27,7 +28,14 @@ const navigationItems = [
 
 const PeopleSearch = ({
   searchByTerm,
+  language,
+  searchTerm,
 }) => {
+  useEffect(() => {
+    if (searchTerm) {
+      searchByTerm(PEOPLE, true, false, false, true);
+    }
+  }, [language]);
 
   return (
     <SearchByTerm
@@ -38,8 +46,15 @@ const PeopleSearch = ({
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    language: state.user.language,
+    searchTerm: state.search.searchTerm,
+  }
+}
+
 const mapDispatchToProps = {
   searchByTerm,
 }
 
-export default connect(null, mapDispatchToProps)(PeopleSearch);
+export default connect(mapStateToProps, mapDispatchToProps)(PeopleSearch);

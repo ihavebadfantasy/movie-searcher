@@ -69,6 +69,7 @@ const SortSelect = ({
             items={sortTypes}
             selectedValue={dropdownSelectedValue}
             onSelectItem={selectSortType}
+            localize={true}
           />
         ) : (
           <>

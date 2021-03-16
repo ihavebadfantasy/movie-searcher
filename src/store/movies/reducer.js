@@ -6,11 +6,17 @@ import {
   FETCH_CURRENT_MOVIE,
   CLEAR_CURRENT_MOVIE,
   FETCH_CURRENT_MOVIE_SIMILAR,
-  FETCH_CURRENT_MOVIE_RECOMMENDATIONS
+  FETCH_CURRENT_MOVIE_RECOMMENDATIONS,
+  CLEAR_NEW_MOVIES,
+  CLEAR_POPULAR_MOVIES,
 } from './types';
 
 export const reducer = (state = moviesState, action) => {
   switch (action.type) {
+    case CLEAR_NEW_MOVIES:
+      return {...state, new: []};
+    case CLEAR_POPULAR_MOVIES:
+      return {...state, popular: []};
     case FETCH_NEW_MOVIES:
       return {...state, new: [...state.new, ...action.payload]};
     case FETCH_POPULAR_MOVIES:

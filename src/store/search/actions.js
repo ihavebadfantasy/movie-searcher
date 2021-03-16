@@ -44,7 +44,9 @@ export const searchByTerm = (
   type,
   overrideResults = false,
   showLoader = false,
-  scrollPageAfterResultsLoaded = false) => {
+  scrollPageAfterResultsLoaded = false,
+  useOldParams = false,
+) => {
 
   return async (dispatch, getState) => {
     if (showLoader) {
@@ -63,7 +65,7 @@ export const searchByTerm = (
 
     const oldParams = state.search.params;
 
-    if (isObjectsEqual(oldParams, params)) {
+    if (!useOldParams && isObjectsEqual(oldParams, params)) {
       return;
     }
 
@@ -115,6 +117,7 @@ export const searchByFilters = (
   overrideResults = false,
   showLoader = false,
   scrollPageAfterResultsLoaded = false,
+  useOldParams = false,
 ) => {
   return async (dispatch, getState) => {
     if (showLoader) {
@@ -192,7 +195,7 @@ export const searchByFilters = (
 
     const oldParams = state.search.params;
 
-    if (isObjectsEqual(oldParams, params)) {
+    if (!useOldParams && isObjectsEqual(oldParams, params)) {
       return;
     }
 

@@ -14,6 +14,11 @@ export class Api {
 
   client = null;
   apiKey = config.api.keys.db;
+  language = config.language.default;
+
+  setLanguage(language) {
+    this.language = language;
+  }
 
   async get(url, config) {
     const fullConfig = this.createFullConfig(config);
@@ -43,13 +48,17 @@ export class Api {
       'api_key': this.apiKey,
     };
 
+    const language = {
+      'language': this.language,
+    };
+
     if (!config) {
       return {
-        params: apiKeyParam,
+        params: { ...apiKeyParam, ...language },
       }
     }
 
-    config.params = {...config.params, ...apiKeyParam};
+    config.params = {...config.params, ...apiKeyParam, ...language};
 
     return config;
   }

@@ -40,7 +40,8 @@ const TvShows = ({tvShow,
   fetchCurrentTvShowRecommendations,
   tvShowSimilar,
   tvShowRecommendations,
-  history
+  history,
+  language
 }) => {
   const [ t ] = useTranslation('general');
   const [seasonsAccordionItems, setSeasonsAccordionItems] = useState([]);
@@ -60,8 +61,8 @@ const TvShows = ({tvShow,
   useEffect(() => {
     const id = match.params.id;
 
-    fetchCurrentTvShow(id);
-  }, [match.params.id]);
+    fetchCurrentTvShow(id, true);
+  }, [match.params.id, language]);
 
   useEffect(() => {
     if (tvShow && tvShow.seasons) {
@@ -133,6 +134,7 @@ const mapStateToProps = state => {
     tvShow: state.tvShows.currentTvShow,
     tvShowSimilar: state.tvShows.currentTvShowSimilar,
     tvShowRecommendations: state.tvShows.currentTvShowRecommendations,
+    language: state.user.language,
   };
 }
 

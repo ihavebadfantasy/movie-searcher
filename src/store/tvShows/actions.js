@@ -16,6 +16,8 @@ import {
   CLEAR_CURRENT_TV_SHOW,
   FETCH_CURRENT_TV_SHOW_RECOMMENDATIONS,
   FETCH_CURRENT_TV_SHOW_SIMILAR,
+  CLEAR_POPULAR_TV_SHOWS,
+  CLEAR_NEW_TV_SHOWS,
 } from './types';
 import { DateTime } from 'luxon';
 import fetchMediaData from '../../api/tmdb/fetchMediaData';
@@ -29,8 +31,12 @@ import {
 } from '../../helpers/reactor/events';
 
 
-export const fetchNewTvShows = (page = 'all') => {
+export const fetchNewTvShows = (page = 'all', overrideResults = false) => {
   return async (dispatch, getState) => {
+    if (overrideResults) {
+      dispatch(clearNewTvShows());
+    }
+
     const state = getState();
 
     const now = DateTime.now();
@@ -61,8 +67,12 @@ export const fetchNewTvShows = (page = 'all') => {
   }
 }
 
-export const fetchPopularTvShows = (page = 'all') => {
+export const fetchPopularTvShows = (page = 'all', overrideResults = false) => {
   return async (dispatch) => {
+    if (overrideResults) {
+      dispatch(clearPopularTvShows());
+    }
+
     const config = {
       params: {
         'vote_count.gte': 1000,
@@ -102,8 +112,12 @@ export const fetchTvShowsGenres = () => {
   }
 }
 
-export const fetchCurrentTvShow = (id) => {
+export const fetchCurrentTvShow = (id, overrideResults = false) => {
   return async (dispatch) => {
+    if (overrideResults) {
+      dispatch(clearCurrentTvShow());
+    }
+
     let loadingIsDiscarded = false;
 
     reactor.addEventListener(STOP_CURRENT_TV_SHOW_FETCHING, () => {
@@ -207,5 +221,17 @@ export const clearCurrentTvShow = () => {
 
   return {
     type: CLEAR_CURRENT_TV_SHOW,
+  }
+}
+
+export const clearNewTvShows = () => {
+  return {
+    type: CLEAR_NEW_TV_SHOWS,
+  }
+}
+
+export const clearPopularTvShows = () => {
+  return {
+    type: CLEAR_POPULAR_TV_SHOWS,
   }
 }

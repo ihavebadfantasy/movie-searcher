@@ -22,7 +22,8 @@ const Movies = ({
   movieSimilar,
   movieRecommendations,
   fetchCurrentMovieRecommendations,
-  history
+  history,
+  language,
 }) => {
   const [ t ] = useTranslation('general');
   const [windowWidth] = useWindowResize();
@@ -43,8 +44,8 @@ const Movies = ({
   useEffect(() => {
     const id = match.params.id;
 
-    fetchCurrentMovie(id);
-  }, [match.params.id]);
+    fetchCurrentMovie(id, true);
+  }, [match.params.id, language]);
 
   const loadMoreSimilar = (page) => {
     fetchCurrentMovieSimilar(movie.id, page);
@@ -101,6 +102,7 @@ const mapStateToProps = state => {
     movie: state.movies.currentMovie,
     movieSimilar: state.movies.currentMovieSimilar,
     movieRecommendations: state.movies.currentMovieRecommendations,
+    language: state.user.language,
   };
 }
 

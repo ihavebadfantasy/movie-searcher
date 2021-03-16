@@ -57,8 +57,17 @@
     "voteCount": "Vote Count",
     "releaseDate": "Release Date"
   },
+  "dropdownItems": {
+    "popularity": "Popularity",
+    "voteAverage": "Rating",
+    "voteCount": "Vote Count",
+    "releaseDate": "Release Date"
+  },
   "checkboxesLabels": {
     "released": "Released",
     "featured": "Featured"
+  },
+  "mediaSearchResults": {
+    "notFoundMsg":"We are so sorry, but nothing matching your request was found. Try to change the filters or double check the spelling of search input value."
   }
 }

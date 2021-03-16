@@ -15,5 +15,8 @@ export default {
   },
   email: {
     developer: process.env.REACT_APP_DEVELOPER_EMAIL,
+  },
+  language: {
+    default: 'ru',
   }
 };

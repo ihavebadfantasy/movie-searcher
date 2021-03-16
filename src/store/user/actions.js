@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { SET_LOCATION } from './types';
+import { SET_LOCATION, SET_LANGUAGE } from './types';
+import { Api as TMDBApi } from '../../api/tmdb/Api';
 
 export const setLocation = () => {
   return async (dispatch) => {
@@ -19,5 +20,14 @@ export const setLocation = () => {
       type: SET_LOCATION,
       payload: location,
     });
+  }
+}
+
+export const setLanguage = (language) => {
+  TMDBApi.$instance.setLanguage(language);
+
+  return {
+    type: SET_LANGUAGE,
+    payload: language,
   }
 }

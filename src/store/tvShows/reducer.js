@@ -7,10 +7,16 @@ import {
   CLEAR_CURRENT_TV_SHOW,
   FETCH_CURRENT_TV_SHOW_RECOMMENDATIONS,
   FETCH_CURRENT_TV_SHOW_SIMILAR,
+  CLEAR_NEW_TV_SHOWS,
+  CLEAR_POPULAR_TV_SHOWS,
 } from './types';
 
 export const reducer = (state = tvShowsState, action) => {
   switch (action.type) {
+    case CLEAR_NEW_TV_SHOWS:
+      return {...state, new: []};
+    case CLEAR_POPULAR_TV_SHOWS:
+      return {...state, popular: []};
     case FETCH_NEW_TV_SHOWS:
       return {...state, new: [...state.new, ...action.payload]};
     case FETCH_POPULAR_TV_SHOWS:

@@ -7,7 +7,6 @@ import Loader from './components/base/Loader';
 import Navigation from './components/navigation/Navigation';
 import ScrollToTop from './components/navigation/ScrollToTop';
 import Footer from './components/base/Footer';
-
 import { loadInitialAppData } from './store/app/actions';
 
 const App = ({isAppInitialDataLoaded, loadInitialAppData}) => {

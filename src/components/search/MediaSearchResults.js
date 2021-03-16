@@ -6,6 +6,7 @@ import SearchResults from './SearchResults';
 import Pagination from '../ui/Pagination';
 import SortSelect from './SortSelect';
 import routes from '../navigation/routes';
+import { useTranslation } from 'react-i18next';
 
 const MediaSearchResults = ({
   isSearching,
@@ -22,6 +23,7 @@ const MediaSearchResults = ({
   sortTypes,
   searchType,
 }) => {
+  const [t] = useTranslation('mediaSearchResults');
   const showMore = loadResults.bind(null, false, resultsCurrentPage + 1);
   const [isSortSelectVisible, setIsSortSelectVisible] = useState(false);
 
@@ -70,7 +72,9 @@ const MediaSearchResults = ({
       />
 
       {results.length < 1 && searchWasRequested && (
-        <p className="mt-60-resp gray">We are so sorry, but nothing matching your request was found. Try to change the filters or double check the spelling of search input value.</p>
+        <p className="mt-60-resp gray">
+          {t('notFoundMsg')}
+        </p>
       )}
     </div>
   );

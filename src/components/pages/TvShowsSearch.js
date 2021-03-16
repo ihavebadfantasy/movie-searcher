@@ -4,6 +4,7 @@ import SearchNavigation from '../navigation/SearchNavigation';
 import {
   setGenresCheckboxes,
   setYearsCheckboxes,
+  searchByFilters,
 } from '../../store/search/actions';
 import tvShowsYearsItems from '../../config/tvShowsYearsItems';
 import MediaSearch from '../search/MediaSearch';
@@ -36,7 +37,13 @@ const TvShowsSearch = ({
   genresCheckboxes,
   yearsCheckboxes,
   setYearsCheckboxes,
+  language,
+  searchByFilters,
 }) => {
+  useEffect(() => {
+    searchByFilters(TV_SHOWS, true, false, true, true);
+  }, [language]);
+
   useEffect(() => {
     if (genresCheckboxes.length === 0) {
       const checkboxes = genres.map((genre) => {
@@ -78,12 +85,14 @@ const mapStateToProps = state => {
     genres: state.tvShows.genres,
     genresCheckboxes: state.search.genresCheckboxes,
     yearsCheckboxes: state.search.yearsCheckboxes,
+    language: state.user.language,
   }
 }
 
 const mapDispatchToProps = {
   setGenresCheckboxes,
   setYearsCheckboxes,
+  searchByFilters,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TvShowsSearch);

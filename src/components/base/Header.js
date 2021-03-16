@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { clearAllSearchStore, setSearchTerm } from '../../store/search/actions';
 import routes from '../navigation/routes';
 import { useTranslation } from 'react-i18next';
+import LanguageFlagsSelector from '../ui/LanguageFlagsSelector';
 
 const Header = ({ clearAllSearchStore, setSearchTerm }) => {
   const [ t ] = useTranslation('header');
@@ -66,6 +67,10 @@ const Header = ({ clearAllSearchStore, setSearchTerm }) => {
           <nav className="header-menu">
             {renderSearchLink()}
           </nav>
+
+          <LanguageFlagsSelector>
+
+          </LanguageFlagsSelector>
         </div>
       </div>
     </header>
