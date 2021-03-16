@@ -1,4 +1,8 @@
-const Checkbox = ({checkboxes, toggleCheckbox}) => {
+import { useTranslation } from 'react-i18next';
+
+const Checkbox = ({checkboxes, toggleCheckbox, localize = false}) => {
+  const [ t ] = useTranslation('checkboxesLabels');
+
   const renderedCheckboxes = checkboxes.map((checkbox) => {
     return (
       <label style={{width: '100%'}} key={checkbox.value}>
@@ -12,7 +16,7 @@ const Checkbox = ({checkboxes, toggleCheckbox}) => {
           }}
         />
         <span>
-          {checkbox.label}
+          {localize ? t(checkbox.label) : checkbox.label}
         </span>
       </label>
     );

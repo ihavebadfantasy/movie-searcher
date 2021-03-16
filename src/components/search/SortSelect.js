@@ -14,7 +14,7 @@ const SortSelect = ({
   initSearchWithFilters,
   sortTypes = [],
 }) => {
-  const [ t ] = useTranslation('sortSelect');
+  const [ t ] = useTranslation(['sortSelect', 'searchSortTypes']);
   const [windowWidth] = useWindowResize();
   const [isMobileLayout, setIsMobileLayout] = useState(false);
   const [prevSortType, setPrevSortType] = useState(sortType);
@@ -81,7 +81,7 @@ const SortSelect = ({
                     selectSortType(type.value);
                   }}
                 >
-                  {type.label}
+                  {t(`searchSortTypes:${type.label}`)}
                 </div>
               );
             })}

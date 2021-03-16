@@ -50,5 +50,15 @@
   },
   "sortSelect": {
     "dropdownTitle": "Сортировать по:"
+  },
+  "searchSortTypes": {
+    "popularity": "Популярности",
+    "voteAverage": "Рейтингу",
+    "voteCount": "Количеству оценок",
+    "releaseDate": "Дате Релиза"
+  },
+  "checkboxesLabels": {
+    "released": "В прокате",
+    "featured": "В ожидании"
   }
 }

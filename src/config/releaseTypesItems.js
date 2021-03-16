@@ -1,11 +1,11 @@
 export const releaseTypesItems = [
   {
-    label: 'Released',
+    label: 'released',
     checked: false,
     value: 'released'
   },
   {
-    label: 'Featured',
+    label: 'featured',
     checked: false,
     value: 'featured'
   }

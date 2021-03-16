@@ -160,6 +160,7 @@ const MediaSearchFilters = ({
 
         <Checkbox
           checkboxes={releaseTypesCheckboxes}
+          localize={true}
           toggleCheckbox={(value) => {
             setReleaseTypesCheckboxes(toggleCheckbox(releaseTypesCheckboxes, value));
           }}

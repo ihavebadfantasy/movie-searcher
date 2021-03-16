@@ -1,18 +1,18 @@
 export default [
   {
-    label: 'Popularity',
+    label: 'popularity',
     value: 'popularity',
   },
   {
-    label: 'Vote Average',
+    label: 'voteAverage',
     value: 'vote_average',
   },
   {
-    label: 'Vote Count',
+    label: 'voteCount',
     value: 'vote_count',
   },
   {
-    label: 'Release Date',
+    label: 'releaseDate',
     value: 'primary_release_date',
   },
 ];

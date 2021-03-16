@@ -50,5 +50,15 @@
   },
   "sortSelect": {
     "dropdownTitle": "Sort by"
+  },
+  "searchSortTypes": {
+    "popularity": "Popularity",
+    "voteAverage": "Rating",
+    "voteCount": "Vote Count",
+    "releaseDate": "Release Date"
+  },
+  "checkboxesLabels": {
+    "released": "Released",
+    "featured": "Featured"
   }
 }
