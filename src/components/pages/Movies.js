@@ -12,6 +12,7 @@ import useWindowResize from '../../hooks/useWindowResize';
 import FixedButton from '../ui/FixedButton';
 import { useLastLocation } from 'react-router-last-location';
 import routes from '../navigation/routes';
+import { useTranslation } from 'react-i18next';
 
 const Movies = ({
   movie,
@@ -23,6 +24,7 @@ const Movies = ({
   fetchCurrentMovieRecommendations,
   history
 }) => {
+  const [ t ] = useTranslation('general');
   const [windowWidth] = useWindowResize();
   const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
   const [backToSearchPath, setBackToSearchPath] = useState(null);
@@ -66,7 +68,7 @@ const Movies = ({
                 color="error"
                 containerRef={containerRef}
                 topOffset={30}
-                text="Back to Search Results"
+                text={t('backToSearchResultsBtn')}
                 shortText="<"
                 onClick={() => {
                   history.push(backToSearchPath);

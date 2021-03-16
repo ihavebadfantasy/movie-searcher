@@ -9,6 +9,7 @@ import {
 } from '../../store/search/actions';
 import SearchNavigation from '../navigation/SearchNavigation';
 import MediaSearchResults from '../search/MediaSearchResults';
+import { useTranslation } from 'react-i18next';
 
 const SearchByTerm = ({
   searchTerm,
@@ -20,6 +21,7 @@ const SearchByTerm = ({
   navigationItems,
   searchType = null,
 }) => {
+  const [ t ] = useTranslation('homepage');
   const [searchQuery, setSearchQuery] = useState(searchTerm);
 
   const history = useHistory();
@@ -74,7 +76,7 @@ const SearchByTerm = ({
       />
       <SearchInput
         setSearchTerm={setSearchTerm}
-        placeholder="Search for a movie, tv show, person..."
+        placeholder={t('searchInputPlaceholder')}
         searchTerm={searchTerm}
       />
 

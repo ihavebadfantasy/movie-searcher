@@ -1,0 +1,54 @@
+{
+  "homepage": {
+    "searchInputPlaceholder": "Search for a movie, tv show, person...",
+    "newMoviesCarouselTitle": "The Newest Movies",
+    "newTvShowCarouselTitle": "The Newest TV Shows",
+    "popularMoviesCarouselTitle": "The Most Popular Movies",
+    "popularTvShowsCarouselTitle": "The Most Popular TV-Shows"
+  },
+  "header": {
+    "searchPageLink": "Search"
+  },
+  "footer": {
+    "contactUs1": "Feel free to contact me for",
+    "contactUs1": "bug reports or any other reason:)",
+    "copyrightText2": "Created by:",
+    "copyrightText1": "Made with"
+  },
+  "mediaSearchFilters": {
+    "expandBtnHint": "Click to expand filters",
+    "genreFilterLabel": "Genre",
+    "ratingFilterLabel": "Rating",
+    "ratingFilterHint": "Not less than:",
+    "voteCountFilterLabel": "Min Vote Count",
+    "voteCountFilterHint": "The minimum amount of people that voted:",
+    "yearsFilterLabel": "Years",
+    "releaseTypeFilterLabel": "Release Type"
+  },
+  "mediaCard": {
+    "homepageLink": "Homepage",
+    "similarCarouselTitle": "Similar",
+    "recommendationsCarouselTitle": "Recommendations",
+    "lasEpisodeAirDateLabel": "Last Episode on Air:",
+    "createdByLabel": "Created by:"
+  },
+  "searchNavigation": {
+    "multiSearch": "Multi Search",
+    "moviesSearch": "Extended Movies Search",
+    "tvShowsSearch": "Extended Tv Shows Search",
+    "peopleSearch": "Search by People",
+    "companiesSearch": "Search by Companies"
+  },
+  "general": {
+    "backToSearchResultsBtn": "Back to Search Results",
+    "searchBtn": "Search",
+    "resetAllBtn": "Reset All",
+    "showMoreBtn": "Show More"
+  },
+  "searchResults": {
+    "containerTitle": "Results"
+  },
+  "sortSelect": {
+    "dropdownTitle": "Sort by"
+  }
+}

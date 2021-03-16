@@ -4,6 +4,7 @@ import { setSortOrder, setSortType } from '../../store/search/actions';
 import Button from '../ui/Button';
 import Dropdown from '../base/Dropdown';
 import useWindowResize, { tablet } from '../../hooks/useWindowResize';
+import { useTranslation } from 'react-i18next';
 
 const SortSelect = ({
   sortType,
@@ -13,6 +14,7 @@ const SortSelect = ({
   initSearchWithFilters,
   sortTypes = [],
 }) => {
+  const [ t ] = useTranslation('sortSelect');
   const [windowWidth] = useWindowResize();
   const [isMobileLayout, setIsMobileLayout] = useState(false);
   const [prevSortType, setPrevSortType] = useState(sortType);
@@ -63,7 +65,7 @@ const SortSelect = ({
       <div className="sort-select-types">
         { isMobileLayout ? (
           <Dropdown
-            title="Sort by"
+            title={t('dropdownTitle')}
             items={sortTypes}
             selectedValue={dropdownSelectedValue}
             onSelectItem={selectSortType}

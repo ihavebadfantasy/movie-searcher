@@ -14,19 +14,19 @@ import tvShowsExtendedSearchSortTypes from '../../config/tvShowsExtendedSearchSo
 const navigationItems = [
   {
     href: routes.search,
-    text: 'Multi Search'
+    text: 'multiSearch'
   },
   {
     href: routes.moviesSearch,
-    text: 'Extended Movies Search'
+    text: 'moviesSearch'
   },
   {
     href: routes.peopleSearch,
-    text: 'Search by People'
+    text: 'peopleSearch'
   },
   {
     href: routes.companiesSearch,
-    text: 'Search by Companies'
+    text: 'companiesSearch'
   },
 ];
 

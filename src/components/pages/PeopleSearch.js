@@ -9,19 +9,19 @@ import { PEOPLE } from '../../config/searchByFiltersTypes';
 const navigationItems = [
   {
     href: routes.search,
-    text: 'Multi Search'
+    text: 'multiSearch'
   },
   {
     href: routes.moviesSearch,
-    text: 'Extended Movies Search'
+    text: 'moviesSearch'
   },
   {
     href: routes.tvShowsSearch,
-    text: 'Extended Tv Shows Search'
+    text: 'tvShowsSearch'
   },
   {
     href: routes.companiesSearch,
-    text: 'Search by Companies'
+    text: 'companiesSearch'
   },
 ];
 

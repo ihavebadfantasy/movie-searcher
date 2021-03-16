@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import MediaCardLight from '../media/MediaCardLight';
 import FixedButton from '../ui/FixedButton';
 import { MOVIES, TV_SHOWS, PEOPLE } from '../../config/searchByFiltersTypes';
+import { useTranslation } from 'react-i18next';
 
 const SearchResults = ({
   isSearching,
@@ -18,6 +19,8 @@ const SearchResults = ({
   searchPageScrollPosition,
   searchType = null,
 }) => {
+  const [ t ] = useTranslation('searchResults');
+
   const [isScrollToTopBtnHidden, setIsScrollToTopBtnHidden] = useState(true);
   const [baseUrl, setBaseUrl] = useState(null);
   // TODO: (bug) fix key error in console
@@ -86,7 +89,7 @@ const SearchResults = ({
       return (
         <Container
           theme={['withTitle']}
-          title="Results"
+          title={t('containerTitle')}
           customClass="light-border"
           innerRef={containerRef}
         >

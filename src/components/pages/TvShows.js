@@ -11,6 +11,7 @@ import useWindowResize from '../../hooks/useWindowResize';
 import FixedButton from '../ui/FixedButton';
 import { useLastLocation } from 'react-router-last-location';
 import routes from '../navigation/routes';
+import { useTranslation } from 'react-i18next';
 
 const mapSeasonsToAccordionItems = (seasons) => {
   return seasons.map((season) => {
@@ -32,7 +33,16 @@ const mapSeasonsToAccordionItems = (seasons) => {
   })
 }
 
-const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, fetchCurrentTvShowRecommendations, tvShowSimilar, tvShowRecommendations, history}) => {
+const TvShows = ({tvShow,
+  fetchCurrentTvShow,
+  match,
+  fetchCurrentTvShowSimilar,
+  fetchCurrentTvShowRecommendations,
+  tvShowSimilar,
+  tvShowRecommendations,
+  history
+}) => {
+  const [ t ] = useTranslation('general');
   const [seasonsAccordionItems, setSeasonsAccordionItems] = useState([]);
   const [windowWidth] = useWindowResize();
   const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
@@ -83,7 +93,7 @@ const TvShows = ({tvShow, fetchCurrentTvShow, match, fetchCurrentTvShowSimilar, 
               color="error"
               containerRef={containerRef}
               topOffset={30}
-              text="Back to Search Results"
+              text={t('backToSearchResultsBtn')}
               shortText="<"
               onClick={() => {
                 history.goBack();

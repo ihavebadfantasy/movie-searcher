@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import useWindowResize from '../../hooks/useWindowResize';
 import Button from './Button';
+import { useTranslation } from 'react-i18next';
 const detectEndPage = (totalPages, startPage, btnsPerPage) => {
   if (startPage + btnsPerPage >= totalPages) {
     return totalPages;
@@ -10,13 +11,15 @@ const detectEndPage = (totalPages, startPage, btnsPerPage) => {
 }
 
 const Pagination = ({
-                      showMore,
-                      totalPages,
-                      currentPage,
-                      switchPage,
-                      customClass = '',
-                      visible,
-                    }) => {
+  showMore,
+  totalPages,
+  currentPage,
+  switchPage,
+  customClass = '',
+  visible,
+}) => {
+  const [ t ] = useTranslation('general');
+
   const [windowWidth, layout] = useWindowResize();
 
   const [btnsPerPage, setBtnsPerPage] = useState(4);
@@ -102,7 +105,7 @@ const Pagination = ({
       {currentPage !== totalPages && (
         <Button
           color="primary"
-          text="Show More"
+          text={t('showMoreBtn')}
           customClass="pagination-load-more-btn"
           onClick={showMore}
         />

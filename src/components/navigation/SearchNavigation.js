@@ -6,8 +6,11 @@ import Button from '../ui/Button';
 import reactor from '../../helpers/reactor/Reactor';
 import { SEARCH_NAVIGATION_TOGGLE } from '../../helpers/reactor/events';
 import routes from './routes';
+import { useTranslation } from 'react-i18next';
 
 const SearchNavigation = ({clearAllSearchStore, items}) => {
+  const [ t ] = useTranslation('searchNavigation');
+
   const [isClosed, setIsClosed] = useState(false);
 
   const history = useHistory();
@@ -30,7 +33,6 @@ const SearchNavigation = ({clearAllSearchStore, items}) => {
 
   const renderNavigationLinks = () => {
     return items.map((item) => {
-      console.log(item.href);
       return (
         <li
           key={item.href}
@@ -40,7 +42,7 @@ const SearchNavigation = ({clearAllSearchStore, items}) => {
             href={item.href}
             onClick={onLinkClick}
           >
-            {item.text}
+            {t(item.text)}
           </a>
         </li>
       );

@@ -14,19 +14,19 @@ import moviesExtendedSearchSortTypes from '../../config/moviesExtendedSearchSort
 const navigationItems = [
   {
     href: routes.search,
-    text: 'Multi Search'
+    text: 'multiSearch'
   },
   {
     href: routes.tvShowsSearch,
-    text: 'Extended Tv Shows Search'
+    text: 'tvShowsSearch'
   },
   {
     href: routes.peopleSearch,
-    text: 'Search by People'
+    text: 'peopleSearch'
   },
   {
     href: routes.companiesSearch,
-    text: 'Search by Companies'
+    text: 'companiesSearch'
   },
 ];
 

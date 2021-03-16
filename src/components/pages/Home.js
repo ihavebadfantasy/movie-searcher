@@ -7,6 +7,7 @@ import { fetchNewTvShows, fetchPopularTvShows } from '../../store/tvShows/action
 import { setSearchTerm } from '../../store/search/actions';
 import useSlidesPerPage from '../../hooks/useSlidesPerPage';
 import routes from '../navigation/routes';
+import { useTranslation } from 'react-i18next';
 
 const types = {
   movies: 'movies',
@@ -26,6 +27,7 @@ const Home = ({
    searchTerm,
    history,
 }) => {
+  const [ t ] = useTranslation('homepage');
   const [slidesPerPage] = useSlidesPerPage();
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const Home = ({
     if (searchTerm) {
       history.push(routes.search);
     }
-  }, [searchTerm])
+  }, [searchTerm]);
 
   const loadMorePopularMovies = (page) => {
     fetchPopularMovies(page);
@@ -63,7 +65,7 @@ const Home = ({
       <div className="mb-30">
         <SearchInput
           setSearchTerm={setSearchTerm}
-          placeholder="Search for a movie, tv show, person..."
+          placeholder={t('searchInputPlaceholder')}
           searchTerm={searchTerm}
         />
       </div>
@@ -71,7 +73,7 @@ const Home = ({
       <MediaCarousel
         containerTheme={['withTitle']}
         containerClass="mb-30"
-        title="The Newest Movies"
+        title={t('newMoviesCarouselTitle')}
         slidesPerPage={slidesPerPage}
         items={newMovies}
         loadMoreData={loadMoreNewMovies}
@@ -80,7 +82,7 @@ const Home = ({
       <MediaCarousel
         containerTheme={['withTitle']}
         containerClass="mb-30"
-        title="The Newest TV-Shows"
+        title={t('newTvShowCarouselTitle')}
         slidesPerPage={slidesPerPage}
         items={newTvShows}
         type={types.tvShows}
@@ -90,7 +92,7 @@ const Home = ({
       <MediaCarousel
         containerTheme={['withTitle']}
         containerClass="mb-30"
-        title="The Most Popular Movies"
+        title={t('popularMoviesCarouselTitle')}
         slidesPerPage={slidesPerPage}
         items={popularMovies}
         loadMoreData={loadMorePopularMovies}
@@ -99,7 +101,7 @@ const Home = ({
       <MediaCarousel
         containerTheme={['withTitle']}
         containerClass="mb-30"
-        title="The Most Popular TV-Shows"
+        title={t('popularTvShowsCarouselTitle')}
         slidesPerPage={slidesPerPage}
         items={popularTvShows}
         type={types.tvShows}

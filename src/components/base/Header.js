@@ -3,8 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearAllSearchStore, setSearchTerm } from '../../store/search/actions';
 import routes from '../navigation/routes';
+import { useTranslation } from 'react-i18next';
 
 const Header = ({ clearAllSearchStore, setSearchTerm }) => {
+  const [ t ] = useTranslation('header');
+
   const [isSearchPage, setIsSearchPage] = useState(false);
   const history = useHistory();
 
@@ -41,7 +44,7 @@ const Header = ({ clearAllSearchStore, setSearchTerm }) => {
           href={routes.search}
           onClick={onSearchLinkClick}
         >
-          Search
+          {t('searchPageLink')}
         </a>
       );
     }

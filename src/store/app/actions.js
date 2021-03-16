@@ -49,7 +49,7 @@ export const fetchTMDBJobs = () => {
     } else {
       payload = res;
     }
-    console.log(payload);
+
     dispatch({
       type: FETCH_TMDB_JOBS,
       payload,

@@ -9,6 +9,7 @@ import Accordion from '../ui/Accordion';
 import Rating from './Rating';
 import useSlidesPerPage from '../../hooks/useSlidesPerPage';
 import setSelectedItem from '../../helpers/accordion/setSelectedItem';
+import { useTranslation } from 'react-i18next';
 
 const types = {
   movies: 'movies',
@@ -29,7 +30,15 @@ const mapReviewsToAccordionItems = (reviews) => {
   });
 }
 
-const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimilar, recommendations, loadMoreRecommendations}) => {
+const MediaCard = ({
+  media,
+  children,
+  type = types.movies,
+  similar, loadMoreSimilar,
+  recommendations,
+  loadMoreRecommendations,
+}) => {
+  const [ t ] = useTranslation('mediaCard');
   const [reviewsAccordionItems, setReviewsAccordionItems] = useState([]);
 
   const [slidesPerPage] = useSlidesPerPage(4);
@@ -123,7 +132,7 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
       return (
         <div className="created-by mt-20">
         <span className="small-text gray">
-          Created by:
+          {t('createdByLabel')}
         </span>
           {media.created_by.map((author, index) => {
             const separator = index === media.created_by.length - 1 ? '' : ',';
@@ -195,7 +204,7 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
 
         {media.last_air_date && (
             <div className={`release-date mt-30 nes-text ${getDateColorClass(media.last_air_date)}`}>
-              <span className="small-text gray mr-10">Last Episode on Air:</span>
+              <span className="small-text gray mr-10">{t('lasEpisodeAirDateLabel')}</span>
               {generateDatestring(media.last_air_date)}
             </div>
           )
@@ -219,7 +228,7 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
           <MediaCarousel
             containerTheme={['withTitle']}
             containerClass="mb-30 mt-30 light-border"
-            title="Recommendations"
+            title={t('recommendationsCarouselTitle')}
             slidesPerPage={slidesPerPage}
             items={recommendations}
             type={type}
@@ -231,7 +240,7 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
           <MediaCarousel
             containerTheme={['withTitle']}
             containerClass="mb-30 mt-30 light-border"
-            title="Similar"
+            title={t('similarCarouselTitle')}
             slidesPerPage={slidesPerPage}
             items={similar}
             type={type}
@@ -251,7 +260,7 @@ const MediaCard = ({media, children, type = types.movies, similar, loadMoreSimil
         {media.homepage && (
           <div className="homepage mt-30 nes-text is-primary">
             <a href={media.homepage} target="_blank">
-              Homepage
+              {t('homepageLink')}
             </a>
           </div>
         )}

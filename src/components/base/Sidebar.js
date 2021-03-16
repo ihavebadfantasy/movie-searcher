@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Button from '../ui/Button';
 import useWindowResize, { containerWidth } from '../../hooks/useWindowResize';
 
-const Sidebar = ({children, isClosed, setIsClosed}) => {
+const Sidebar = ({children, isClosed, setIsClosed, expandBtnHint}) => {
   const [windowWidth] = useWindowResize();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const Sidebar = ({children, isClosed, setIsClosed}) => {
     <div className={`sidebar-wrapper pl-0 ${isClosed ? 'closed' : ''}`}>
       {isClosed && (
         <p className="sidebar-btn-hint nes-text is-primary very-small-text">
-          Click to expand filters
+          {expandBtnHint}
         </p>
       )}
         <Button

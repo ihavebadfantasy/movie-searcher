@@ -1,0 +1,54 @@
+{
+  "homepage": {
+    "searchInputPlaceholder": "Искать фильмы, сериалы, людей...",
+    "newMoviesCarouselTitle": "Новые фильмы",
+    "newTvShowCarouselTitle": "Новые сериалы",
+    "popularMoviesCarouselTitle": "Популярные фильмы",
+    "popularTvShowsCarouselTitle": "Популярные сериалы"
+  },
+  "header": {
+    "searchPageLink": "Поиск"
+  },
+  "footer": {
+    "contactUs1": "вы можете отправить баг-репорт",
+    "contactUs2": "или что угодно другое:)",
+    "copyrightText2": "Создано:",
+    "copyrightText1": "Сделано с использованием"
+  },
+  "mediaSearchFilters": {
+    "expandBtnHint": "Нажмите, чтобы открыть фильтры",
+    "genreFilterLabel": "Жанр",
+    "ratingFilterLabel": "Рейтинг",
+    "ratingFilterHint": "Не менее чем:",
+    "voteCountFilterLabel": "Количество голосов",
+    "voteCountFilterHint": "Минимальное количество людей, которые проголосовали:",
+    "yearsFilterLabel": "Годы",
+    "releaseTypeFilterLabel": "Тип релиза"
+  },
+  "mediaCard": {
+    "homepageLink": "Официальный Сайт",
+    "similarCarouselTitle": "Похожие",
+    "recommendationsCarouselTitle": "Рекоммендации",
+    "lasEpisodeAirDateLabel": "Последний эпизод вышел:",
+    "createdByLabel": "Создано:"
+  },
+  "searchNavigation": {
+    "multiSearch": "Мульти Поиск",
+    "moviesSearch": "Расширенный Поиск Фильмов",
+    "tvShowsSearch": "Расширенный Поиск Сериалов",
+    "peopleSearch": "Поиск по Людям",
+    "companiesSearch": "Поиск по Компаниям"
+  },
+  "general": {
+    "backToSearchResultsBtn": "Вернуться к результатам поиска",
+    "searchBtn": "Искать",
+    "resetAllBtn": "Сбросить все",
+    "showMoreBtn": "Показать Больше"
+  },
+  "searchResults": {
+    "containerTitle": "Результаты"
+  },
+  "sortSelect": {
+    "dropdownTitle": "Сортировать по:"
+  }
+}

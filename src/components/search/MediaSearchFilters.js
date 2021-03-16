@@ -21,6 +21,7 @@ import ratingItems from '../../config/ratingItems';
 import resetAllSelectedCheckboxesAndRadios from '../../helpers/forms/resetAllSelectedCheckboxesAndRadios';
 import useWindowResize, { containerWidth } from '../../hooks/useWindowResize';
 import { releaseTypesItems } from '../../config/releaseTypesItems';
+import { useTranslation } from 'react-i18next';
 
 let genresRadioItems = JSON.stringify(binaryRadioItems);
 genresRadioItems = JSON.parse(genresRadioItems);
@@ -47,6 +48,8 @@ const MediaSearchFilters = ({
   releaseTypesCheckboxes,
   setReleaseTypesCheckboxes,
 }) => {
+  const [ t ] = useTranslation('mediaSearchFilters');
+
   const [windowWidth] = useWindowResize();
 
   useEffect(() => {
@@ -87,10 +90,11 @@ const MediaSearchFilters = ({
     <Sidebar
       isClosed={sidebarIsClosed}
       setIsClosed={setSidebarIsClosed}
+      expandBtnHint={t('expandBtnHint')}
     >
       <Container
         theme={['withTitle']}
-        title="Genre"
+        title={t('genreFilterLabel')}
         customClass="mb-30"
       >
 
@@ -104,10 +108,10 @@ const MediaSearchFilters = ({
 
       <Container
         theme={['withTitle']}
-        title="Rating"
+        title={t('ratingFilterLabel')}
         customClass="mb-30"
       >
-        <p className="small-text gray">Not less than:</p>
+        <p className="small-text gray">{t('ratingFilterHint')}</p>
         <Radio
           items={ratingRadios}
           toggleSelected={(value) => {
@@ -119,10 +123,10 @@ const MediaSearchFilters = ({
 
       <Container
         theme={['withTitle']}
-        title="Min Vote Count"
+        title={t('voteCountFilterLabel')}
         customClass="mb-30"
       >
-        <p className="small-text gray">The minimum amount of people that voted:</p>
+        <p className="small-text gray">{t('voteCountFilterHint')}</p>
         <input
           type="number"
           value={minVoteCountValue}
@@ -135,7 +139,7 @@ const MediaSearchFilters = ({
 
       <Container
         theme={['withTitle']}
-        title="Years"
+        title={t('yearsFilterLabel')}
         customClass="mb-30"
       >
 
@@ -150,7 +154,7 @@ const MediaSearchFilters = ({
 
       <Container
         theme={['withTitle']}
-        title="Release Type"
+        title={t('releaseTypeFilterLabel')}
         customClass="mb-30"
       >
 
