@@ -13,8 +13,6 @@ import useWindowResize, { containerWidth } from '../../hooks/useWindowResize';
 import reactor from '../../helpers/reactor/Reactor';
 import { SEARCH_NAVIGATION_TOGGLE } from '../../helpers/reactor/events';
 
-// TODO: (feature) add strict search mode with radio filters in genres checkbox
-
 const MediaSearch = ({
   resultsCustomClass,
   paginationCustomClass,

@@ -4,7 +4,6 @@ import { ReactComponent as UsaFlag } from '../../assets/images/usaFlag.svg';
 import { ReactComponent as RussiaFlag } from '../../assets/images/russiaFlag.svg';
 import { useTranslation } from 'react-i18next';
 import { setLanguage } from '../../store/user/actions';
-// TODO: pixelate flags
 const LanguageFlagsSelector = ({ setLanguage }) => {
   const [ t , i18n] = useTranslation('general');
 

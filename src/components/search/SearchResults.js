@@ -23,7 +23,6 @@ const SearchResults = ({
 
   const [isScrollToTopBtnHidden, setIsScrollToTopBtnHidden] = useState(true);
   const [baseUrl, setBaseUrl] = useState(null);
-  // TODO: (bug) fix key error in console
   const containerRef = useRef();
 
   useEffect(() => {
