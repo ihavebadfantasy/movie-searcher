@@ -15,9 +15,11 @@ import config from './config';
 const App = ({isAppInitialDataLoaded, loadInitialAppData, theme, setTheme}) => {
   const [showHeader, setShowHeader] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
-  useEffect(() => {
+  const handleThemeChange = () => {
     const themeLinkTag = document.querySelector('#theme');
+
     if (theme === config.themes.basic) {
       themeLinkTag.href = config.themes.basicUrl;
       document.querySelector('html').classList.remove('nes')
@@ -31,6 +33,10 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData, theme, setTheme}) => {
       document.querySelector('html').classList.remove('basic');
       document.querySelector('html').classList.add('nes')
     }
+  }
+
+  useEffect(() => {
+    handleThemeChange();
   }, [theme]);
 
   useEffect(() => {
@@ -38,9 +44,12 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData, theme, setTheme}) => {
   }, []);
 
   return (
-    <ThemeProvider value={{ theme, setTheme }}>
-      <BrowserRouter>
-        <ScrollToTop />
+    <>
+      { handleThemeChange() }
+
+      <ThemeProvider value={{ theme, setTheme }}>
+        <BrowserRouter>
+          <ScrollToTop />
           <LastLocationProvider>
             { showHeader && <Header /> }
             { isAppInitialDataLoaded ? (
@@ -56,8 +65,8 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData, theme, setTheme}) => {
             }
             { showFooter && <Footer /> }
           </LastLocationProvider>
-      </BrowserRouter>
-    </ThemeProvider>
+        </BrowserRouter>
+      </ThemeProvider></>
   );
 }
 

@@ -59,6 +59,8 @@ export const fetchTMDBJobs = () => {
 }
 
 export const setTheme = (theme) => {
+  localStorage.setItem('themeType', theme);
+
   return {
     type: SET_THEME,
     payload: theme,

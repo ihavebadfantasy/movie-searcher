@@ -1,15 +1,19 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Container from '../base/Container';
 import config from '../../config';
 import Loader from '../base/Loader';
 import Carousel from '../ui/Carousel';
 import routes from '../navigation/routes';
 import makeUrl from '../../helpers/makeUrl';
+import Spinner from '../base/Spinner';
+import ThemeContext from '../../contexts/ThemeContext';
 
 const types = {
   movies: 'movies',
   tvShows: 'tv-shows',
 }
+
+const { nes, basic } = config.themes;
 
 const mapSlides = (items, type) => {
   return items.map((item) => {
@@ -25,6 +29,8 @@ const mapSlides = (items, type) => {
 }
 
 const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, items, type = types.movies, loadMoreData}) => {
+  const { theme } = useContext(ThemeContext);
+
   slidesPerPage = slidesPerPage || 5;
 
   const [slides, setSlides] = useState(mapSlides(items));
@@ -72,13 +78,31 @@ const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, it
     setLastCurrentSlideIndex(lastCurrentSlideIndex - slidesPerPage);
   }
 
+  const renderLoader = () => {
+    if (theme === nes) {
+      return <Loader color='success' />
+    }
+
+    if (theme === basic) {
+      return (
+        <div className="w-100 content-centered">
+          <Spinner />
+        </div>
+      );
+    }
+  }
+
   return (
     <Container
       theme={containerTheme}
       title={title}
       customClass={containerClass}
       >
-      {!slides.length ? (<Loader color='success' />) : (
+      {!slides.length ? (
+        <>
+          {renderLoader()}
+        </>
+        ) : (
         <Carousel
           slides={currentSlides}
           totalSlidesCnt={slides.length}

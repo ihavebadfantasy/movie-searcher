@@ -4,5 +4,5 @@ export default {
   isInitialDataLoaded: false,
   tmdbCountries: [],
   tmdbJobs: [],
-  theme: config.themes.basic,
+  theme: localStorage.getItem('themeType') || config.themes.basic,
 }

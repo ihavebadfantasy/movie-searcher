@@ -1,0 +1,24 @@
+.basic {
+  .basic-progress {
+    height: 30px !important;
+    display: block;
+    border-radius: 500px;
+    width: 100%;
+
+    &::-webkit-progress-bar {
+      background-color: #f8f8f8;
+      border-radius: 500px !important;
+    }
+
+    &::-webkit-progress-value {
+      background-color: #1f86f0;
+      border-radius: 500px;
+    }
+
+    &::-moz-progress-bar {
+      background-color: #f8f8f8;
+      border-radius: 500px !important;
+    }
+  }
+}
+

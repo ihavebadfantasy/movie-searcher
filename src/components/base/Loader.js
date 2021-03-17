@@ -17,7 +17,7 @@ const Loader = ({ color }) => {
   useEffect(() => {
     let currentProgress = progress;
     let intervalId = setInterval(() => {
-      if (currentProgress === 101) {
+      if (currentProgress === 100) {
         setProgress(0);
         currentProgress = 0;
       } else {
@@ -34,7 +34,7 @@ const Loader = ({ color }) => {
   }, []);
 
   return (
-    <progress className={`nes-progress ${colors[color]}`} value={progress} max="100"></progress>
+    <progress className={`basic-progress nes-progress ${colors[color]}`} value={progress} max="100"></progress>
   );
 }
 
