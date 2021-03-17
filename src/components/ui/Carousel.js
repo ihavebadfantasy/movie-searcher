@@ -6,7 +6,6 @@ import ThemeContext from '../../contexts/ThemeContext';
 import config from '../../config';
 import { ReactComponent as BasicNextArrow } from '../../assets/images/basicNextArrow.svg';
 import { ReactComponent as BasicPrevArrow } from '../../assets/images/basicPrevArrow.svg';
-// TODO: add sliding animation for slider instead of fade
 const { nes, basic } = config.themes;
 
 const BASIC_THEME_ANIMATION_DURATION = 600;
@@ -14,6 +13,7 @@ const NES_THEME_ANIMATION_DURATION = 700;
 
 const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, lastCurrentSlideIndex, slidesPerView}) => {
   const { theme } = useContext(ThemeContext);
+
   const [isVisible, setIsVisible] = useState(true);
   const [slideWidth, setSlideWidth] = useState('0px');
 
@@ -104,8 +104,6 @@ const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, 
       </div>
     );
   });
-
-  console.log(renderedSlides.length, slides);
 
   const isPrevBtnDisabled = firstCurrentSlideIndex === 0;
   const isNextBtnDisabled = lastCurrentSlideIndex >= totalSlidesCnt;

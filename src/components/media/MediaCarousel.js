@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
+import { connect } from 'react-redux';
 import Container from '../base/Container';
 import config from '../../config';
 import Loader from '../base/Loader';
@@ -28,7 +29,7 @@ const mapSlides = (items, type) => {
   });
 }
 
-const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, items, type = types.movies, loadMoreData}) => {
+const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, items, type = types.movies, loadMoreData, language}) => {
   const { theme } = useContext(ThemeContext);
 
   slidesPerPage = slidesPerPage || 5;
@@ -38,15 +39,18 @@ const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, it
   const [firstCurrentSlideIndex, setFirstCurrentSlideIndex] = useState(0);
   const [lastCurrentSlideIndex, setLastCurrentSlideIndex] = useState(firstCurrentSlideIndex + slidesPerPage);
   const [currentDataLoadPage, setCurrentDataLoadPage] = useState(1);
-// TODO: fix currentSlides after langiage changing issue
+
   useEffect(() => {
-    console.log('items', mapSlides(items, type).length);
     setSlides(mapSlides(items, type));
   }, [items]);
 
   useEffect(() => {
     setLastCurrentSlideIndex(firstCurrentSlideIndex + slidesPerPage);
-  }, [slidesPerPage]);
+  }, [slidesPerPage, firstCurrentSlideIndex]);
+
+  useEffect(() => {
+    setFirstCurrentSlideIndex(0);
+  }, [language]);
 
   useEffect(() => {
     setCurrentSlides(slides.slice(firstCurrentSlideIndex, lastCurrentSlideIndex));
@@ -118,4 +122,10 @@ const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, it
   );
 }
 
-export default MediaCarousel;
+const mapStateToProps = state => {
+  return {
+    language: state.user.language,
+  };
+}
+
+export default connect(mapStateToProps)(MediaCarousel);
