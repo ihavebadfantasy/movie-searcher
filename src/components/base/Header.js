@@ -60,6 +60,7 @@ const Header = ({ clearAllSearchStore, setSearchTerm }) => {
           <a
             href={routes.home}
             onClick={onHomeLinkClick}
+            className="header-logo"
           >
             <i className="nes-icon is-large heart" />
           </a>

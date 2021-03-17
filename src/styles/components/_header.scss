@@ -2,10 +2,27 @@
   padding: 20px 0;
   border-bottom: 4px solid map-get($colors, 'gray');
 
+  &-logo {
+    @include respond-to('phone') {
+      transform: scale(0.5);
+      position: absolute;
+      top: -30px;
+      left: -15px;
+    }
+  }
+
   &-wrapper {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .header-menu a {
+    @include respond-to('phone') {
+      padding: 25px 0 0 0px;
+      display: block;
+    }
   }
 }
 

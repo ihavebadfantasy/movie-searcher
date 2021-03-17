@@ -4,6 +4,10 @@
     transition: all 0.3s;
     opacity: 0.8;
 
+    @include respond-to('phone') {
+      height: 35px;
+    }
+
     @include hover {
       opacity: 1;
     }
@@ -11,6 +15,10 @@
     &.active {
       opacity: 1;
       height: 55px;
+
+      @include respond-to('phone') {
+        height: 45px;
+      }
     }
   }
 
@@ -20,6 +28,10 @@
     transition: all 0.3s;
     opacity: 0.8;
 
+    @include respond-to('phone') {
+      height: 43px;
+    }
+
     @include hover {
       opacity: 1;
     }
@@ -27,6 +39,10 @@
     &.active {
       opacity: 1;
       height: 63px;
+
+      @include respond-to('phone') {
+        height: 53px;
+      }
     }
   }
 }
