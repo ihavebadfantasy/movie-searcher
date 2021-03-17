@@ -47,6 +47,13 @@ const Pagination = ({
 
   useEffect(() => {
     if (currentPage && totalPages) {
+
+      if (totalPages <= btnsPerPage + 1) {
+        setStartPage(1);
+
+        return;
+      }
+
       let newStartPage = currentPage - Math.floor(btnsPerPage / 2);
 
       if (newStartPage < 1) {
@@ -55,12 +62,6 @@ const Pagination = ({
 
       if (btnsPerPage === 0) {
         newStartPage = currentPage;
-      }
-
-      if (newStartPage + Math.ceil(btnsPerPage / 2) < 1) {
-        setStartPage(1);
-
-        return;
       }
 
       if ((newStartPage + Math.ceil(btnsPerPage / 2)) < totalPages - 1) {
