@@ -1,5 +1,5 @@
 import { LOAD_INITIAL_APP_DATA } from './types';
-import { FETCH_TMDB_COUNTRIES, FETCH_TMDB_JOBS } from './types';
+import { FETCH_TMDB_COUNTRIES, FETCH_TMDB_JOBS, SET_THEME } from './types';
 import { COUNTRIES, JOBS } from '../../api/tmdb/urls';
 import { setLocation, setLanguage } from '../user/actions';
 import { fetchMoviesGenres } from '../movies/actions';
@@ -55,5 +55,12 @@ export const fetchTMDBJobs = () => {
       type: FETCH_TMDB_JOBS,
       payload,
     });
+  }
+}
+
+export const setTheme = (theme) => {
+  return {
+    type: SET_THEME,
+    payload: theme,
   }
 }

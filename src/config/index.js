@@ -18,5 +18,11 @@ export default {
   },
   language: {
     default: 'ru',
+  },
+  themes: {
+    basic: 'basic',
+    nes: '8bit',
+    basicUrl: process.env.REACT_APP_BASIC_THEME_CDN,
+    nesUrl: process.env.REACT_APP_NES_THEME_CDN,
   }
 };

@@ -1,9 +1,13 @@
+import { useContext } from 'react';
 import { ReactComponent as TMDBLogo } from '../../assets/images/TMDBLogo.svg';
 import { useTranslation } from 'react-i18next';
 import config from '../../config';
+import ThemeContext from '../../contexts/ThemeContext';
 
 const Footer = () => {
   const [ t ] = useTranslation('footer');
+
+  const { theme, setTheme } = useContext(ThemeContext);
 
   return (
     <footer className="footer">
@@ -13,6 +17,20 @@ const Footer = () => {
             <div className="gray very-small-text">{t('copyrightText1')}</div>
             <TMDBLogo width={100} />
           </div>
+
+          <div>
+            <div
+              onClick={() => {setTheme(config.themes.basic)}}
+            >
+              boring
+            </div>
+            <div
+              onClick={() => {setTheme(config.themes.nes)}}
+            >
+              cool
+            </div>
+          </div>
+
           <div className="footer-contact">
             <div>{t('copyrightText2')}
             <a href="https://github.com/ihavebadfantasy" target="_blank">ihavebadfantasy</a>

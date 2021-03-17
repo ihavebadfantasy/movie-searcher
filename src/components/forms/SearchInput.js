@@ -31,7 +31,7 @@ const SearchInput = ({searchTerm, setSearchTerm, setIsFocused, placeholder = 'St
 
   return (
     <form
-      className="w-100"
+      className="w-100 search-input"
       onSubmit={(e) => {
         e.preventDefault();
         setSearchTerm(value);
@@ -40,7 +40,7 @@ const SearchInput = ({searchTerm, setSearchTerm, setIsFocused, placeholder = 'St
       <div className="nes-field w-100">
         <input
           type="text"
-          className="nes-input"
+          className="nes-input uk-input"
           placeholder={placeholder}
           value={value}
           onChange={(e) => {

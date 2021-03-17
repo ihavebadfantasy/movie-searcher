@@ -9,6 +9,9 @@ $breakpoints: (
 $colors: (
         'gray':  #D3D3D3,
         'red': #f12525,
+        'basic-theme-dark': #333333,
+        'basic-theme-primary': #1e87f0,
+        'basic-theme-disabled': rgba(102,102,102,.5),
 ) !default;
 
 $dimensions: (

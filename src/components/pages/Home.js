@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { connect } from 'react-redux';
 import SearchInput from '../forms/SearchInput';
 import MediaCarousel from '../media/MediaCarousel';
@@ -8,6 +8,7 @@ import { setSearchTerm } from '../../store/search/actions';
 import useSlidesPerPage from '../../hooks/useSlidesPerPage';
 import routes from '../navigation/routes';
 import { useTranslation } from 'react-i18next';
+import ThemeContext from '../../contexts/ThemeContext';
 
 const types = {
   movies: 'movies',
@@ -30,6 +31,8 @@ const Home = ({
 }) => {
   const [ t ] = useTranslation('homepage');
   const [slidesPerPage] = useSlidesPerPage();
+  const { theme } = useContext(ThemeContext);
+  console.log(theme, 'from home');
 
   useEffect(() => {
     fetchNewMovies(1, true);
