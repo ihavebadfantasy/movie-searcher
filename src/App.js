@@ -41,6 +41,8 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData, theme, setTheme}) => {
 
   useEffect(() => {
     loadInitialAppData();
+
+    setIsInitialLoad(false);
   }, []);
 
   return (
@@ -66,7 +68,8 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData, theme, setTheme}) => {
             { showFooter && <Footer /> }
           </LastLocationProvider>
         </BrowserRouter>
-      </ThemeProvider></>
+      </ThemeProvider>
+    </>
   );
 }
 

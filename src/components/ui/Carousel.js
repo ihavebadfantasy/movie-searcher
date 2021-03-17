@@ -32,23 +32,27 @@ const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, 
 
     let fontSize = theme === nes ? '14px' : '16px';
 
+    if (theme === basic) {
+      return fontSize;
+    }
+
     if (str.length > 25) {
-      return theme === nes ? '11px' : '13px';
+      return '11px';
     }
 
     if (str.length > 20) {
-      return theme === nes ? '13px' : '15px';
+      return '13px';
     }
 
     words.forEach((word) => {
       if (word.length > 13) {
-        fontSize = theme === nes ? '11px' : '13px';
+        fontSize = '11px';
 
         return;
       }
 
       if (word.length > 10) {
-        fontSize = theme === nes ? '13px' : '15px';
+        fontSize = '13px';
       }
     })
 
@@ -100,6 +104,8 @@ const Carousel = ({ slides, next, prev, totalSlidesCnt, firstCurrentSlideIndex, 
       </div>
     );
   });
+
+  console.log(renderedSlides.length, slides);
 
   const isPrevBtnDisabled = firstCurrentSlideIndex === 0;
   const isNextBtnDisabled = lastCurrentSlideIndex >= totalSlidesCnt;

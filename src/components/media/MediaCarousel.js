@@ -38,8 +38,9 @@ const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, it
   const [firstCurrentSlideIndex, setFirstCurrentSlideIndex] = useState(0);
   const [lastCurrentSlideIndex, setLastCurrentSlideIndex] = useState(firstCurrentSlideIndex + slidesPerPage);
   const [currentDataLoadPage, setCurrentDataLoadPage] = useState(1);
-
+// TODO: fix currentSlides after langiage changing issue
   useEffect(() => {
+    console.log('items', mapSlides(items, type).length);
     setSlides(mapSlides(items, type));
   }, [items]);
 
