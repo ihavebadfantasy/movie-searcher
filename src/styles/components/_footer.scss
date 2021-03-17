@@ -10,6 +10,10 @@
   align-items: center;
   flex-direction: row;
 
+  &-partners {
+    max-width: 100px;
+  }
+
   @include respond-to('phablet') {
     height: 200px;
   }
@@ -46,5 +50,33 @@
         font-size: 9px;
       }
     }
+  }
+}
+
+.basic {
+  .footer {
+    &-partners {
+      font-size: 14px;
+    }
+
+    &-contact {
+      font-size: 15px;
+      &-text span {
+        display: block;
+        font-size: 12px;
+      }
+
+      @include respond-to('phablet') {
+        margin-top: 20px;
+
+        font-size: 10px;
+
+        &-text span {
+          display: block;
+          font-size: 9px;
+        }
+      }
+    }
+
   }
 }

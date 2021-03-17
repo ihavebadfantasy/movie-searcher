@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon';
 
-const generateDatestring = (isoDate) => {
-  const releaseDate = DateTime.fromISO(isoDate);
+const generateDatestring = (isoDate, lang = localStorage.getItem('i18nextLng')) => {
+  console.log(lang);
+  const releaseDate = DateTime.fromISO(isoDate, {locale: lang});
   let dayPrefix;
 
   switch (releaseDate.day) {
@@ -18,7 +19,12 @@ const generateDatestring = (isoDate) => {
       dayPrefix = 'th';
   }
 
-  return `${releaseDate.day}${dayPrefix} of ${releaseDate.monthLong}, ${releaseDate.year}`
+  switch (lang) {
+    case 'ru':
+      return `${releaseDate.day}-е, ${releaseDate.monthLong}, ${releaseDate.year}`;
+    case 'en':
+      return `${releaseDate.day}${dayPrefix} of ${releaseDate.monthLong}, ${releaseDate.year}`
+  }
 }
 
 export default generateDatestring;

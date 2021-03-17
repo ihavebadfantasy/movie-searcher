@@ -33,7 +33,7 @@ const Footer = () => {
 
           <div className="footer-contact">
             <div>{t('copyrightText2')}
-            <a href="https://github.com/ihavebadfantasy" target="_blank">ihavebadfantasy</a>
+            <a href="https://github.com/ihavebadfantasy" target="_blank">  ihavebadfantasy</a>
             </div>
             <div
               className="gray very-small-text footer-contact-text"

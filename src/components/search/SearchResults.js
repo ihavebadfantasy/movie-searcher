@@ -105,7 +105,6 @@ const SearchResults = ({
               let resultBaseUrl = baseUrl;
 
               if (!resultBaseUrl) {
-                // console.log(result.media_type);
                 switch (result.media_type) {
                   case TV_SHOWS:
                     resultBaseUrl = '/tv-shows';
@@ -118,7 +117,6 @@ const SearchResults = ({
                     break;
                 }
               }
-              console.log(resultBaseUrl, result.media_type);
 
               return (
                 <Link
