@@ -2,7 +2,7 @@
   .usa-flag{
     height: 45px;
     transition: all 0.3s;
-    opacity: 0.5;
+    opacity: 0.8;
 
     @include hover {
       opacity: 1;
@@ -18,7 +18,7 @@
     height: 53px;
     margin-left: 10px;
     transition: all 0.3s;
-    opacity: 0.5;
+    opacity: 0.8;
 
     @include hover {
       opacity: 1;
@@ -28,5 +28,11 @@
       opacity: 1;
       height: 63px;
     }
+  }
+}
+
+.basic {
+  .russia-flag, .usa-flag {
+    opacity: 0.5;
   }
 }
