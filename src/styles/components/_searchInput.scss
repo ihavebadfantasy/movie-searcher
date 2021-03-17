@@ -4,6 +4,10 @@
       height: 48px;
       font-size: 18px;
       border-width: 2px;
+
+      &:focus {
+        border-color: map-get($colors, 'basic-theme-primary');
+      }
     }
   }
 }

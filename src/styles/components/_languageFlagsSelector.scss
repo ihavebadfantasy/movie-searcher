@@ -4,11 +4,8 @@
     transition: all 0.3s;
     opacity: 0.5;
 
-    // TODO: remove to mixin
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        opacity: 1;
-      }
+    @include hover {
+      opacity: 1;
     }
 
     &.active {
@@ -23,10 +20,8 @@
     transition: all 0.3s;
     opacity: 0.5;
 
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        opacity: 1;
-      }
+    @include hover {
+      opacity: 1;
     }
 
     &.active {

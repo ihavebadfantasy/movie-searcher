@@ -6,13 +6,11 @@
 
     &-slide {
 
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          text-decoration: none !important;
+      @include hover {
+        text-decoration: none !important;
 
-          .carousel-slide-title {
-            color: map-get($colors, 'basic-theme-primary') !important;
-          }
+        .carousel-slide-title {
+          color: map-get($colors, 'basic-theme-primary') !important;
         }
       }
 
@@ -26,10 +24,8 @@
     .uk-slidenav {
       color: map-get($colors, 'basic-theme-primary') !important;
 
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          color: darken(map-get($colors, 'basic-theme-primary'), 20%) !important;
-        }
+      @include hover {
+        color: darken(map-get($colors, 'basic-theme-primary'), 20%) !important;
       }
 
       &[disabled] {

@@ -66,10 +66,8 @@
       margin-top: 7px;
       transition: all 0.2s;
 
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          color: black;
-        }
+      @include hover {
+        color: black;
       }
 
       &:first-child {

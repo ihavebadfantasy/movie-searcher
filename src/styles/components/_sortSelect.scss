@@ -29,15 +29,13 @@
         font-size: 12px;
       }
 
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          font-size: 15px;
-          border-bottom: 3px solid map-get($colors, 'red');
-          color: black;
+      @include hover {
+        font-size: 15px;
+        border-bottom: 3px solid map-get($colors, 'red');
+        color: black;
 
-          @include respond-to('container-width') {
-            font-size: 13px;
-          }
+        @include respond-to('container-width') {
+          font-size: 13px;
         }
       }
 

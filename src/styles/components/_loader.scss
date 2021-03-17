@@ -11,7 +11,7 @@
     }
 
     &::-webkit-progress-value {
-      background-color: #1f86f0;
+      background-color: map-get($colors, 'basic-theme-primary');
       border-radius: 500px;
     }
 
