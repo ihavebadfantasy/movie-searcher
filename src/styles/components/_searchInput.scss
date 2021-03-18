@@ -4,6 +4,7 @@
       height: 48px;
       font-size: 18px;
       border-width: 2px;
+      color: map-get($colors, 'basic-theme-dark');
 
       &:focus {
         border-color: map-get($colors, 'basic-theme-primary');

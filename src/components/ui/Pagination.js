@@ -1,7 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import useWindowResize from '../../hooks/useWindowResize';
 import Button from './Button';
 import { useTranslation } from 'react-i18next';
+import ThemeContext from '../../contexts/ThemeContext';
+import config from '../../config';
+import { ReactComponent as BasicNextArrow } from '../../assets/images/basicNextArrow.svg';
+import { ReactComponent as BasicPrevArrow } from '../../assets/images/basicPrevArrow.svg';
+
+const { nes, basic } = config.themes;
+
 const detectEndPage = (totalPages, startPage, btnsPerPage) => {
   if (startPage + btnsPerPage >= totalPages) {
     return totalPages;
@@ -18,6 +25,8 @@ const Pagination = ({
   customClass = '',
   visible,
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   const [ t ] = useTranslation('general');
 
   const [windowWidth, layout] = useWindowResize();
@@ -107,21 +116,35 @@ const Pagination = ({
         <Button
           color="primary"
           text={t('showMoreBtn')}
-          customClass="pagination-load-more-btn"
+          customClass="pagination-load-more-btn uk-button-default uk-button"
+          customClass="pagination-load-more-btn uk-button-default uk-button"
           onClick={showMore}
         />
       )}
 
       <div className="pagination-pages mt-40">
-        <Button
-          color={currentPage === 1 ? 'disabled' : 'primary'}
-          disabled={currentPage === 1}
-          text="<"
-          customClass="pagination-pages-prev-btn"
-          onClick={() => {
-            switchPage(currentPage - 1);
-          }}
-        />
+        { theme === nes ? (
+          <Button
+            color={currentPage === 1 ? 'disabled' : 'primary'}
+            disabled={currentPage === 1}
+            text="<"
+            customClass="pagination-pages-prev-btn"
+            onClick={() => {
+              switchPage(currentPage - 1);
+            }}
+          />
+          ) : (
+            <button
+              className="uk-icon uk-slidenav-prev uk-slidenav"
+              disabled={currentPage === 1}
+              onClick={() => {
+                switchPage(currentPage - 1);
+              }}
+            >
+              <BasicPrevArrow width={16} />
+            </button>
+          )
+        }
 
         {startPage > 1 && (
           <div className="pagination-pages-first">
@@ -153,15 +176,28 @@ const Pagination = ({
           </div>
         )}
 
-        <Button
-          color={currentPage === totalPages ? 'disabled' : 'primary'}
-          text=">"
-          disabled={currentPage === totalPages}
-          customClass="pagination-pages-next-btn"
-          onClick={() => {
-            switchPage(currentPage + 1);
-          }}
-        />
+        { theme === nes ? (
+          <Button
+            color={currentPage === totalPages ? 'disabled' : 'primary'}
+            text=">"
+            disabled={currentPage === totalPages}
+            customClass="pagination-pages-next-btn"
+            onClick={() => {
+              switchPage(currentPage + 1);
+            }}
+          />
+          ) : (
+          <button
+            className="uk-icon uk-slidenav-next uk-slidenav"
+            disabled={currentPage === totalPages}
+            onClick={() => {
+              switchPage(currentPage + 1);
+            }}
+          >
+            <BasicNextArrow width={16} />
+          </button>
+          )
+        }
       </div>
     </div>
   );

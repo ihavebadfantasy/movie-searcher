@@ -78,21 +78,6 @@
     padding: 4px 8px 8px;
     transition: left 0.3s;
 
-    //position: fixed;
-    //bottom: 410px;
-    //right: 5%;
-    //z-index: 999;
-    //transition: bottom 0.3s;
-    //
-    //@include respond-to('container-width') {
-    //  bottom: 450px;
-    //  right: calc(3%);
-    //}
-    //
-    //@include respond-to('phablet') {
-    //  right: 7px;
-    //}
-
     &.hidden {
       left: -200px !important;
     }
@@ -137,6 +122,31 @@
         width: 100%;
         margin-left: 0;
         height: 400px;
+      }
+    }
+  }
+}
+
+.basic {
+  .search-results-item {
+    @include hover {
+      text-decoration: none;
+
+      .media-card-light-title {
+        color: map-get($colors, 'basic-theme-primary');
+      }
+    }
+  }
+
+  .media-card-light {
+
+    &-title {
+      font-weight: 500;
+      font-size: 17px;
+      transition: all 0.2s;
+
+      @include respond-to('table') {
+        font-size: 16px;
       }
     }
   }

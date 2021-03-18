@@ -32,7 +32,6 @@ const Home = ({
   const [ t ] = useTranslation('homepage');
   const [slidesPerPage] = useSlidesPerPage();
   const { theme } = useContext(ThemeContext);
-  console.log(theme, 'from home');
 
   useEffect(() => {
     fetchNewMovies(1, true);

@@ -59,7 +59,7 @@ const FixedButton = ({
   return (
     <Button
       color={color}
-      customClass={`${customClass} fixed`}
+      customClass={`${customClass} fixed fixed-btn`}
       style={{
         left: left + 'px',
         top: top + 'px',

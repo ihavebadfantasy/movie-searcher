@@ -20,18 +20,6 @@
         transition: all 0.2s;
       }
     }
-
-    .uk-slidenav {
-      color: map-get($colors, 'basic-theme-primary') !important;
-
-      @include hover {
-        color: darken(map-get($colors, 'basic-theme-primary'), 20%) !important;
-      }
-
-      &[disabled] {
-        color: map-get($colors, 'basic-theme-disabled') !important;
-      }
-    }
   }
 }
 

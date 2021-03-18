@@ -132,3 +132,51 @@
     }
   }
 }
+
+.basic {
+  .pagination {
+
+    &-load-more-btn {
+      border-color: map-get($colors, 'basic-theme-primary');
+      font-weight: 500;
+      transition: all 0.2s;
+      color: map-get($colors, 'basic-theme-dark');
+
+      &:focus {
+        outline: none;
+      }
+
+      @include hover {
+        transform: scale(1.05);
+      }
+    }
+
+    &-pages {
+
+      &-last, &-first {
+        align-self: center;
+        span {
+          color: map-get($colors, 'basic-theme-dark');
+        }
+      }
+
+      &-page-btn, &-page-last-btn, &-page-first-btn {
+        border: none;
+        background-color: transparent;
+        font-size: 18px;
+        font-weight: 400;
+        color: map-get($colors, 'basic-theme-dark');
+        transition: all 0.2s;
+
+        &:focus {
+          outline: none;
+        }
+
+        &.is-warning {
+          font-size: 20px;
+          color: map-get($colors, 'basic-theme-primary');
+        }
+      }
+    }
+  }
+}

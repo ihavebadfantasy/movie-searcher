@@ -38,3 +38,17 @@
 .red {
   color: map-get($colors, 'red');
 }
+
+.basic {
+  .uk-slidenav {
+    color: map-get($colors, 'basic-theme-primary') !important;
+
+    @include hover {
+      color: darken(map-get($colors, 'basic-theme-primary'), 20%) !important;
+    }
+
+    &[disabled] {
+      color: map-get($colors, 'basic-theme-disabled') !important;
+    }
+  }
+}

@@ -37,7 +37,7 @@
     position: relative;
     border-bottom: 3px solid map-get($colors, 'red');
     border-top: 3px solid map-get($colors, 'red');
-    margin-top: -50px;
+    margin-top: -35px;
     transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
     max-height: 1000px;
 
@@ -66,7 +66,7 @@
       background-color: map-get($colors, 'red') !important;
       display: none;
 
-      @include respond-to('tablet') {
+      @include respond-to('container-width') {
         display: block;
       }
 
@@ -77,6 +77,73 @@
 
       &::after {
         box-shadow: inset -4px -4px map-get($colors, 'red') !important;
+      }
+    }
+  }
+}
+
+.basic {
+  .search-navigation {
+    list-style: none;
+    justify-content: space-between;
+    padding: 10px 20px;
+
+    @include respond-to('tablet') {
+      padding: 5px 20px;
+    }
+
+    &-item {
+      a {
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s;
+
+        @include respond-to('tablet') {
+          font-size: 15px;
+        }
+
+        @include respond-to('small-phone') {
+          font-size: 14px;
+        }
+
+        @include hover {
+          text-decoration: none !important;
+          color: map-get($colors, 'basic-theme-primary');
+
+          &::before {
+            background-color: map-get($colors, 'basic-theme-dark');
+          }
+        }
+
+        &::before {
+          transition: all 0.2s;
+          content: '';
+          background-color: map-get($colors, 'basic-theme-primary');
+          display: inline-block;
+          margin-right: 10px;
+          width: 5px;
+          height: 5px;
+          border-radius: 1px;
+        }
+      }
+    }
+
+    &-wrapper {
+      border-width: 2px;
+
+      .search-navigation-up-btn {
+        padding: 7px 12px !important;
+        // color: white;
+        font-weight: 900;
+        font-size: 16px;
+        border: 2px solid map-get($colors, 'basic-theme-primary');
+        background-color: white !important;
+
+        &:focus {
+          outline: none;
+        }
       }
     }
   }
