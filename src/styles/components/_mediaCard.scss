@@ -3,7 +3,6 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding-top: 50px;
 
   @include respond-to('phone') {
     font-size: 14px;
@@ -91,7 +90,10 @@
 
       .company {
         font-size: 14px;
-        margin-left: 15px;
+
+        &-img-wrapper {
+          margin-right: 15px;
+        }
 
         @include respond-to('phone') {
           font-size: 12px;
@@ -141,6 +143,122 @@
     .homepage {
       font-size: 14px;
       text-decoration: underline;
+    }
+  }
+}
+
+.basic {
+  .media-card {
+    color: map-get($colors, 'basic-theme-dark');
+
+    &-tagline {
+      font-size: 18px;
+      font-style: italic;
+      margin-bottom: 15px !important;
+    }
+
+    .rating {
+      align-items: center;
+      position: relative;
+
+      .score {
+        font-weight: 600;
+        padding-left: 5px;
+
+        .rating-score {
+          margin-bottom: 5px;
+          font-size: 20px;
+
+          .small-text {
+            font-size: 16px;
+          }
+        }
+
+        .rating-vote-count {
+          margin-bottom: 0;
+          font-size: 15px;
+        }
+      }
+
+      &-icon {
+        width: 30px;
+        position: absolute;
+        z-index: -1;
+        top: -13px;
+        opacity: 0.8;
+      }
+    }
+
+    .genres .genre {
+      font-size: 16px;
+    }
+
+    .countries .country {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .companies, .company {
+      font-size: 15px !important;
+    }
+
+    .company-wrapper:last-child p {
+      margin-bottom: 10px;
+    }
+
+    .release-date {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .budget {
+      p {
+        margin-bottom: 6px;
+        margin-left: 0;
+      }
+
+      &-text {
+        margin-left: 0;
+      }
+    }
+
+    .created-by {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .status {
+      font-size: 16px;
+    }
+
+    &-details-secondary {
+      .overview {
+        font-size: 16px;
+        line-height: 1.7;
+      }
+    }
+
+    .homepage {
+      display: inline-block;
+      text-decoration: none;
+      border-bottom: 1px solid map-get($colors, 'basic-theme-dark');
+      transition: all 0.2s;
+
+      @include hover {
+        border-color: map-get($colors, 'basic-theme-primary');
+
+        a {
+          color: map-get($colors, 'basic-theme-primary');
+        }
+      }
+
+      a {
+        font-size: 18px;
+        transition: all 0.2s;
+        color: map-get($colors, 'basic-theme-dark');
+        font-weight: 500;
+        text-decoration: none !important;
+      }
     }
   }
 }

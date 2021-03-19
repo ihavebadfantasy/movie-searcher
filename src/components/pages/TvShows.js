@@ -107,6 +107,7 @@ const TvShows = ({tvShow,
               loadMoreRecommendations={loadMoreRecommendations}
               similar={tvShowSimilar}
               loadMoreSimilar={loadMoreSimilar}
+              customClass={isBackButtonVisible ? 'pd-top-50': ''}
             >
               <div className="mt-30">
                 <Accordion

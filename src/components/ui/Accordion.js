@@ -1,8 +1,14 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useContext, useEffect } from 'react';
 import getDateColorClass from '../../helpers/getDateColorClass';
 import generateDatestring from '../../helpers/generateDatestring';
+import ThemeContext from '../../contexts/ThemeContext';
+import config from '../../config';
+
+const { nes, basic } = config.themes;
 
 const Accordion = ({items, setSelected}) => {
+  const { theme } = useContext(ThemeContext);
+
   const accordionRef = useRef();
 
   useEffect(() => {
@@ -59,7 +65,7 @@ const Accordion = ({items, setSelected}) => {
                 key={item.title || index}
               >
               { contentItem.title && (
-                  <div className="title">
+                  <div className="accordion-item-content-title">
                     {contentItem.title}
                   </div>
                 )

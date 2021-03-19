@@ -6,7 +6,7 @@ const classes = {
 }
 
 const generateClassesList = (theme, customClass) => {
-  let res = 'nes-container base-theme-container';
+  let res = 'nes-container basic-theme-container';
 
   if (theme) {
     theme.forEach((item) => {

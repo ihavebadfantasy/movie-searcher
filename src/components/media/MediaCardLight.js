@@ -3,7 +3,7 @@ import posterPlaceholder from '../../assets/images/posterPlaceholder.png'
 
 const MediaCardLight = ({title, img}) => {
   return (
-    <div className="media-card-light">
+    <div className="media-card-light uk-box-shadow-small">
         <div className="media-card-light-img">
           <img src={img ? `${config.api.urls.dbImages}${img}` : posterPlaceholder} />
         </div>

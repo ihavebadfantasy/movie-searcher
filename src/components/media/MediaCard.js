@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import config from '../../config';
 import countDuration from '../../helpers/countDuration';
 import generateDatestring from '../../helpers/generateDatestring';
@@ -10,6 +10,9 @@ import Rating from './Rating';
 import useSlidesPerPage from '../../hooks/useSlidesPerPage';
 import setSelectedItem from '../../helpers/accordion/setSelectedItem';
 import { useTranslation } from 'react-i18next';
+import ThemeContext from '../../contexts/ThemeContext';
+
+const { nes, basic } = config.themes;
 
 const types = {
   movies: 'movies',
@@ -37,6 +40,7 @@ const MediaCard = ({
   similar, loadMoreSimilar,
   recommendations,
   loadMoreRecommendations,
+  customClass = '',
 }) => {
   const [ t ] = useTranslation('mediaCard');
   const [reviewsAccordionItems, setReviewsAccordionItems] = useState([]);
@@ -155,7 +159,7 @@ const MediaCard = ({
   }
 
   return (
-    <div className="media-card">
+    <div className={`media-card ${customClass}`}>
       <p className="media-card-tagline gray mb-30">{media.tagline}</p>
       <div className="media-card-poster">
         <img
@@ -179,7 +183,12 @@ const MediaCard = ({
 
         {media.runtime && (
           <div className="duration mt-20">
-            {countDuration(media.runtime)}
+            <span className="small-text">
+              {t('duration')}
+            </span>
+            <span className="bolder">
+              {countDuration(media.runtime)}
+            </span>
           </div>
         )}
 

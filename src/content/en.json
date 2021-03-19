@@ -30,7 +30,8 @@
     "similarCarouselTitle": "Similar",
     "recommendationsCarouselTitle": "Recommendations",
     "lasEpisodeAirDateLabel": "Last Episode on Air:",
-    "createdByLabel": "Created by:"
+    "createdByLabel": "Created by:",
+    "duration": "Duration: "
   },
   "searchNavigation": {
     "multiSearch": "Multi Search",

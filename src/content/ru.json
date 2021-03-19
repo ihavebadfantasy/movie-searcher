@@ -30,7 +30,8 @@
     "similarCarouselTitle": "Похожие",
     "recommendationsCarouselTitle": "Рекоммендации",
     "lasEpisodeAirDateLabel": "Последний эпизод вышел:",
-    "createdByLabel": "Создано:"
+    "createdByLabel": "Создано:",
+    "duration": "Длительность: "
   },
   "searchNavigation": {
     "multiSearch": "Мульти Поиск",

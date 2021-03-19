@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon';
 
 const generateDatestring = (isoDate, lang = localStorage.getItem('i18nextLng')) => {
-  console.log(lang);
   const releaseDate = DateTime.fromISO(isoDate, {locale: lang});
   let dayPrefix;
 

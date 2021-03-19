@@ -1,3 +1,7 @@
+*+p {
+  margin-top: 0 !important;
+}
+
 .gray {
   color: dimgray;
 }
@@ -51,4 +55,8 @@
       color: map-get($colors, 'basic-theme-disabled') !important;
     }
   }
+}
+
+.bolder {
+  font-weight: 500;
 }

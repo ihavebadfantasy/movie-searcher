@@ -82,6 +82,7 @@ const Movies = ({
                 loadMoreSimilar={loadMoreSimilar}
                 recommendations={movieRecommendations}
                 loadMoreRecommendations={loadMoreRecommendations}
+                customClass={isBackButtonVisible ? 'pd-top-50': ''}
               />
             </Container>
         </div>

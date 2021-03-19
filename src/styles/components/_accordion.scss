@@ -1,38 +1,122 @@
+.nes {
+  .accordion {
+    &-item {
+      border-image-slice: 2;
+      border-image-width: 2;
+      border-image-repeat: stretch;
+      border-image-source: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" ?><svg version="1.1" width="5" height="5" xmlns="http://www.w3.org/2000/svg"><path d="M2 1 h1 v1 h-1 z M1 2 h1 v1 h-1 z M3 2 h1 v1 h-1 z M2 3 h1 v1 h-1 z" fill="rgb(33,37,41)" /></svg>');
+      border-image-outset: 2;
+      width: 100%;
+      cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0,pointer;
+      border-radius: 0;
+      outline-color: #e7e7e7;
+      border-style: solid;
+      border-width: 3px;
+      max-height: 70px;
+      transition: max-height 0.26s ease;
+      overflow: hidden;
+      border-bottom-width: 0;
+
+      &.active {
+        .accordion-item-header::after {
+          transform: rotate(0deg) translateY(0px);
+          right: 60px;
+
+          @include respond-to(phablet) {
+            right: 25px;
+          }
+        }
+      }
+
+      &:last-of-type{
+        border-bottom-width: 4px;
+      }
+
+      &-content {
+        .wrapper .separator {
+          content: '';
+          height: 2px;
+          width: 80%;
+          margin: 5px auto 0 auto;
+          background-color: black;
+          display: block;
+        }
+
+        .wrapper:last-child{
+          .separator {
+            display: none;
+          }
+        }
+      }
+
+      &-header {
+        &:after {
+          width: 3px;
+          height: 3px;
+          color: #212529;
+          box-shadow: 3px 3px, 6px 3px, 9px 3px, 12px 3px, 15px 3px, 18px 3px, 21px 3px, 3px 6px, 6px 6px, 9px 6px, 12px 6px, 15px 6px, 18px 6px, 21px 6px, 6px 9px, 9px 9px, 12px 9px, 15px 9px, 18px 9px, 6px 12px, 9px 12px, 12px 12px, 15px 12px, 18px 12px, 9px 15px, 12px 15px, 15px 15px, 12px 18px;
+          position: absolute;
+          top: calc(50% - 11px);
+          right: 36px;
+          pointer-events: none;
+          content: "";
+          transform: rotate(180deg) translateY(-20px);
+          transition: 0.2s all;
+
+          @include respond-to(phablet) {
+            right: 5px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.basic {
+  .accordion {
+    &-item {
+      &.active {
+        .accordion-item-header {
+          color: map-get($colors, 'basic-theme-primary');
+        }
+        .accordion-item-header::after {
+          color: map-get($colors, 'basic-theme-primary');
+          content: '-';
+          font-size: 32px;
+        }
+      }
+
+      &-header {
+        align-items: flex-start;
+
+        &::after {
+          content: '+';
+          font-size: 24px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 0px;
+        }
+      }
+    }
+  }
+}
+
 .accordion {
   &-item {
-    border-image-slice: 2;
-    border-image-width: 2;
-    border-image-repeat: stretch;
-    border-image-source: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" ?><svg version="1.1" width="5" height="5" xmlns="http://www.w3.org/2000/svg"><path d="M2 1 h1 v1 h-1 z M1 2 h1 v1 h-1 z M3 2 h1 v1 h-1 z M2 3 h1 v1 h-1 z" fill="rgb(33,37,41)" /></svg>');
-    border-image-outset: 2;
-    width: 100%;
-    cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0,pointer;
-    border-radius: 0;
-    outline-color: #e7e7e7;
-    border-style: solid;
-    border-width: 3px;
     max-height: 70px;
     transition: max-height 0.26s ease;
     overflow: hidden;
-    border-bottom-width: 0;
-
-    &:last-of-type{
-      border-bottom-width: 4px;
-    }
 
     &.active {
       max-height: 100%;
+
       .accordion-item-content {
         transform: scaleY(1);
       }
 
-      .accordion-item-header::after {
-        transform: rotate(0deg) translateY(0px);
-        right: 60px;
-
-        @include respond-to(phablet) {
-          right: 25px;
-        }
+      .accordion-item-header {
+        font-size: 22px;
       }
     }
 
@@ -45,56 +129,32 @@
       position: relative;
       font-size: 18px;
       margin-top: -5px;
-
-      &:after {
-        width: 3px;
-        height: 3px;
-        color: #212529;
-        box-shadow: 3px 3px, 6px 3px, 9px 3px, 12px 3px, 15px 3px, 18px 3px, 21px 3px, 3px 6px, 6px 6px, 9px 6px, 12px 6px, 15px 6px, 18px 6px, 21px 6px, 6px 9px, 9px 9px, 12px 9px, 15px 9px, 18px 9px, 6px 12px, 9px 12px, 12px 12px, 15px 12px, 18px 12px, 9px 15px, 12px 15px, 15px 15px, 12px 18px;
-        position: absolute;
-        top: calc(50% - 11px);
-        right: 36px;
-        pointer-events: none;
-        content: "";
-        transform: rotate(180deg) translateY(-20px);
-        transition: 0.2s all;
-
-        @include respond-to(phablet) {
-          right: 5px;
-        }
-      }
+      transition: all 0.2s;
     }
 
     &-content {
-      padding: 30px;
+      padding: 0px;
       margin-top: -10px;
       transform: scaleY(0);
       transform-origin: top;
       transition: transform 0.26s ease;
 
-      .wrapper .separator {
-        content: '';
-        height: 2px;
-        width: 80%;
-        margin: 5px auto 0 auto;
-        background-color: black;
-        display: block;
-      }
-
-      .wrapper:last-child{
-        .separator {
-          display: none;
-        }
+      &-title {
+        font-size: 17px;
+        display: inline-block;
+        border-bottom: 1px solid map-get($colors, 'basic-theme-dark');
       }
 
       .content {
-        font-size: 14px;
+        font-size: 16px;
         margin-top: 10px;
       }
 
       .date {
-        font-size: 11px;
+        font-size: 13px;
+        font-style: italic;
         margin-top: 10px;
+        display: block;
       }
     }
   }
