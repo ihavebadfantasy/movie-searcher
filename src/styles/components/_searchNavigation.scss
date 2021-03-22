@@ -132,6 +132,7 @@
 
     &-wrapper {
       border-width: 2px;
+      border-color: map-get($colors, 'basic-theme-primary');
 
       &.closed {
         .search-navigation-up-btn-img {

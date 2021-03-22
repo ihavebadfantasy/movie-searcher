@@ -3,6 +3,7 @@ import { ReactComponent as TMDBLogo } from '../../assets/images/TMDBLogo.svg';
 import { useTranslation } from 'react-i18next';
 import config from '../../config';
 import ThemeContext from '../../contexts/ThemeContext';
+import Button from '../ui/Button';
 
 const Footer = () => {
   const [ t ] = useTranslation('footer');

@@ -44,13 +44,13 @@ const Pagination = ({
         setBtnsPerPage(0);
         break;
       case 'tablet':
-        setBtnsPerPage(1);
+        setBtnsPerPage(0);
         break;
       case 'containerWidth':
-        setBtnsPerPage(3);
+        setBtnsPerPage(2);
         break;
       default:
-        setBtnsPerPage(4);
+        setBtnsPerPage(3);
     }
   }, [layout]);
 
@@ -76,7 +76,7 @@ const Pagination = ({
       if ((newStartPage + Math.ceil(btnsPerPage / 2)) < totalPages - 1) {
         setStartPage(newStartPage);
       } else {
-        setStartPage(totalPages - (btnsPerPage + 1));
+        setStartPage(totalPages - (btnsPerPage));
       }
     }
   }, [currentPage, totalPages, btnsPerPage]);
@@ -94,10 +94,27 @@ const Pagination = ({
     }
 
     return pages.map((page) => {
+      let color;
+
+      if (theme === nes && page === currentPage) {
+        color = 'warning';
+      }
+
+      if (theme === nes && page !== currentPage) {
+        color = 'primary';
+      }
+
+      if (theme === basic && page === currentPage) {
+        color = 'emptyPrimary';
+      }
+
+      if (theme === basic && page !== currentPage) {
+        color = 'empty';
+      }
       return (
         <Button
           key={page}
-          color={page === currentPage ? 'warning' : 'primary'}
+          color={color}
           text={page}
           customClass="pagination-pages-page-btn"
           onClick={() => {
@@ -116,7 +133,6 @@ const Pagination = ({
         <Button
           color="primary"
           text={t('showMoreBtn')}
-          customClass="pagination-load-more-btn uk-button-default uk-button"
           customClass="pagination-load-more-btn uk-button-default uk-button"
           onClick={showMore}
         />
@@ -149,7 +165,7 @@ const Pagination = ({
         {startPage > 1 && (
           <div className="pagination-pages-first">
             <Button
-              color="primary"
+              color={theme === nes ? 'primary': 'empty'}
               text={1}
               customClass="pagination-pages-page-first-btn"
               onClick={() => {
@@ -166,7 +182,7 @@ const Pagination = ({
           <div className="pagination-pages-last">
             {endPage < totalPages - 1 && <span>...</span>}
             <Button
-              color={currentPage === totalPages ? 'warning' : 'primary'}
+              color={theme === nes ? 'primary': 'empty'}
               text={totalPages}
               customClass="pagination-pages-page-last-btn"
               onClick={() => {

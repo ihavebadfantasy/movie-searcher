@@ -1,0 +1,77 @@
+.basic {
+  .uk-button {
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all 0.2s;
+    font-size: 16px;
+    padding: 0 10px !important;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.is-primary {
+      background-color: map-get($colors, 'basic-theme-primary');
+      border-color: transparent;
+      color: white;
+
+      @include hover {
+        color: map-get($colors, 'basic-theme-primary');
+        background-color: white;
+        border-color: map-get($colors, 'basic-theme-primary');
+      }
+    }
+
+    &.is-error {
+      background-color: map-get($colors, 'basic-theme-red');
+      border-color: transparent;
+      color: white;
+
+      @include hover {
+        color: map-get($colors, 'basic-theme-red');
+        background-color: white;
+        border-color: map-get($colors, 'basic-theme-red');
+      }
+    }
+
+    &.is-empty {
+      background-color: transparent;
+      border-color: transparent;
+      color: map-get($colors, 'basic-theme-dark');
+
+      @include hover {
+        color: map-get($colors, 'basic-theme-primary');
+      }
+    }
+
+    &.is-empty-primary {
+      background-color: transparent;
+      border-color: transparent;
+      color: map-get($colors, 'basic-theme-primary');
+    }
+
+    &.is-empty-bordered-primary {
+      background-color: transparent;
+      border-color: map-get($colors, 'basic-theme-primary');
+      color: map-get($colors, 'basic-theme-primary');
+
+      @include hover {
+        color: map-get($colors, 'basic-theme-dark');
+        border-color: map-get($colors, 'basic-theme-dark');
+      }
+    }
+  }
+
+  .fixed-btn {
+    border: 1px solid map-get($colors, 'basic-theme-primary');
+    font-size: 24px;
+    font-weight: 400;
+    padding: 40px 7px !important;
+    background-color: transparent;
+    color: map-get($colors, 'basic-theme-dark');
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
