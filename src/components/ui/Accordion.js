@@ -9,7 +9,21 @@ const { nes, basic } = config.themes;
 const Accordion = ({items, setSelected}) => {
   const { theme } = useContext(ThemeContext);
 
+  const activeItemRef = useRef();
+
   const accordionRef = useRef();
+
+  useEffect(() => {
+    if (activeItemRef && activeItemRef.current) {
+      setTimeout(() => {
+        const activeItemTopOffset = activeItemRef.current.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+          top: activeItemTopOffset,
+          behavior: 'smooth',
+        });
+      }, 300);
+    }
+  });
 
   useEffect(() => {
     const closeAccordion = (e) => {
@@ -23,9 +37,24 @@ const Accordion = ({items, setSelected}) => {
 
       const selectedItemId = selectedItem ? selectedItem.id : null;
       setSelected(selectedItemId);
+
+      const accordionTopOffset = accordionRef.current.getBoundingClientRect().top + window.scrollY;
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: accordionTopOffset,
+          behavior: 'smooth',
+        });
+      }, 300);
     };
 
-    document.body.addEventListener('click', closeAccordion);
+    const selectedItems = items.filter((item) => {
+      return item.selected;
+    });
+
+    if (selectedItems.length) {
+      document.body.addEventListener('click', closeAccordion);
+    }
 
     return () => {
       document.body.removeEventListener('click', closeAccordion);
@@ -40,6 +69,7 @@ const Accordion = ({items, setSelected}) => {
       <div
         className={`accordion-item ${selectedClass}`}
         key={item.id}
+        ref={item.selected ? activeItemRef : null}
       >
         <div
           onClick={() => {
@@ -58,7 +88,6 @@ const Accordion = ({items, setSelected}) => {
         <div className="accordion-item-content">
           {item.content.map((contentItem, index) => {
             const contentItemTextColorClass = contentItem.date ? getDateColorClass(contentItem.date) : '';
-            console.log(items.length);
             return (
               <div
                 className={`wrapper nes-text mt-30 ${contentItemTextColorClass} ${index === item.content.length - 1 ? 'mb-30' : ''}`}
