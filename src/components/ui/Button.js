@@ -15,7 +15,9 @@ const Button = ({
   onClick,
   disabled = false,
   style={},
+  children
 }) => {
+  console.log('chil', children, text)
   return (
     <button
       type={type}
@@ -24,9 +26,11 @@ const Button = ({
       disabled={disabled}
       style={style}
     >
-      <div>
-        {text}
-      </div>
+      {children ? children : (
+        <div>
+          {text}
+        </div>
+      )}
     </button>
   );
 }

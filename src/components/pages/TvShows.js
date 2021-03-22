@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import { connect } from 'react-redux';
 import { fetchCurrentTvShow, fetchCurrentTvShowSimilar, fetchCurrentTvShowRecommendations } from '../../store/tvShows/actions';
 import Container from '../base/Container';
@@ -12,6 +12,11 @@ import FixedButton from '../ui/FixedButton';
 import { useLastLocation } from 'react-router-last-location';
 import routes from '../navigation/routes';
 import { useTranslation } from 'react-i18next';
+import config from '../../config';
+import ThemeContext from '../../contexts/ThemeContext';
+import Spinner from '../base/Spinner';
+
+const { nes, basic } = config.themes;
 
 const mapSeasonsToAccordionItems = (seasons) => {
   return seasons.map((season) => {
@@ -43,9 +48,10 @@ const TvShows = ({tvShow,
   history,
   language
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   const [ t ] = useTranslation('general');
   const [seasonsAccordionItems, setSeasonsAccordionItems] = useState([]);
-  const [windowWidth] = useWindowResize();
   const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
 
   const containerRef = useRef();
@@ -121,7 +127,12 @@ const TvShows = ({tvShow,
       ) : (
         <div className="base-container">
           <div className="full-screen-with-header-and-footer padding-20 content-centered">
-            <Loader color="pattern" />
+            { theme === nes ? (
+              <Loader color="pattern" />
+            ) : (
+              <Spinner size="large" />
+            )
+            }
           </div>
         </div>
       )

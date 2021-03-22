@@ -1,6 +1,7 @@
 .header {
   padding: 20px 0;
   border-bottom: 4px solid map-get($colors, 'gray');
+  height: map-get($dimensions, 'header-height');
 
   &-logo {
     @include respond-to('phone') {

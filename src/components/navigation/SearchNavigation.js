@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearAllSearchStore } from '../../store/search/actions';
@@ -7,8 +7,15 @@ import reactor from '../../helpers/reactor/Reactor';
 import { SEARCH_NAVIGATION_TOGGLE } from '../../helpers/reactor/events';
 import routes from './routes';
 import { useTranslation } from 'react-i18next';
+import { FcUp } from "react-icons/fc";
+import ThemeContext from '../../contexts/ThemeContext';
+import config from '../../config';
+
+const { nes, basic } = config.themes;
 
 const SearchNavigation = ({clearAllSearchStore, items}) => {
+  const { theme } = useContext(ThemeContext);
+
   const [ t ] = useTranslation('searchNavigation');
 
   const [isClosed, setIsClosed] = useState(false);
@@ -50,11 +57,20 @@ const SearchNavigation = ({clearAllSearchStore, items}) => {
   }
   return (
     <div className={`search-navigation-wrapper mb-60-resp ${isClosed ? 'closed' : ''}`}>
-      <Button
-        text="&#8593;"
-        customClass="search-navigation-up-btn"
-        onClick={toggleNavigation}
-      />
+      { theme === nes ? (
+        <Button
+          text="&#8593;"
+          customClass="search-navigation-up-btn"
+          onClick={toggleNavigation}
+        />
+      ) : (
+        <Button
+          customClass="search-navigation-up-btn"
+          onClick={toggleNavigation}
+        >
+          <FcUp className="search-navigation-up-btn-img" />
+        </Button>
+      ) }
 
       <ul className="nes-list is-circle search-navigation">
 

@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -144,12 +148,15 @@ body.with-footer {
 
 .full-screen-with-header {
   width: 100%;
+  // 112px - header height
   height: calc(100vh - 112px);
 }
 
 .full-screen-with-header-and-footer{
   width: 100%;
-  height: calc(100vh - 112px - 112px - 30px);
+  // height: calc(100vh - 112px - 112px - 30px);
+  // // 112px - header and footer height
+  height: calc(100vh - 112px - 112px);
 }
 
 .content-centered {

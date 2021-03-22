@@ -85,7 +85,7 @@ const MediaCarousel = ({title, containerTheme, containerClass, slidesPerPage, it
 
   const renderLoader = () => {
     if (theme === nes) {
-      return <Loader color='success' />
+      return <Loader color='pattern' />
     }
 
     if (theme === basic) {

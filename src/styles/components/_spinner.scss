@@ -1,0 +1,22 @@
+.spinner {
+  &.primary {
+    color: map-get($colors, 'basic-theme-primary');
+  }
+
+  &-icon {
+    &.small {
+      width: 30px;
+      height: 30px;
+    }
+
+    &.medium {
+      width: 50px;
+      heght: 50px;
+    }
+
+    &.large {
+      width: 100px;
+      heght: 100px;
+    }
+  }
+}

@@ -133,13 +133,24 @@
     &-wrapper {
       border-width: 2px;
 
+      &.closed {
+        .search-navigation-up-btn-img {
+          transform: rotate(180deg);
+        }
+      }
+
       .search-navigation-up-btn {
-        padding: 7px 12px !important;
-        // color: white;
+        padding: 7px 10px !important;
         font-weight: 900;
         font-size: 16px;
         border: 2px solid map-get($colors, 'basic-theme-primary');
         background-color: white !important;
+
+        &-img g {
+          transition: all 0.3s;
+          fill: map-get($colors, 'basic-theme-dark') !important;
+          stroke: map-get($colors, 'basic-theme-dark');
+        }
 
         &:focus {
           outline: none;

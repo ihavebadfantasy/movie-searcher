@@ -11,6 +11,9 @@ import { loadInitialAppData } from './store/app/actions';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { setTheme } from './store/app/actions';
 import config from './config';
+import Spinner from './components/base/Spinner';
+
+const { nes, basic } = config.themes;
 
 const App = ({isAppInitialDataLoaded, loadInitialAppData, theme, setTheme}) => {
   const [showHeader, setShowHeader] = useState(true);
@@ -20,7 +23,7 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData, theme, setTheme}) => {
   const handleThemeChange = () => {
     const themeLinkTag = document.querySelector('#theme');
 
-    if (theme === config.themes.basic) {
+    if (theme === basic) {
       themeLinkTag.href = config.themes.basicUrl;
       document.querySelector('html').classList.remove('nes')
       document.querySelector('html').classList.add('basic');
@@ -28,7 +31,7 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData, theme, setTheme}) => {
       return;
     }
 
-    if (theme === config.themes.nes) {
+    if (theme === nes) {
       themeLinkTag.href = config.themes.nesUrl;
       document.querySelector('html').classList.remove('basic');
       document.querySelector('html').classList.add('nes')
@@ -60,8 +63,12 @@ const App = ({isAppInitialDataLoaded, loadInitialAppData, theme, setTheme}) => {
                 setShowFooter={setShowFooter}
               />
             ) : (
-              <div className="full-screen padding-20 content-centered">
-                <Loader color="pattern" />
+              <div className="full-screen-with-header-and-footer padding-20 content-centered">
+                { theme === nes ? (
+                  <Loader color="pattern" />
+                ) : (
+                  <Spinner size="large" />
+                )}
               </div>
             )
             }
