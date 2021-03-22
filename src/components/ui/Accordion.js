@@ -58,10 +58,10 @@ const Accordion = ({items, setSelected}) => {
         <div className="accordion-item-content">
           {item.content.map((contentItem, index) => {
             const contentItemTextColorClass = contentItem.date ? getDateColorClass(contentItem.date) : '';
-
+            console.log(items.length);
             return (
               <div
-                className={`wrapper nes-text mt-30 ${contentItemTextColorClass}`}
+                className={`wrapper nes-text mt-30 ${contentItemTextColorClass} ${index === item.content.length - 1 ? 'mb-30' : ''}`}
                 key={item.title || index}
               >
               { contentItem.title && (

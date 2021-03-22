@@ -150,15 +150,16 @@ const Pagination = ({
             }}
           />
           ) : (
-            <button
-              className="uk-icon uk-slidenav-prev uk-slidenav"
+            <Button
+              customClass="uk-icon uk-slidenav-prev uk-slidenav"
+              color="empty"
               disabled={currentPage === 1}
               onClick={() => {
                 switchPage(currentPage - 1);
               }}
             >
               <BasicPrevArrow width={16} />
-            </button>
+            </Button>
           )
         }
 
@@ -203,15 +204,16 @@ const Pagination = ({
             }}
           />
           ) : (
-          <button
-            className="uk-icon uk-slidenav-next uk-slidenav"
+          <Button
+            customClass="uk-icon uk-slidenav-next uk-slidenav"
+            color="empty"
             disabled={currentPage === totalPages}
             onClick={() => {
               switchPage(currentPage + 1);
             }}
           >
             <BasicNextArrow width={16} />
-          </button>
+          </Button>
           )
         }
       </div>
